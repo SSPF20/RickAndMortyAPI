@@ -117,7 +117,7 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
         ])
         nameLabel.text = "Rick Sanchez"
         nameLabel.numberOfLines = 0
-        nameLabel.font = UIFont(name: "Futura-Medium", size: 20)
+        nameLabel.font = UIFont.preferredFont(forTextStyle: .headline)
         nameLabel.setContentCompressionResistancePriority(.required, for: .vertical)
         nameLabel.setContentHuggingPriority(.required, for: .vertical)
     }
@@ -146,7 +146,7 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
         ])
         lastLocationLabel.text = "Last location:"
         lastLocationLabel.textColor = .lightGray
-        lastLocationLabel.font = UIFont(name: "AvenirNext-Regular", size: 17.0)
+        lastLocationLabel.font = UIFont.preferredFont(forTextStyle: .headline)
         lastLocationLabel.setContentCompressionResistancePriority(.required, for: .vertical)
         lastLocationLabel.setContentHuggingPriority(.required, for: .vertical)
 
@@ -162,7 +162,7 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
         ])
         
         locationLabel.text = "Earth (Replacement Dimension)"
-        locationLabel.font = UIFont(name: "AvenirNext-DemiBold", size: 15.0)
+        locationLabel.font = UIFont.preferredFont(forTextStyle: .headline)
         locationLabel.numberOfLines = 0
         locationLabel.setContentCompressionResistancePriority(.required, for: .vertical)
         locationLabel.setContentHuggingPriority(.required, for: .vertical)

@@ -68,7 +68,7 @@ final class RMCharacterStatusView: UIView {
         ])
         
         statusLabel.textColor = .white
-        statusLabel.font = UIFont(name: "Avenir-Heavy", size: 14)
+        statusLabel.font = UIFont.preferredFont(forTextStyle: .headline)
         statusLabel.textAlignment = .center
     }
     

@@ -41,8 +41,12 @@ final class RMCharacterSpecieView: UIView {
             specieLabel.trailingAnchor.constraint(equalTo: specieContainer.trailingAnchor, constant: 0)
         ])
         specieLabel.textColor = .white
-        specieLabel.font = UIFont(name: "Futura-Medium", size: 15)
+        specieLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
         specieLabel.textAlignment = .center
         specieLabel.text = "Alien"
     }
+}
+
+#Preview ("RMCharacterSpecieView") {
+    RMCharacterSpecieView()
 }

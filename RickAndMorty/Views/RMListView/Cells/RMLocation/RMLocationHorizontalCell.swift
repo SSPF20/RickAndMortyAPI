@@ -60,7 +60,7 @@ extension RMLocationHorizontalCell {
         container.layer.borderWidth = 2
         container.layer.cornerRadius = 10
         container.layer.borderColor = CGColor(red: 0, green: 100, blue: 1, alpha: 1)
-        container.backgroundColor = .gray
+        container.backgroundColor = .systemBackground
     }
     
     private func addNameLabel() {
@@ -70,9 +70,9 @@ extension RMLocationHorizontalCell {
             nameLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 20),
             nameLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10),
         ])
-        nameLabel.font.
+        nameLabel.font = UIFont.preferredFont(forTextStyle: .headline)
         nameLabel.text = NSLocalizedString("Name:", comment: "")
-        nameLabel.textColor = .white
+        nameLabel.textColor = .black
     }
     
     private func addLocationNameLabel() {
@@ -83,8 +83,10 @@ extension RMLocationHorizontalCell {
             locationNameLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 8)
         ])
         
+        locationNameLabel.font = UIFont.preferredFont(forTextStyle: .body)
         locationNameLabel.text = NSLocalizedString("Earth", comment: "")
-        locationNameLabel.textColor = .white
+        locationNameLabel.textColor = .black
+        locationNameLabel.numberOfLines = 0
     }
     
     private func addtypeLabel() {
@@ -95,8 +97,9 @@ extension RMLocationHorizontalCell {
             typeLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10)
         ])
         
+        typeLabel.font = UIFont.preferredFont(forTextStyle: .headline)
         typeLabel.text = NSLocalizedString("Type:", comment: "")
-        typeLabel.textColor = .white
+        typeLabel.textColor = .black
     }
     
     private func addLocationTypeLabel() {
@@ -107,8 +110,10 @@ extension RMLocationHorizontalCell {
             locationTypeLabel.leadingAnchor.constraint(equalTo: typeLabel.trailingAnchor, constant: 8)
         ])
         
+        locationTypeLabel.font = UIFont.preferredFont(forTextStyle: .body)
         locationTypeLabel.text = NSLocalizedString("Planet", comment: "")
-        locationTypeLabel.textColor = .white
+        locationTypeLabel.textColor = .black
+        locationNameLabel.numberOfLines = 0
     }
     
     private func addDimensionLabel() {
@@ -119,8 +124,9 @@ extension RMLocationHorizontalCell {
             dimensionLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10)
         ])
         
+        dimensionLabel.font = UIFont.preferredFont(forTextStyle: .headline)
         dimensionLabel.text = NSLocalizedString("Dimension:", comment: "")
-        dimensionLabel.textColor = .white
+        dimensionLabel.textColor = .black
     }
     
     private func addLocationDimensionLabel() {
@@ -131,15 +137,15 @@ extension RMLocationHorizontalCell {
             locationDimensionLabel.leadingAnchor.constraint(equalTo: dimensionLabel.trailingAnchor, constant: 8)
         ])
         
+        locationDimensionLabel.font = UIFont.preferredFont(forTextStyle: .body)
         locationDimensionLabel.text = NSLocalizedString("Dimension C-137", comment: "")
-        locationDimensionLabel.textColor = .white
+        locationDimensionLabel.textColor = .black
+        locationDimensionLabel.numberOfLines = 0
     }
     
     
 }
-#Preview {
-    let frame = CGRect(x: 0, y: 0, width: 320, height: 200)
-    let cell = RMLocationHorizontalCell(frame: frame)
-    return cell
+#Preview ("RMLocationHorizontalCell") {
+    RMLocationHorizontalCell()
 }
 
