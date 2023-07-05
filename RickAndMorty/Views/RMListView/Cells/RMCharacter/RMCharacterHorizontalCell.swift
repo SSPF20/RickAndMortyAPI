@@ -9,7 +9,7 @@ import UIKit
 
 final class RMCharacterCellViewModel: RMItemCellViewModel {
     
-    private let character: RMCharacter
+    let character: RMCharacter
     
     init(character: RMCharacter) {
         self.character = character
@@ -20,7 +20,7 @@ final class RMCharacterCellViewModel: RMItemCellViewModel {
         URL(string: character.image)
     }
     
-    var specie: String? {
+    var specie: String {
         character.species
     }
     
@@ -39,6 +39,7 @@ final class RMCharacterCellViewModel: RMItemCellViewModel {
 }
 
 final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
+    
     private var container = UIView()
     private var characterImage = UIImageView()
     private var specieView = RMCharacterSpecieView()
@@ -67,8 +68,11 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
     }
     
     override func prepareForReuse() {
-        statusView.statusContainer.backgroundColor = .clear
-        statusView.statusLabel.text = ""
+        characterImage.image = nil
+        specieView.prepareForReuse()
+        statusView.prepareForReuse()
+        nameLabel.text = nil
+        locationLabel.text = nil
     }
     
     func setup(viewModel: RMItemCellViewModel) {
@@ -77,7 +81,7 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
         }
         
         addImage(url: viewModel.imageURL)
-        specieView.specieLabel.text = viewModel.specie
+        specieView.setup(specie: viewModel.specie)
         statusView.setup(status: viewModel.status)
         nameLabel.text = viewModel.name
         locationLabel.text = viewModel.location
@@ -97,7 +101,6 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
         
         container.backgroundColor = .white
         container.layer.cornerRadius = 20
-        
     }
     
     private func addCharacterImage() {

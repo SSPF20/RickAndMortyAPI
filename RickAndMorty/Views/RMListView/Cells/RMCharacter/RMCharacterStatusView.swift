@@ -10,8 +10,8 @@ import UIKit
 
 final class RMCharacterStatusView: UIView {
     
-    var statusContainer = UIView()
-    var statusLabel = UILabel()
+    private var statusContainer = UIView()
+    private var statusLabel = UILabel()
     
     init() {
         super.init(frame: .zero)
@@ -52,8 +52,6 @@ final class RMCharacterStatusView: UIView {
         ])
         statusContainer.backgroundColor = .green
         statusContainer.layer.cornerRadius = 7
-        
-        
     }
     
     private func addStatusLabel() {
@@ -71,7 +69,6 @@ final class RMCharacterStatusView: UIView {
         statusLabel.font = UIFont.preferredFont(forTextStyle: .headline)
         statusLabel.textAlignment = .center
     }
-    
 }
 
 #Preview("Alive") {

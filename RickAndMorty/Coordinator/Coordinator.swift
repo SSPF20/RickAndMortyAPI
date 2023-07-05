@@ -21,12 +21,10 @@ final class Coordinator {
         let dataProvider = RMDataProvider<RMCharacter, RMCharacterConfiguration>(entity: entity)
         let viewModel = RMListViewModel<RMCharacter, RMCharacterConfiguration>(dataProvider: dataProvider)
         let charactersViewController = RMListViewController(viewModel: viewModel)
-        print(charactersViewController)
         tabBarController.viewControllers = [charactersViewController]
     }
     
     func getRootViewController() -> UIViewController {
         tabBarController
     }
-        
 }

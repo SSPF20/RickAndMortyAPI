@@ -3,8 +3,8 @@ import UIKit
 
 final class RMCharacterSpecieView: UIView {
     
-    var specieContainer = UIView()
-    var specieLabel = UILabel()
+    private var specieContainer = UIView()
+    private var specieLabel = UILabel()
     
     init() {
         super.init(frame: .zero)
@@ -14,6 +14,14 @@ final class RMCharacterSpecieView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func prepareForReuse() {
+        specieLabel.text = ""
+    }
+    
+    func setup(specie: String) {
+        specieLabel.text = specie
     }
     
     private func addSpecieContainer() {
@@ -46,6 +54,4 @@ final class RMCharacterSpecieView: UIView {
     }
 }
 
-#Preview ("RMCharacterSpecieView") {
-    RMCharacterSpecieView()
-}
+
