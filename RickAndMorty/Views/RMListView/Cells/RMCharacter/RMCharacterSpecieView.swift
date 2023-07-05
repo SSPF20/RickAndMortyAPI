@@ -16,6 +16,14 @@ final class RMCharacterSpecieView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func prepareForReuse() {
+        specieLabel.text = ""
+    }
+    
+    func setup(specie: String) {
+        specieLabel.text = specie
+    }
+    
     private func addSpecieContainer() {
         addSubview(specieContainer)
         specieContainer.translatesAutoresizingMaskIntoConstraints = false
@@ -43,10 +51,7 @@ final class RMCharacterSpecieView: UIView {
         specieLabel.textColor = .white
         specieLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
         specieLabel.textAlignment = .center
-        specieLabel.text = "Alien"
     }
 }
 
-#Preview ("RMCharacterSpecieView") {
-    RMCharacterSpecieView()
-}
+

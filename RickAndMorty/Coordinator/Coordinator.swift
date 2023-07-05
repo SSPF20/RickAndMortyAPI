@@ -27,5 +27,4 @@ final class Coordinator {
     func getRootViewController() -> UIViewController {
         tabBarController
     }
-    
 }

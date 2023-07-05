@@ -24,7 +24,7 @@ final class RMCharacterStatusView: UIView {
     }
     
     func setup(status: RMCharacter.Status) {
-        statusLabel.text = status.rawValue
+        statusLabel.text = status.string
         switch (status) {
         case .alive:
             statusContainer.backgroundColor = .green
@@ -52,8 +52,6 @@ final class RMCharacterStatusView: UIView {
         ])
         statusContainer.backgroundColor = .green
         statusContainer.layer.cornerRadius = 7
-        
-        
     }
     
     private func addStatusLabel() {
@@ -71,7 +69,6 @@ final class RMCharacterStatusView: UIView {
         statusLabel.font = UIFont.preferredFont(forTextStyle: .headline)
         statusLabel.textAlignment = .center
     }
-    
 }
 
 #Preview("Alive") {
