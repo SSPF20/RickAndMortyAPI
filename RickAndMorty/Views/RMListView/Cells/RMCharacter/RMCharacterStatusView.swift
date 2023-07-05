@@ -10,8 +10,8 @@ import UIKit
 
 final class RMCharacterStatusView: UIView {
     
-    private var statusContainer = UIView()
-    private var statusLabel = UILabel()
+    var statusContainer = UIView()
+    var statusLabel = UILabel()
     
     init() {
         super.init(frame: .zero)
@@ -24,7 +24,7 @@ final class RMCharacterStatusView: UIView {
     }
     
     func setup(status: RMCharacter.Status) {
-        statusLabel.text = status.rawValue
+        statusLabel.text = status.string
         switch (status) {
         case .alive:
             statusContainer.backgroundColor = .green

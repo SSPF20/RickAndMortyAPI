@@ -3,8 +3,8 @@ import UIKit
 
 final class RMCharacterSpecieView: UIView {
     
-    private var specieContainer = UIView()
-    private var specieLabel = UILabel()
+    var specieContainer = UIView()
+    var specieLabel = UILabel()
     
     init() {
         super.init(frame: .zero)
@@ -43,7 +43,6 @@ final class RMCharacterSpecieView: UIView {
         specieLabel.textColor = .white
         specieLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
         specieLabel.textAlignment = .center
-        specieLabel.text = "Alien"
     }
 }
 

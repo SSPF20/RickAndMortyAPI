@@ -41,8 +41,7 @@ struct RMCharacter: Decodable  {
     enum Status: String, Decodable {
         case alive = "Alive"
         case dead = "Dead"
-        case unknown = "unknown"
-        
+        case unknown         
         var string: String {
             switch self {
             case .alive, .dead:

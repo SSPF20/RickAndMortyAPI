@@ -9,10 +9,6 @@ import UIKit
 
 final class RMCharacterCellViewModel: RMItemCellViewModel {
     
-    var imageURL: URL? {
-        URL(string: character.image)
-    }
-    
     private let character: RMCharacter
     
     init(character: RMCharacter) {
@@ -20,17 +16,34 @@ final class RMCharacterCellViewModel: RMItemCellViewModel {
         super.init(id: character.id)
     }
     
+    var imageURL: URL? {
+        URL(string: character.image)
+    }
+    
+    var specie: String? {
+        character.species
+    }
+    
+    var name: String? {
+        character.name
+    }
+    
+    var status: RMCharacter.Status {
+        character.status
+    }
+    
+    var location: String? {
+        character.location.name
+    }
+    
 }
 
 final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
-    
     private var container = UIView()
     private var characterImage = UIImageView()
     private var specieView = RMCharacterSpecieView()
     private var nameLabel = UILabel()
     private var statusView = RMCharacterStatusView()
-    private var specieContainer = UIView()
-    private var specieLabel = UILabel()
     private var lastLocationLabel = UILabel()
     private var locationLabel = UILabel()
     
@@ -46,6 +59,7 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
         addStatusView()
         addLocationLabel()
         addLastLocationLabel()
+        setup(viewModel: RMItemCellViewModel(id: 1))
     }
     
     required init?(coder: NSCoder) {
@@ -53,6 +67,8 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
     }
     
     override func prepareForReuse() {
+        statusView.statusContainer.backgroundColor = .clear
+        statusView.statusLabel.text = ""
     }
     
     func setup(viewModel: RMItemCellViewModel) {
@@ -61,6 +77,12 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
         }
         
         addImage(url: viewModel.imageURL)
+        specieView.specieLabel.text = viewModel.specie
+        statusView.setup(status: viewModel.status)
+        nameLabel.text = viewModel.name
+        locationLabel.text = viewModel.location
+        
+        
     }
     
     private func addContainer() {
@@ -115,7 +137,6 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
             nameLabel.leadingAnchor.constraint(equalTo: characterImage.trailingAnchor, constant: 5.0),
             nameLabel.trailingAnchor.constraint(lessThanOrEqualTo: container.trailingAnchor, constant: -20.0)
         ])
-        nameLabel.text = "Rick Sanchez"
         nameLabel.numberOfLines = 0
         nameLabel.font = UIFont.preferredFont(forTextStyle: .headline)
         nameLabel.setContentCompressionResistancePriority(.required, for: .vertical)
@@ -161,7 +182,6 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
             locationLabel.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -10)
         ])
         
-        locationLabel.text = "Earth (Replacement Dimension)"
         locationLabel.font = UIFont.preferredFont(forTextStyle: .headline)
         locationLabel.numberOfLines = 0
         locationLabel.setContentCompressionResistancePriority(.required, for: .vertical)
@@ -170,15 +190,22 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
 }
 
 extension RMCharacterHorizontalCell {
+    
     private func addImage(url: URL?) {
-        let image = UIImage(named: "rick") ?? UIImage(named: "person@20x" )
-        characterImage.image = image
-        print("RYEH20 the image: \(String(describing: image))")
+        let task = URLSession.shared.dataTask(with: url!) { data, response, error in
+            guard let data = data, error == nil else { return }
+            
+            DispatchQueue.main.async {
+                self.characterImage.image = UIImage(data: data)
+            }
+        }
+        
+        task.resume()
     }
+    
 }
 
-#Preview {
-    
+#Preview ("RMCharacterHorizontalCell") {
     let origin = LocationBasic(id: 0, name: "Origin")
     let location = LocationBasic(id: 1, name: "Cualquiera")
     
