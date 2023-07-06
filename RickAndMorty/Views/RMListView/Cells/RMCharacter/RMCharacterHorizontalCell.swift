@@ -60,7 +60,6 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
         addStatusView()
         addLocationLabel()
         addLastLocationLabel()
-        setup(viewModel: RMItemCellViewModel(id: 1))
     }
     
     required init?(coder: NSCoder) {
@@ -80,13 +79,11 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
             return
         }
         
-        addImage(url: viewModel.imageURL)
+        characterImage.setImage(with: viewModel.imageURL)
         specieView.setup(specie: viewModel.specie)
         statusView.setup(status: viewModel.status)
         nameLabel.text = viewModel.name
         locationLabel.text = viewModel.location
-        
-        
     }
     
     private func addContainer() {
@@ -190,22 +187,6 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
         locationLabel.setContentCompressionResistancePriority(.required, for: .vertical)
         locationLabel.setContentHuggingPriority(.required, for: .vertical)
     }
-}
-
-extension RMCharacterHorizontalCell {
-    
-    private func addImage(url: URL?) {
-        let task = URLSession.shared.dataTask(with: url!) { data, response, error in
-            guard let data = data, error == nil else { return }
-            
-            DispatchQueue.main.async {
-                self.characterImage.image = UIImage(data: data)
-            }
-        }
-        
-        task.resume()
-    }
-    
 }
 
 #Preview ("RMCharacterHorizontalCell") {
