@@ -109,7 +109,30 @@ struct RMLocationConfiguration: Configuration {
         let viewModel = RMLocationCellViewModel(location: rmLocation)
         return viewModel
     }
+}
+
+struct RMEpisodeConfiguration: Configuration {
     
+    var cellHorizontalType: RMItemCell.Type {
+        RMEpisodeHorizontalCell.self
+    }
+    
+    var reuseID: String {
+        "RMEpisodeHorizontalCell"
+    }
+    
+    func endpointForPage(page: Int) -> RMEndpoint {
+        RMEpisodeEndpoint.episodePage(page)
+    }
+    
+    func getCellViewModelForEntity<T>(entity: T) -> RMItemCellViewModel? where T : Decodable {
+        guard let rmEpisode = entity as? RMEpisode else {
+            return nil
+        }
+        
+        let viewModel = RMEpisodeCellViewModel(episodeData: rmEpisode)
+        return viewModel
+    }
     
     
 }

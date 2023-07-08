@@ -27,12 +27,20 @@ final class Coordinator {
         let viewModelLocation = RMListViewModel<RMLocation, RMLocationConfiguration>(dataProvider: dataProviderLocation)
         let locationsViewController = RMListViewController(viewModel: viewModelLocation)
         
+        let entityEpisode = RMEntity<RMEpisode, RMEpisodeConfiguration>(configuration: RMEpisodeConfiguration())
+        let dataProviderEpisode = RMDataProvider<RMEpisode, RMEpisodeConfiguration>(entity: entityEpisode)
+        let viewModelEpisode = RMListViewModel<RMEpisode, RMEpisodeConfiguration>(dataProvider: dataProviderEpisode)
+        let episodesViewController = RMListViewController(viewModel: viewModelEpisode)
+        
         tabBarController.viewControllers = [setNavigationController(for: charactersViewController,
                                                                     title: NSLocalizedString("Characters", comment: ""),
                                                                     image: UIImage(systemName: "person.circle.fill")!),
                                             setNavigationController(for: locationsViewController,
                                                                     title: NSLocalizedString("Locations", comment: ""),
-                                                                    image: UIImage(systemName: "location.fill")!)]
+                                                                    image: UIImage(systemName: "location.fill")!),
+                                            setNavigationController(for: episodesViewController,
+                                                                    title: "Episodes",
+                                                                    image: UIImage(systemName: "tv")!)]
     }
     
     func getRootViewController() -> UIViewController {
