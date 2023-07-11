@@ -17,29 +17,29 @@ final class Coordinator {
     }
     
     private func setupViewControllers() {
-        let entityCharacter = RMEntity<RMCharacter, RMCharacterConfiguration>(configuration: RMCharacterConfiguration())
-        let dataProviderCharacter = RMDataProvider<RMCharacter, RMCharacterConfiguration>(entity: entityCharacter)
-        let viewModelCharacter = RMListViewModel<RMCharacter, RMCharacterConfiguration>(dataProvider: dataProviderCharacter)
-        let charactersViewController = RMListViewController(viewModel: viewModelCharacter)
+        let characterEntity = RMEntity<RMCharacter, RMCharacterConfiguration>(configuration: RMCharacterConfiguration())
+        let characterDataProvider = RMDataProvider<RMCharacter, RMCharacterConfiguration>(entity: characterEntity)
+        let characterViewModel = RMListViewModel<RMCharacter, RMCharacterConfiguration>(dataProvider: characterDataProvider)
+        let charactersViewController = RMListViewController(viewModel: characterViewModel)
         
-        let entityLocation = RMEntity<RMLocation, RMLocationConfiguration>(configuration: RMLocationConfiguration())
-        let dataProviderLocation = RMDataProvider<RMLocation, RMLocationConfiguration>(entity: entityLocation)
-        let viewModelLocation = RMListViewModel<RMLocation, RMLocationConfiguration>(dataProvider: dataProviderLocation)
-        let locationsViewController = RMListViewController(viewModel: viewModelLocation)
+        let locationEntity = RMEntity<RMLocation, RMLocationConfiguration>(configuration: RMLocationConfiguration())
+        let locationDataProvider = RMDataProvider<RMLocation, RMLocationConfiguration>(entity: locationEntity)
+        let locationViewModel = RMListViewModel<RMLocation, RMLocationConfiguration>(dataProvider: locationDataProvider)
+        let locationsViewController = RMListViewController(viewModel: locationViewModel)
         
         tabBarController.viewControllers = [setNavigationController(for: charactersViewController,
                                                                     title: NSLocalizedString("Characters", comment: ""),
-                                                                    image: UIImage(systemName: "person.circle.fill")!),
+                                                                    image: UIImage(systemName: "person.circle.fill")),
                                             setNavigationController(for: locationsViewController,
                                                                     title: NSLocalizedString("Locations", comment: ""),
-                                                                    image: UIImage(systemName: "location.fill")!)]
+                                                                    image: UIImage(systemName: "location.fill"))]
     }
     
     func getRootViewController() -> UIViewController {
         tabBarController
     }
     
-    private func setNavigationController(for rootViewController: UIViewController, title: String, image: UIImage) -> UIViewController {
+    private func setNavigationController(for rootViewController: UIViewController, title: String, image: UIImage?) -> UIViewController {
         
         let navController = UINavigationController(rootViewController: rootViewController)
         navController.tabBarItem.title = title
