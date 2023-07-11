@@ -7,37 +7,6 @@
 
 import UIKit
 
-final class RMCharacterCellViewModel: RMItemCellViewModel {
-    
-    let character: RMCharacter
-    
-    init(character: RMCharacter) {
-        self.character = character
-        super.init(id: character.id)
-    }
-    
-    var imageURL: URL? {
-        URL(string: character.image)
-    }
-    
-    var specie: String {
-        character.species
-    }
-    
-    var name: String? {
-        character.name
-    }
-    
-    var status: RMCharacter.Status {
-        character.status
-    }
-    
-    var location: String? {
-        character.location.name
-    }
-    
-}
-
 final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
     
     private var container = UIView()
@@ -52,7 +21,6 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = UIColor.lightGray.withAlphaComponent(0.7)
         addContainer()
         addCharacterImage()
         addSpecieView()
@@ -92,8 +60,8 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
         NSLayoutConstraint.activate([
             container.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
             container.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0),
-            container.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0),
-            container.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0),
+            container.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            container.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
         ])
         
         container.backgroundColor = .white
@@ -150,7 +118,6 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
             statusView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 4.0),
             statusView.leadingAnchor.constraint(equalTo: characterImage.trailingAnchor, constant: 5.0)
         ])
-        statusView.setup(status: .dead)
         statusView.setContentCompressionResistancePriority(.required, for: .vertical)
         statusView.setContentHuggingPriority(.required, for: .vertical)
     }

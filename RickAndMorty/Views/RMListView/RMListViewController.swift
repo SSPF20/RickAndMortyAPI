@@ -105,7 +105,7 @@ extension RMListViewController {
     
     private func setupCollectionView() {
         collectionView.register(viewModel.cellType, forCellWithReuseIdentifier: viewModel.reuseID)
-        collectionView.backgroundColor = .lightGray
+        collectionView.backgroundColor = .systemGray4
         dataSource = RMListDataSource(collectionView: collectionView, cellProvider: { [weak self] collectionView, indexPath, itemIdentifier in
             self?.cellProvider(collectionView, indexPath, itemIdentifier)
         })

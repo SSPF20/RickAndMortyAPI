@@ -45,7 +45,6 @@ struct RMEntity<T: Decodable, C: Configuration> {
     func endpointForPage(page: Int) -> RMEndpoint {
         configuration.endpointForPage(page: page)
     }
-    
 }
 
 struct RMDataProvider<A: Decodable, B: Configuration> {
@@ -60,29 +59,5 @@ struct RMDataProvider<A: Decodable, B: Configuration> {
     
     func getPage(page: Int) async throws -> RMResponse<A> {
         try await networkFetcher.fetch(endpoint: entity.endpointForPage(page: page))
-    }
-}
-
-struct RMCharacterConfiguration: Configuration {
-    
-    var cellHorizontalType: RMItemCell.Type {
-        RMCharacterHorizontalCell.self
-    }
-    
-    var reuseID: String {
-        "RMCharacterHorizontalCell"
-    }
-    
-    func endpointForPage(page: Int) -> RMEndpoint {
-        RMCharacterEndpoint.characterPage(page)
-    }
-    
-    func getCellViewModelForEntity<T: Decodable>(entity: T) -> RMItemCellViewModel? {
-        guard let rmCharacter = entity as? RMCharacter else {
-            return nil
-        }
-        
-        let viewModel = RMCharacterCellViewModel(character: rmCharacter)
-        return viewModel
     }
 }
