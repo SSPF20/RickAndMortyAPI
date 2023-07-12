@@ -8,28 +8,6 @@
 import Foundation
 import UIKit
 
-final class RMLocationCellViewModel: RMItemCellViewModel {
-    
-    private let location: RMLocation
-    
-    var name: String {
-        location.name
-    }
-    
-    var type: String {
-        location.type
-    }
-    
-    var dimension: String {
-        location.dimension
-    }
-    
-    init(location: RMLocation) {
-        self.location = location
-        super.init(id: location.id)
-    }
-}
-
 final class RMLocationHorizontalCell: UICollectionViewCell, RMItemCell {
     private let container = UIView()
     private let nameLabel = UILabel()
@@ -101,7 +79,6 @@ extension RMLocationHorizontalCell {
         ])
         
         locationNameLabel.font = UIFont.preferredFont(forTextStyle: .body)
-        locationNameLabel.text = NSLocalizedString("Earth", comment: "")
         locationNameLabel.textColor = .black
         locationNameLabel.numberOfLines = 0
     }
@@ -128,7 +105,6 @@ extension RMLocationHorizontalCell {
         ])
         
         locationTypeLabel.font = UIFont.preferredFont(forTextStyle: .body)
-        locationTypeLabel.text = NSLocalizedString("Planet", comment: "")
         locationTypeLabel.textColor = .black
         locationTypeLabel.numberOfLines = 0
     }
@@ -159,7 +135,6 @@ extension RMLocationHorizontalCell {
         ])
         
         locationDimensionLabel.font = UIFont.preferredFont(forTextStyle: .body)
-        locationDimensionLabel.text = NSLocalizedString("Dimension C-137", comment: "")
         locationDimensionLabel.textColor = .black
         locationDimensionLabel.numberOfLines = 0
         locationDimensionLabel.setContentCompressionResistancePriority(.required, for: .vertical)

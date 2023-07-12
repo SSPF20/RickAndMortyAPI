@@ -45,7 +45,6 @@ struct RMEntity<T: Decodable, C: Configuration> {
     func endpointForPage(page: Int) -> RMEndpoint {
         configuration.endpointForPage(page: page)
     }
-    
 }
 
 struct RMDataProvider<A: Decodable, B: Configuration> {
@@ -135,3 +134,4 @@ struct RMEpisodeConfiguration: Configuration {
         return viewModel
     }
 }
+

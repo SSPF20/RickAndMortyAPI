@@ -7,37 +7,6 @@
 
 import UIKit
 
-final class RMCharacterCellViewModel: RMItemCellViewModel {
-    
-    let character: RMCharacter
-    
-    init(character: RMCharacter) {
-        self.character = character
-        super.init(id: character.id)
-    }
-    
-    var imageURL: URL? {
-        URL(string: character.image)
-    }
-    
-    var specie: String {
-        character.species
-    }
-    
-    var name: String? {
-        character.name
-    }
-    
-    var status: RMCharacter.Status {
-        character.status
-    }
-    
-    var location: String? {
-        character.location.name
-    }
-    
-}
-
 final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
     
     private var container = UIView()
