@@ -40,7 +40,7 @@ extension RMEpisodeHorizontalCell {
     func setup(viewModel: RMItemCellViewModel) {
         guard let viewModel = viewModel as? RMEpisodeCellViewModel else {return}
         nameEpisodeLabel.text = viewModel.name
-        createdEpisodeLabel.text = viewModel.created.ISO8601Format()
+        createdEpisodeLabel.text = viewModel.created.formatted(date: .long, time: .shortened)
         airDateEpisodeLabel.text = viewModel.airDate
     }
 }
