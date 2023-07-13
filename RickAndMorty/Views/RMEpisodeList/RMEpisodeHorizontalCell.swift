@@ -43,6 +43,12 @@ extension RMEpisodeHorizontalCell {
         createdEpisodeLabel.text = viewModel.created.formatted(date: .long, time: .shortened)
         airDateEpisodeLabel.text = viewModel.airDate
     }
+    
+    override func prepareForReuse() {
+        nameEpisodeLabel.text = ""
+        airDateEpisodeLabel.text = ""
+        createdEpisodeLabel.text = ""
+    }
 }
 
 //MARK: -Views
@@ -147,15 +153,6 @@ extension RMEpisodeHorizontalCell {
     
 }
 
-extension RMEpisodeHorizontalCell {
-    
-    override func prepareForReuse() {
-        nameEpisodeLabel.text = ""
-        airDateEpisodeLabel.text = ""
-        createdEpisodeLabel.text = ""
-    }
-    
-}
 
 #Preview ("RMEpisodeHorizontalCell") {
     RMEpisodeHorizontalCell()

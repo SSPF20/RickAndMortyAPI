@@ -33,11 +33,11 @@ final class Coordinator {
         let episodesViewController = RMListViewController(viewModel: episodeViewModel)
         
         tabBarController.viewControllers = [setNavigationController(for: charactersViewController,
-                                                                    title: NSLocalizedString("Characters", comment: ""),
-                                                                    image: UIImage(systemName: "person.circle.fill")),
-                                            setNavigationController(for: locationsViewController,
-                                                                    title: NSLocalizedString("Locations", comment: ""),
-                                                                    image: UIImage(systemName: "location.fill")),setNavigationController(for: episodesViewController, title: "Episodes", image: UIImage(systemName: "tv.fill"))]
+                                    title: NSLocalizedString("Characters", comment: ""),
+                                    image: UIImage(systemName: "person.circle.fill")),
+            setNavigationController(for: locationsViewController,
+                                    title: NSLocalizedString("Locations", comment: ""),
+                                    image: UIImage(systemName: "location.fill")),setNavigationController(for: episodesViewController, title: "Episodes", image: UIImage(systemName: "tv.fill"))]
     }
     
     func getRootViewController() -> UIViewController {

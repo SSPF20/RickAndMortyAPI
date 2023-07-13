@@ -16,14 +16,12 @@ enum RMCharacterEndpoint: RMEndpoint {
     static let domain = "https://rickandmortyapi.com/api/"
     
     case characterPage(Int)
-    case oneCharacter(Int)
     
     private var urlString: String {
         switch self {
         case .characterPage(let page):
             return Self.domain + "character/?page=\(page)"
-        case.oneCharacter(let id):
-            return Self.domain + "character/\(id)"
+
         }
     }
     
@@ -38,7 +36,6 @@ enum RMLocationEndpoint: RMEndpoint {
     static let domain = "https://rickandmortyapi.com/api/"
     
     case locationPage(Int)
-    case oneLocation(Int)
     
     
     private var urlString: String {
@@ -46,8 +43,6 @@ enum RMLocationEndpoint: RMEndpoint {
         case .locationPage(let page):
             return Self.domain + "location/?page=\(page)"
             
-        case .oneLocation(let id):
-            return Self.domain + "location/\(id)"
         }
     }
     
@@ -62,14 +57,12 @@ enum RMEpisodeEndpoint: RMEndpoint {
     static let domain = "https://rickandmortyapi.com/api/"
     
     case episodePage(Int)
-    case oneEpisode(Int)
     
     private var urlString: String {
         switch self {
         case .episodePage(let page):
             return Self.domain + "episode/?page=\(page)"
-        case .oneEpisode(let id):
-            return Self.domain + "episode/\(id)"
+
         }
     }
     
