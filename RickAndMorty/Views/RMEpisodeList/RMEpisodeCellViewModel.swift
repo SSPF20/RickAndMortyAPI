@@ -20,11 +20,11 @@ class RMEpisodeCellViewModel: RMItemCellViewModel {
         return episode.name
     }
     
-    var air_Date: String {
+    var airDate: String {
         return episode.air_date
     }
     
-    var created: String {
+    var created: Date {
         return episode.created
     }
     

@@ -26,7 +26,6 @@ struct RMEpisodeConfiguration: Configuration {
         guard let RMEpisode = entity as? RMEpisode else {
             return nil
         }
-        
         let viewModel = RMEpisodeCellViewModel(episode: RMEpisode)
         return viewModel
     }

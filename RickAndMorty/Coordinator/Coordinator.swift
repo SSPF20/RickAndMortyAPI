@@ -27,10 +27,10 @@ final class Coordinator {
         let locationViewModel = RMListViewModel<RMLocation, RMLocationConfiguration>(dataProvider: locationDataProvider)
         let locationsViewController = RMListViewController(viewModel: locationViewModel)
         
-        let episodeEntity = RMEntity<RMEpisode, RMEpisodeConfiguration>(configuration: RMEpisodeConfiguration())
-        let dataProviderEpisode = RMDataProvider<RMEpisode, RMEpisodeConfiguration>(entity: episodeEntity)
-        let viewModelEpisode = RMListViewModel<RMEpisode, RMEpisodeConfiguration>(dataProvider: dataProviderEpisode)
-        let episodesViewController = RMListViewController(viewModel: viewModelEpisode)
+        let entityEpisode = RMEntity<RMEpisode, RMEpisodeConfiguration>(configuration: RMEpisodeConfiguration())
+        let episodeDataProvider = RMDataProvider<RMEpisode, RMEpisodeConfiguration>(entity: entityEpisode)
+        let episodeViewModel = RMListViewModel<RMEpisode, RMEpisodeConfiguration>(dataProvider: episodeDataProvider)
+        let episodesViewController = RMListViewController(viewModel: episodeViewModel)
         
         tabBarController.viewControllers = [setNavigationController(for: charactersViewController,
                                                                     title: NSLocalizedString("Characters", comment: ""),

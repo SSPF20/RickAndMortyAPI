@@ -36,6 +36,7 @@
 		831124EA2A5E5BA8003BB1A5 /* RMEpisodeHorizontalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831124E92A5E5BA8003BB1A5 /* RMEpisodeHorizontalCell.swift */; };
 		831124EC2A5E5BC3003BB1A5 /* RMEpisodeCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831124EB2A5E5BC3003BB1A5 /* RMEpisodeCellViewModel.swift */; };
 		831124EE2A5E5BD6003BB1A5 /* RMEpisode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831124ED2A5E5BD6003BB1A5 /* RMEpisode.swift */; };
+		83CD00662A6068330011E7E1 /* DateFormatter+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CD00652A6068330011E7E1 /* DateFormatter+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,7 @@
 		831124E92A5E5BA8003BB1A5 /* RMEpisodeHorizontalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMEpisodeHorizontalCell.swift; sourceTree = "<group>"; };
 		831124EB2A5E5BC3003BB1A5 /* RMEpisodeCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMEpisodeCellViewModel.swift; sourceTree = "<group>"; };
 		831124ED2A5E5BD6003BB1A5 /* RMEpisode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMEpisode.swift; sourceTree = "<group>"; };
+		83CD00652A6068330011E7E1 /* DateFormatter+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +183,7 @@
 				768924092A369EE300766308 /* String+Ext.swift */,
 				766BD0962A5621C900441E99 /* UIImageView+Ext.swift */,
 				766BD0982A56266700441E99 /* UIImage+Ext.swift */,
+				83CD00652A6068330011E7E1 /* DateFormatter+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 				357802C42A5CE2E9009FE1D0 /* RMCharacterCellViewModel.swift in Sources */,
 				831124EA2A5E5BA8003BB1A5 /* RMEpisodeHorizontalCell.swift in Sources */,
 				768923F82A35531000766308 /* RMCharacter.swift in Sources */,
+				83CD00662A6068330011E7E1 /* DateFormatter+Ext.swift in Sources */,
 				3578B1722A3BC689008AA38A /* RMCharacterStatusView.swift in Sources */,
 				766BD0972A5621C900441E99 /* UIImageView+Ext.swift in Sources */,
 				831124EE2A5E5BD6003BB1A5 /* RMEpisode.swift in Sources */,

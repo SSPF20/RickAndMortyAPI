@@ -10,13 +10,14 @@ import UIKit
 
 //Vistas
 final class RMEpisodeHorizontalCell: UICollectionViewCell, RMItemCell {
+    
     private let container: UIView = UIView()
     private let nameEpisodeLabel = UILabel()
-    private let air_Date_Episode_Label = UILabel()
+    private let airDateEpisodeLabel = UILabel()
     private let createdEpisodeLabel = UILabel()
-    private let nameEpisode = UILabel()
-    private let air_Date = UILabel()
-    private let created = UILabel()
+    private let nameEpisodeTitle = UILabel()
+    private let airDateTitle = UILabel()
+    private let createdTitle = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,7 +25,7 @@ final class RMEpisodeHorizontalCell: UICollectionViewCell, RMItemCell {
         nameEpisodeView()
         nameEpisodeLabelView()
         air_Date_View()
-        air_Date_Label_View()
+        airDateLabelView()
         createdView()
         createdLabelView()
     }
@@ -39,8 +40,8 @@ extension RMEpisodeHorizontalCell {
     func setup(viewModel: RMItemCellViewModel) {
         guard let viewModel = viewModel as? RMEpisodeCellViewModel else {return}
         nameEpisodeLabel.text = viewModel.name
-        createdEpisodeLabel.text = viewModel.created
-        air_Date_Episode_Label.text = viewModel.air_Date
+        createdEpisodeLabel.text = viewModel.created.ISO8601Format()
+        airDateEpisodeLabel.text = viewModel.airDate
     }
 }
 
@@ -60,17 +61,17 @@ extension RMEpisodeHorizontalCell {
     }
     
     private func nameEpisodeView() {
-        container.addSubview(nameEpisode)
-        nameEpisode.translatesAutoresizingMaskIntoConstraints = false
+        container.addSubview(nameEpisodeTitle)
+        nameEpisodeTitle.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            nameEpisode.topAnchor.constraint(equalTo: container.topAnchor, constant: 20),
-            nameEpisode.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10)
+            nameEpisodeTitle.topAnchor.constraint(equalTo: container.topAnchor, constant: 20),
+            nameEpisodeTitle.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10)
         ])
         
-        nameEpisode.font = UIFont.preferredFont(forTextStyle: .headline)
-        nameEpisode.text = NSLocalizedString("Name: ", comment: "EpisodeCell")
-        nameEpisode.textColor = .black
-        nameEpisode.setContentCompressionResistancePriority(.required, for: .horizontal)
+        nameEpisodeTitle.font = UIFont.preferredFont(forTextStyle: .headline)
+        nameEpisodeTitle.text = NSLocalizedString("Name: ", comment: "EpisodeCell")
+        nameEpisodeTitle.textColor = .black
+        nameEpisodeTitle.setContentCompressionResistancePriority(.required, for: .horizontal)
 
     }
     
@@ -78,12 +79,11 @@ extension RMEpisodeHorizontalCell {
         container.addSubview(nameEpisodeLabel)
         nameEpisodeLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            nameEpisodeLabel.topAnchor.constraint(equalTo: nameEpisode.topAnchor, constant: 0),
-            nameEpisodeLabel.leadingAnchor.constraint(equalTo: nameEpisode.trailingAnchor, constant: 8),
+            nameEpisodeLabel.topAnchor.constraint(equalTo: nameEpisodeTitle.topAnchor, constant: 0),
+            nameEpisodeLabel.leadingAnchor.constraint(equalTo: nameEpisodeTitle.trailingAnchor, constant: 8),
             nameEpisodeLabel.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -20)
         ])
         nameEpisodeLabel.font = UIFont.preferredFont(forTextStyle: .body)
-        nameEpisodeLabel.text = NSLocalizedString("Pilot", comment: "RMEpisodeHorizontalCell")
         nameEpisodeLabel.textColor = .black
         nameEpisodeLabel.numberOfLines = 0
         nameEpisodeLabel.setContentCompressionResistancePriority(.required, for: .vertical)
@@ -91,61 +91,70 @@ extension RMEpisodeHorizontalCell {
     }
     
     private func air_Date_View() {
-        container.addSubview(air_Date)
-        air_Date.translatesAutoresizingMaskIntoConstraints = false
+        container.addSubview(airDateTitle)
+        airDateTitle.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            air_Date.topAnchor.constraint(equalTo: nameEpisodeLabel.bottomAnchor, constant: 10),
-            air_Date.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10)
+            airDateTitle.topAnchor.constraint(equalTo: nameEpisodeLabel.bottomAnchor, constant: 10),
+            airDateTitle.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10)
         ])
         
-        air_Date.font = UIFont.preferredFont(forTextStyle: .headline)
-        air_Date.textColor = .black
-        air_Date.text = NSLocalizedString("Air Date: ", comment: "RMEpisodeHorizontalCell")
-        air_Date.setContentHuggingPriority(.required, for: .horizontal)
+        airDateTitle.font = UIFont.preferredFont(forTextStyle: .headline)
+        airDateTitle.textColor = .black
+        airDateTitle.text = NSLocalizedString("Air Date: ", comment: "RMEpisodeHorizontalCell")
+        airDateTitle.setContentHuggingPriority(.required, for: .horizontal)
     }
     
-    private func air_Date_Label_View() {
-        container.addSubview(air_Date_Episode_Label)
-        air_Date_Episode_Label.translatesAutoresizingMaskIntoConstraints = false
+    private func airDateLabelView() {
+        container.addSubview(airDateEpisodeLabel)
+        airDateEpisodeLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            air_Date_Episode_Label.topAnchor.constraint(equalTo: nameEpisodeLabel.bottomAnchor, constant: 10),
-            air_Date_Episode_Label.leadingAnchor.constraint(equalTo: air_Date.trailingAnchor, constant: 10)
+            airDateEpisodeLabel.topAnchor.constraint(equalTo: nameEpisodeLabel.bottomAnchor, constant: 10),
+            airDateEpisodeLabel.leadingAnchor.constraint(equalTo: airDateTitle.trailingAnchor, constant: 10)
         
         ])
         
-        air_Date_Episode_Label.font = UIFont.preferredFont(forTextStyle: .body)
-        air_Date_Episode_Label.textColor = .black
-        air_Date_Episode_Label.text = NSLocalizedString("December 2, 2013", comment: "RMEpisodeHorizontalCell")
-        air_Date_Episode_Label.numberOfLines = 0
+        airDateEpisodeLabel.font = UIFont.preferredFont(forTextStyle: .body)
+        airDateEpisodeLabel.textColor = .black
+        airDateEpisodeLabel.numberOfLines = 0
     }
     
     private func createdView() {
-        container.addSubview(created)
-        created.translatesAutoresizingMaskIntoConstraints = false
+        container.addSubview(createdTitle)
+        createdTitle.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            created.topAnchor.constraint(equalTo: air_Date.bottomAnchor, constant: 10),
-            created.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10),
-            created.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -20)
+            createdTitle.topAnchor.constraint(equalTo: airDateTitle.bottomAnchor, constant: 10),
+            createdTitle.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10),
+            createdTitle.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -20)
         ])
-        created.font = UIFont.preferredFont(forTextStyle: .headline)
-        created.textColor = .black
-        created.setContentHuggingPriority(.required, for: .horizontal)
-        created.text = NSLocalizedString("Created: ", comment: "RMEpisodeHorizontalCell")
+        createdTitle.font = UIFont.preferredFont(forTextStyle: .headline)
+        createdTitle.textColor = .black
+        createdTitle.setContentHuggingPriority(.required, for: .horizontal)
+        createdTitle.text = NSLocalizedString("Created: ", comment: "RMEpisodeHorizontalCell")
     }
     
     private func createdLabelView() {
         container.addSubview(createdEpisodeLabel)
         createdEpisodeLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            createdEpisodeLabel.topAnchor.constraint(equalTo: air_Date_Episode_Label.bottomAnchor, constant: 10),
-            createdEpisodeLabel.leadingAnchor.constraint(equalTo: created.trailingAnchor,constant: 10),
+            createdEpisodeLabel.topAnchor.constraint(equalTo: airDateEpisodeLabel.bottomAnchor, constant: 10),
+            createdEpisodeLabel.leadingAnchor.constraint(equalTo: createdTitle.trailingAnchor,constant: 10),
             createdEpisodeLabel.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -20)
         ])
         createdEpisodeLabel.font = UIFont.preferredFont(forTextStyle: .body)
         createdEpisodeLabel.textColor = .black
-        createdEpisodeLabel.text = NSLocalizedString("2017-11-10T12:56:33.798Z", comment: "RMEpisodeHorizontalCell")
         createdEpisodeLabel.setContentHuggingPriority(.required, for: .horizontal)
     }
+    
+}
+
+extension RMEpisodeHorizontalCell {
+    
+    override func prepareForReuse() {
+        nameEpisodeLabel.text = ""
+        airDateEpisodeLabel.text = ""
+        createdEpisodeLabel.text = ""
+    }
+    
 }
 
 #Preview ("RMEpisodeHorizontalCell") {
