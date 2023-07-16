@@ -37,7 +37,10 @@ final class Coordinator {
                                     image: UIImage(systemName: "person.circle.fill")),
             setNavigationController(for: locationsViewController,
                                     title: NSLocalizedString("Locations", comment: ""),
-                                    image: UIImage(systemName: "location.fill")),setNavigationController(for: episodesViewController, title: "Episodes", image: UIImage(systemName: "tv.fill"))]
+                                    image: UIImage(systemName: "location.fill")),
+            setNavigationController(for: episodesViewController,
+                                    title: "Episodes",
+                                    image: UIImage(systemName: "tv.fill"))]
     }
     
     func getRootViewController() -> UIViewController {

@@ -8,6 +8,7 @@
 import Foundation
 
 extension String {
+    
     var urlID: Int? {
         let urlComponents = self.split(separator: "/")
         if let lastComponent = urlComponents.last, !lastComponent.isEmpty {
@@ -16,4 +17,6 @@ extension String {
         }
         return nil
     }
+    
+    
 }
