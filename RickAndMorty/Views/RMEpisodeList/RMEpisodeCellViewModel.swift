@@ -17,15 +17,14 @@ class RMEpisodeCellViewModel: RMItemCellViewModel {
     }
     
     var name: String {
-        return episode.name
+        return NSLocalizedString(episode.name, comment: "")
+    }
+    
+    var created: String {
+        return episode.created.formatted(date: .long, time: .shortened)
     }
     
     var airDate: String {
         return episode.airDate
     }
-    
-    var created: Date {
-        return episode.created
-    }
-    
 }

@@ -8,30 +8,29 @@
 import Foundation
 import UIKit
 
-//Vistas
 final class RMEpisodeHorizontalCell: UICollectionViewCell, RMItemCell {
     
     private let container: UIView = UIView()
+    private let stackView = UIStackView()
     private var episodeNameLabel = UILabel()
     private let episodeAirDateLabel = UILabel()
     private let episodeCreatedLabel = UILabel()
-    private let verticalStack = UIStackView()
-  
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        containerView()
-        stackView()
-        addViews()
+        addContainerView()
+        addStackView()
+        addLabels()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     //Asignación de viewModel
     func setup(viewModel: RMItemCellViewModel) {
         guard let viewModel = viewModel as? RMEpisodeCellViewModel else {return}
-        viewsSetUp(viewModel: viewModel)
+        setupLabels(viewModel: viewModel)
     }
     
     override func prepareForReuse() {
@@ -45,7 +44,7 @@ final class RMEpisodeHorizontalCell: UICollectionViewCell, RMItemCell {
 //MARK: -Views
 extension RMEpisodeHorizontalCell {
     
-    private func containerView() {
+    private func addContainerView() {
         addSubview(container)
         container.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -61,41 +60,34 @@ extension RMEpisodeHorizontalCell {
         container.backgroundColor = .white
     }
     
-    private func stackView() {
+    private func addStackView() {
         
-        container.addSubview(verticalStack)
-        verticalStack.translatesAutoresizingMaskIntoConstraints = false
+        container.addSubview(stackView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
-        verticalStack.topAnchor.constraint(equalTo: container.topAnchor, constant: 5),
-        verticalStack.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -5),
-        verticalStack.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10),
-        verticalStack.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -10)
+            stackView.topAnchor.constraint(equalTo: container.topAnchor, constant: 5),
+            stackView.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -5),
+            stackView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10),
+            stackView.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -10)
         ])
         
-        verticalStack.axis = .vertical
-        verticalStack.distribution = .fillEqually
-        verticalStack.spacing = 11
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.spacing = 11
         
     }
     
-    private func addViews() {
-        verticalStack.addArrangedSubview(episodeNameLabel)
-        verticalStack.addArrangedSubview(episodeCreatedLabel)
-        verticalStack.addArrangedSubview(episodeAirDateLabel)
+    private func addLabels() {
+        stackView.addArrangedSubview(episodeNameLabel)
+        stackView.addArrangedSubview(episodeCreatedLabel)
+        stackView.addArrangedSubview(episodeAirDateLabel)
     }
     
-    func viewsSetUp(viewModel: RMEpisodeCellViewModel) {
-       
-        episodeNameLabel.text = String.atributedString(titleText1: "Name: ", episodeText: viewModel.name)
-        
-        episodeCreatedLabel.text = String.atributedString(titleText1: "Created: ", episodeText: viewModel.created.formatted(date: .long, time: .shortened))
-        
-        episodeAirDateLabel.text =  String.atributedString(titleText1: "air date: ", episodeText: viewModel.airDate)
-        
+    func setupLabels(viewModel: RMEpisodeCellViewModel) {
+        episodeNameLabel.attributedText = NSLocalizedString("Name", comment: "").attributedTitleValue(with: viewModel.name)
+        episodeCreatedLabel.attributedText = NSLocalizedString("Created", comment: "").attributedTitleValue(with: viewModel.created)
+        episodeAirDateLabel.attributedText = NSLocalizedString("Air date", comment: "").attributedTitleValue(with: viewModel.airDate)
     }
 
-}
-
-#Preview("RMEpisodeHorizontalCell") {
-    RMEpisodeHorizontalCell()
 }

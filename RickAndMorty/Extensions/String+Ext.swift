@@ -19,26 +19,26 @@ extension String {
         return nil
     }
     
-    static func atributedString(titleText1: String, episodeText: String) -> String {
+    func attributedTitleValue(with value: String) -> NSAttributedString {
         
-        let attrString = [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .title1), NSAttributedString.Key.foregroundColor: UIColor.black]
+        let keyAttributes = [
+            NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .title1),
+            NSAttributedString.Key.foregroundColor: UIColor.black
+        ]
         
-        let attStringEpisode = [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .footnote), NSAttributedString.Key.foregroundColor: UIColor.green]
+        let valueAttributes = [
+            NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .footnote),
+            NSAttributedString.Key.foregroundColor: UIColor.green
+        ]
         
-        let atributeContainerTitle = AttributeContainer(attrString)
-        let atributeContainerEpisode = AttributeContainer(attStringEpisode)
-        let localizedTitle = LocalizedStringResource(stringLiteral: titleText1)
-        let localizedEpisode = LocalizedStringResource(stringLiteral: episodeText)
-
-        var atribut1 = AttributedString(localized: localizedTitle)
-        atribut1.mergeAttributes(atributeContainerTitle)
-        var atribut2 = AttributedString(localized: localizedEpisode)
-        atribut2.mergeAttributes(atributeContainerEpisode)
-        var compound = atribut1
-        compound.append(atribut2)
-        let stringToReturn = String(compound.characters)
+        let key = "\(self): "
         
+        let keyAttributedString = NSAttributedString(string: key, attributes: keyAttributes)
+        let valueAttributedString = NSAttributedString(string: value, attributes: valueAttributes)
         
-        return stringToReturn
+        let resultAttributedString = NSMutableAttributedString(attributedString: keyAttributedString)
+        resultAttributedString.append(valueAttributedString)
+        
+        return resultAttributedString
      }
 }
