@@ -74,7 +74,7 @@ extension RMEpisodeHorizontalCell {
         
         verticalStack.axis = .vertical
         verticalStack.distribution = .fillEqually
-        verticalStack.spacing = 10
+        verticalStack.spacing = 11
         
     }
     
@@ -86,9 +86,11 @@ extension RMEpisodeHorizontalCell {
     
     func viewsSetUp(viewModel: RMEpisodeCellViewModel) {
        
-        episodeNameLabel.attributedText = NSAttributedString.atributesString(titleText1: "Name: ", episodeText: viewModel.name)
-        episodeCreatedLabel.attributedText = NSAttributedString.atributesString(titleText1: "Created: ", episodeText: viewModel.created.formatted(date: .long, time: .shortened))
-        episodeAirDateLabel.attributedText = NSAttributedString.atributesString(titleText1: "air date: ", episodeText: viewModel.airDate)
+        episodeNameLabel.text = String.atributedString(titleText1: "Name: ", episodeText: viewModel.name)
+        
+        episodeCreatedLabel.text = String.atributedString(titleText1: "Created: ", episodeText: viewModel.created.formatted(date: .long, time: .shortened))
+        
+        episodeAirDateLabel.text =  String.atributedString(titleText1: "air date: ", episodeText: viewModel.airDate)
         
     }
 
