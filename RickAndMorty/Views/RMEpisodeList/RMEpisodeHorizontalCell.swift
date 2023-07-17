@@ -70,11 +70,11 @@ extension RMEpisodeHorizontalCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: container.topAnchor, constant: 5),
-            stackView.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -5),
-            stackView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10),
-            stackView.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -10),
-            stackView.centerYAnchor.constraint(equalTo: container.centerYAnchor),
+            stackView.topAnchor.constraint(equalTo: container.topAnchor, constant: 14),
+            stackView.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -14),
+            stackView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 14),
+            stackView.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -14),
+            stackView.centerYAnchor.constraint(equalTo: container.centerYAnchor)
         ])
         
         stackView.axis = .vertical
