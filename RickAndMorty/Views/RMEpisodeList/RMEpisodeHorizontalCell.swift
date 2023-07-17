@@ -29,8 +29,11 @@ final class RMEpisodeHorizontalCell: UICollectionViewCell, RMItemCell {
     
     //Asignación de viewModel
     func setup(viewModel: RMItemCellViewModel) {
-        guard let viewModel = viewModel as? RMEpisodeCellViewModel else {return}
+        
+        guard let viewModel = viewModel as? RMEpisodeCellViewModel else { return }
+        
         setupLabels(viewModel: viewModel)
+
     }
     
     override func prepareForReuse() {
@@ -61,10 +64,10 @@ extension RMEpisodeHorizontalCell {
     }
     
     private func addStackView() {
-        
+
         container.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: container.topAnchor, constant: 5),
             stackView.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -5),
@@ -79,11 +82,14 @@ extension RMEpisodeHorizontalCell {
     }
     
     private func addLabels() {
+        
         stackView.addArrangedSubview(episodeNameLabel)
         stackView.addArrangedSubview(episodeCreatedLabel)
         stackView.addArrangedSubview(episodeAirDateLabel)
+
     }
     
+
     func setupLabels(viewModel: RMEpisodeCellViewModel) {
         episodeNameLabel.attributedText = NSLocalizedString("Name", comment: "").attributedTitleValue(with: viewModel.name)
         episodeCreatedLabel.attributedText = NSLocalizedString("Created", comment: "").attributedTitleValue(with: viewModel.created)

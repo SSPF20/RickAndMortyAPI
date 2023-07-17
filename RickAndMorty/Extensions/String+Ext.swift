@@ -18,17 +18,17 @@ extension String {
         }
         return nil
     }
-    
+
     func attributedTitleValue(with value: String) -> NSAttributedString {
         
         let keyAttributes = [
-            NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .title1),
+            NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline),
             NSAttributedString.Key.foregroundColor: UIColor.black
         ]
         
         let valueAttributes = [
-            NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .footnote),
-            NSAttributedString.Key.foregroundColor: UIColor.green
+            NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .subheadline),
+            NSAttributedString.Key.foregroundColor: UIColor.darkGray
         ]
         
         let key = "\(self): "
