@@ -37,9 +37,9 @@ final class RMEpisodeHorizontalCell: UICollectionViewCell, RMItemCell {
     }
     
     override func prepareForReuse() {
-        episodeNameLabel.text = ""
-        episodeAirDateLabel.text = ""
-        episodeCreatedLabel.text = ""
+        episodeNameLabel.attributedText = NSAttributedString("")
+        episodeAirDateLabel.attributedText = NSAttributedString("")
+        episodeCreatedLabel.attributedText = NSAttributedString("")
     }
     
 }
@@ -54,7 +54,8 @@ extension RMEpisodeHorizontalCell {
             container.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
             container.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0),
             container.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            container.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20)
+            container.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            container.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
         
         container.layer.borderWidth = 2
@@ -67,17 +68,18 @@ extension RMEpisodeHorizontalCell {
 
         container.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
-
+        
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: container.topAnchor, constant: 5),
             stackView.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -5),
             stackView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10),
-            stackView.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -10)
+            stackView.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -10),
+            stackView.centerYAnchor.constraint(equalTo: container.centerYAnchor),
         ])
         
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
-        stackView.spacing = 11
+        stackView.spacing = 5
         
     }
     
@@ -86,7 +88,7 @@ extension RMEpisodeHorizontalCell {
         stackView.addArrangedSubview(episodeNameLabel)
         stackView.addArrangedSubview(episodeCreatedLabel)
         stackView.addArrangedSubview(episodeAirDateLabel)
-
+        
     }
     
 
