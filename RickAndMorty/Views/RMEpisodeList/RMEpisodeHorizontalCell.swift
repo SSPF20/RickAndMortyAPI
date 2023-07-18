@@ -10,8 +10,7 @@ import UIKit
 
 final class RMEpisodeHorizontalCell: UICollectionViewCell, RMItemCell {
     
-    private let container: UIView = UIView()
-    private let stackView = UIStackView()
+    private var container: UIView = UIView(frame: .zero)
     private var episodeNameLabel = UILabel()
     private let episodeAirDateLabel = UILabel()
     private let episodeCreatedLabel = UILabel()
@@ -19,8 +18,9 @@ final class RMEpisodeHorizontalCell: UICollectionViewCell, RMItemCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addContainerView()
-        addStackView()
-        addLabels()
+        addConstrainsNameLabel()
+        addConstrainsCreatedLabel()
+        addConstrainsAirDateLabel()
     }
     
     required init?(coder: NSCoder) {
@@ -48,47 +48,68 @@ final class RMEpisodeHorizontalCell: UICollectionViewCell, RMItemCell {
 extension RMEpisodeHorizontalCell {
     
     private func addContainerView() {
+        
         addSubview(container)
         container.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             container.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
             container.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0),
-            container.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            container.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            container.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+            container.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
+            container.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
+            container.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            container.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])
         
         container.layer.borderWidth = 2
         container.layer.borderColor = .init(red: 0, green: 0, blue: 0, alpha: 1)
         container.layer.cornerRadius = 20
         container.backgroundColor = .white
+
     }
     
-    private func addStackView() {
-
-        container.addSubview(stackView)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+    private func addConstrainsNameLabel() {
+        
+        container.addSubview(episodeNameLabel)
+        
+        episodeNameLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: container.topAnchor, constant: 14),
-            stackView.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -14),
-            stackView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 14),
-            stackView.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -14),
-            stackView.centerYAnchor.constraint(equalTo: container.centerYAnchor)
+            episodeNameLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 10),
+            episodeNameLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10),
+            episodeNameLabel.trailingAnchor.constraint(greaterThanOrEqualTo: container.trailingAnchor)
+            
         ])
-        
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        stackView.spacing = 5
         
     }
     
-    private func addLabels() {
+    private func addConstrainsCreatedLabel() {
         
-        stackView.addArrangedSubview(episodeNameLabel)
-        stackView.addArrangedSubview(episodeCreatedLabel)
-        stackView.addArrangedSubview(episodeAirDateLabel)
+        container.addSubview(episodeCreatedLabel)
         
+        episodeCreatedLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            episodeCreatedLabel.topAnchor.constraint(equalTo: episodeNameLabel.bottomAnchor, constant: 10),
+            episodeCreatedLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor,constant: 10),
+            episodeCreatedLabel.trailingAnchor.constraint(greaterThanOrEqualTo: container.trailingAnchor)
+        ])
+
+    }
+    
+    private func addConstrainsAirDateLabel() {
+        
+        container.addSubview(episodeAirDateLabel)
+        
+        episodeAirDateLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            episodeAirDateLabel.topAnchor.constraint(equalTo: episodeCreatedLabel.bottomAnchor,constant: 10),
+            episodeAirDateLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10),
+            episodeAirDateLabel.trailingAnchor.constraint(greaterThanOrEqualTo: container.trailingAnchor),
+            episodeAirDateLabel.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -10)
+        ])
+
     }
     
 
@@ -98,4 +119,8 @@ extension RMEpisodeHorizontalCell {
         episodeAirDateLabel.attributedText = NSLocalizedString("Air date", comment: "").attributedTitleValue(with: viewModel.airDate)
     }
 
+}
+
+#Preview ("RMEpisodeHorizontalCell") {
+    RMEpisodeHorizontalCell()
 }
