@@ -18,8 +18,8 @@ final class RMEpisodeHorizontalCell: UICollectionViewCell, RMItemCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addContainerView()
-        addConstrainsNameLabel()
         addConstrainsCreatedLabel()
+        addConstrainsNameLabel()
         addConstrainsAirDateLabel()
     }
     
@@ -38,8 +38,8 @@ final class RMEpisodeHorizontalCell: UICollectionViewCell, RMItemCell {
     
     override func prepareForReuse() {
         episodeNameLabel.attributedText = NSAttributedString("")
-        episodeAirDateLabel.attributedText = NSAttributedString("")
         episodeCreatedLabel.attributedText = NSAttributedString("")
+        episodeAirDateLabel.attributedText = NSAttributedString("")
     }
     
 }
@@ -53,12 +53,11 @@ extension RMEpisodeHorizontalCell {
         container.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            container.topAnchor.constraint(equalTo: self.topAnchor, constant: 0),
-            container.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0),
+            container.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
+            container.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
             container.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
             container.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-            container.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            container.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+            
         ])
         
         container.layer.borderWidth = 2
@@ -74,12 +73,19 @@ extension RMEpisodeHorizontalCell {
         
         episodeNameLabel.translatesAutoresizingMaskIntoConstraints = false
         
+        let width = episodeNameLabel.widthAnchor.constraint(equalTo: container.widthAnchor, multiplier: 0.9)
+        width.isActive = true
+        width.priority = .defaultLow
+        
         NSLayoutConstraint.activate([
             episodeNameLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 10),
             episodeNameLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10),
-            episodeNameLabel.trailingAnchor.constraint(greaterThanOrEqualTo: container.trailingAnchor)
-            
+            episodeNameLabel.bottomAnchor.constraint(equalTo: episodeCreatedLabel.topAnchor, constant: -10),
+            episodeNameLabel.centerXAnchor.constraint(equalTo: container.centerXAnchor)
         ])
+        
+        episodeNameLabel.numberOfLines = 0
+        
         
     }
     
@@ -89,34 +95,56 @@ extension RMEpisodeHorizontalCell {
         
         episodeCreatedLabel.translatesAutoresizingMaskIntoConstraints = false
         
+        let width = episodeCreatedLabel.widthAnchor.constraint(equalTo: container.widthAnchor, multiplier: 0.9)
+        width.isActive = true
+        width.priority = .defaultLow
+        
+        
         NSLayoutConstraint.activate([
-            episodeCreatedLabel.topAnchor.constraint(equalTo: episodeNameLabel.bottomAnchor, constant: 10),
-            episodeCreatedLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor,constant: 10),
-            episodeCreatedLabel.trailingAnchor.constraint(greaterThanOrEqualTo: container.trailingAnchor)
-        ])
+            
+          episodeCreatedLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor,constant: 10),
+          episodeCreatedLabel.centerXAnchor.constraint(equalTo: container.centerXAnchor)
+          
+      ])
+        
+        episodeCreatedLabel.numberOfLines = 0
+
+
 
     }
     
     private func addConstrainsAirDateLabel() {
         
         container.addSubview(episodeAirDateLabel)
-        
+
         episodeAirDateLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        let width = episodeAirDateLabel.widthAnchor.constraint(equalTo: container.widthAnchor, multiplier: 0.9)
+        width.isActive = true
+        width.priority = .defaultLow
+        
+        
         
         NSLayoutConstraint.activate([
             episodeAirDateLabel.topAnchor.constraint(equalTo: episodeCreatedLabel.bottomAnchor,constant: 10),
             episodeAirDateLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10),
-            episodeAirDateLabel.trailingAnchor.constraint(greaterThanOrEqualTo: container.trailingAnchor),
-            episodeAirDateLabel.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -10)
+            episodeAirDateLabel.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -10),
+            episodeAirDateLabel.centerXAnchor.constraint(equalTo: container.centerXAnchor)
+
         ])
+        episodeAirDateLabel.numberOfLines = 0
+
 
     }
     
 
     func setupLabels(viewModel: RMEpisodeCellViewModel) {
-        episodeNameLabel.attributedText = NSLocalizedString("Name", comment: "").attributedTitleValue(with: viewModel.name)
+        
         episodeCreatedLabel.attributedText = NSLocalizedString("Created", comment: "").attributedTitleValue(with: viewModel.created)
+        episodeNameLabel.attributedText = NSLocalizedString("Name", comment: "").attributedTitleValue(with: viewModel.name)
         episodeAirDateLabel.attributedText = NSLocalizedString("Air date", comment: "").attributedTitleValue(with: viewModel.airDate)
+        
     }
 
 }
