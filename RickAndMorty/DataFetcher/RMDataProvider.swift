@@ -8,24 +8,11 @@
 import Foundation
 import UIKit
 
-//protocol RMEntity: Decodable {
-//    associatedtype T: Decodable
-//    static func endpointForPage(page: Int) -> RMEndpoint
-//    static var cellHorizontalType: RMItemCell.Type { get }
-//    func getViewModel(entity: T) -> RMItemCellViewModel
-//    static var reuseID: String { get }
-//}
-//
-//extension RMEntity {
-//    static var associatedType: Self.T.Type {
-//        T.self
-//    }
-//}
-
 protocol Configuration {
     func endpointForPage(page: Int) -> RMEndpoint
     var cellHorizontalType: RMItemCell.Type { get }
     var reuseID: String { get }
+    var estimatedHeightForItem: CGFloat { get }
     
     func getCellViewModelForEntity<T: Decodable>(entity: T) -> RMItemCellViewModel?
 }

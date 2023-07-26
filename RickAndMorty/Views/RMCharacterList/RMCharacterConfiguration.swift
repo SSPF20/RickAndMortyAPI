@@ -9,6 +9,10 @@ import Foundation
 
 struct RMCharacterConfiguration: Configuration {
     
+    var estimatedHeightForItem: CGFloat {
+        150.0
+    }
+    
     var cellHorizontalType: RMItemCell.Type {
         RMCharacterHorizontalCell.self
     }
