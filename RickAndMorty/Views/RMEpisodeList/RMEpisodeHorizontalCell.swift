@@ -18,8 +18,8 @@ final class RMEpisodeHorizontalCell: UICollectionViewCell, RMItemCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addContainerView()
-        addConstrainsCreatedLabel()
         addConstrainsNameLabel()
+        addConstrainsCreatedLabel()
         addConstrainsAirDateLabel()
     }
     
@@ -52,13 +52,11 @@ extension RMEpisodeHorizontalCell {
         addSubview(container)
         container.translatesAutoresizingMaskIntoConstraints = false
         
-        let top =  container.topAnchor.constraint(equalTo: self.topAnchor, constant: 10)
+        let top =  container.topAnchor.constraint(equalTo: self.topAnchor, constant: 0)
         top.isActive = true
-        top.priority = .defaultHigh
         
-        let bottom = container.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10)
+        let bottom = container.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0)
         bottom.isActive = true
-        bottom.priority = .defaultLow
 
 
         
@@ -81,23 +79,14 @@ extension RMEpisodeHorizontalCell {
         container.addSubview(episodeNameLabel)
         
         episodeNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        let width = episodeNameLabel.widthAnchor.constraint(equalTo: container.widthAnchor, multiplier: 0.9)
-        width.isActive = true
-        width.priority = .defaultLow
-        
-        let bottom = episodeNameLabel.bottomAnchor.constraint(equalTo: episodeCreatedLabel.topAnchor, constant: -10)
-        bottom.isActive = true
-        bottom.priority = .required
-        
+
         NSLayoutConstraint.activate([
             episodeNameLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 10),
             episodeNameLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10),
-            episodeNameLabel.centerXAnchor.constraint(equalTo: container.centerXAnchor)
         ])
         
         episodeNameLabel.numberOfLines = 0
-        
+        episodeNameLabel.setContentCompressionResistancePriority(.required, for: .vertical)
         
     }
     
@@ -107,20 +96,15 @@ extension RMEpisodeHorizontalCell {
         
         episodeCreatedLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        let width = episodeCreatedLabel.widthAnchor.constraint(equalTo: container.widthAnchor, multiplier: 0.9)
-        width.isActive = true
-        width.priority = .defaultLow
-        
-        
         NSLayoutConstraint.activate([
             
           episodeCreatedLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor,constant: 10),
-          episodeCreatedLabel.centerXAnchor.constraint(equalTo: container.centerXAnchor)
+          episodeCreatedLabel.topAnchor.constraint(equalTo: episodeNameLabel.bottomAnchor, constant: 10)
           
       ])
         
         episodeCreatedLabel.numberOfLines = 0
-
+        episodeCreatedLabel.setContentCompressionResistancePriority(.required, for: .vertical)
 
 
     }
@@ -131,30 +115,20 @@ extension RMEpisodeHorizontalCell {
 
         episodeAirDateLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        
-        let width = episodeAirDateLabel.widthAnchor.constraint(equalTo: container.widthAnchor, multiplier: 0.9)
-        width.isActive = true
-        width.priority = .defaultLow
-        
         let bottom = episodeAirDateLabel.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -10)
         bottom.isActive = true
-        bottom.priority = .defaultLow
         
         let top = episodeAirDateLabel.topAnchor.constraint(equalTo: episodeCreatedLabel.bottomAnchor,constant: 10)
         top.isActive = true
-        top.priority = .required
 
-        
         
         NSLayoutConstraint.activate([
             
-            episodeAirDateLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10),
-            episodeAirDateLabel.centerXAnchor.constraint(equalTo: container.centerXAnchor)
+            episodeAirDateLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10)
 
         ])
         episodeAirDateLabel.numberOfLines = 0
-
-
+        episodeAirDateLabel.setContentCompressionResistancePriority(.required, for: .vertical)
     }
     
 
