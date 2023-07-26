@@ -9,6 +9,10 @@ import Foundation
 
 struct RMLocationConfiguration: Configuration {
     
+    var estimatedHeightForItem: CGFloat {
+        100.0
+    }
+    
     var cellHorizontalType: RMItemCell.Type {
         RMLocationHorizontalCell.self
     }
