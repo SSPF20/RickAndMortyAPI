@@ -52,9 +52,18 @@ extension RMEpisodeHorizontalCell {
         addSubview(container)
         container.translatesAutoresizingMaskIntoConstraints = false
         
+        let top =  container.topAnchor.constraint(equalTo: self.topAnchor, constant: 10)
+        top.isActive = true
+        top.priority = .defaultHigh
+        
+        let bottom = container.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10)
+        bottom.isActive = true
+        bottom.priority = .defaultLow
+
+
+        
         NSLayoutConstraint.activate([
-            container.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            container.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10),
+            
             container.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
             container.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
             
@@ -77,10 +86,13 @@ extension RMEpisodeHorizontalCell {
         width.isActive = true
         width.priority = .defaultLow
         
+        let bottom = episodeNameLabel.bottomAnchor.constraint(equalTo: episodeCreatedLabel.topAnchor, constant: -10)
+        bottom.isActive = true
+        bottom.priority = .required
+        
         NSLayoutConstraint.activate([
             episodeNameLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 10),
             episodeNameLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10),
-            episodeNameLabel.bottomAnchor.constraint(equalTo: episodeCreatedLabel.topAnchor, constant: -10),
             episodeNameLabel.centerXAnchor.constraint(equalTo: container.centerXAnchor)
         ])
         
@@ -124,12 +136,19 @@ extension RMEpisodeHorizontalCell {
         width.isActive = true
         width.priority = .defaultLow
         
+        let bottom = episodeAirDateLabel.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -10)
+        bottom.isActive = true
+        bottom.priority = .defaultLow
+        
+        let top = episodeAirDateLabel.topAnchor.constraint(equalTo: episodeCreatedLabel.bottomAnchor,constant: 10)
+        top.isActive = true
+        top.priority = .required
+
         
         
         NSLayoutConstraint.activate([
-            episodeAirDateLabel.topAnchor.constraint(equalTo: episodeCreatedLabel.bottomAnchor,constant: 10),
+            
             episodeAirDateLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10),
-            episodeAirDateLabel.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -10),
             episodeAirDateLabel.centerXAnchor.constraint(equalTo: container.centerXAnchor)
 
         ])
