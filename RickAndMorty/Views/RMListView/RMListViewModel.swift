@@ -38,6 +38,10 @@ final class RMListViewModel<A: Decodable, B: Configuration> {
         dataProvider.entity.configuration.reuseID
     }
     
+    var estimatedHeightForItem: CGFloat {
+        dataProvider.entity.configuration.estimatedHeightForItem
+    }
+    
     nonisolated init(dataProvider: RMDataProvider<A, B>) {
         self.dataProvider = dataProvider
     }

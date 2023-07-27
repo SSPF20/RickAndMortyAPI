@@ -10,6 +10,12 @@ import Foundation
 
 struct RMEpisodeConfiguration: Configuration {
     
+    var estimatedHeightForItem: CGFloat {
+        return  100.0
+
+    }
+    
+    
     var cellHorizontalType: RMItemCell.Type {
         RMEpisodeHorizontalCell.self
     }
