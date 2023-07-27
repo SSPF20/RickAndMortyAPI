@@ -90,10 +90,6 @@ extension RMLocationHorizontalCell {
         locationTypeLabel.attributedText = NSLocalizedString("Type", comment: "").attributedTitleValue(with: viewmodel.type)
         locationDimensionLabel.attributedText = NSLocalizedString("Dimension", comment: "").attributedTitleValue(with: viewmodel.dimension)
     }
-    
-    
 }
-//#Preview ("RMLocationHorizontalCell") {
-//    RMLocationHorizontalCell()
-//}
+
 

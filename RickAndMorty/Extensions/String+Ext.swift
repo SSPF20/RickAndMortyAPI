@@ -19,7 +19,6 @@ extension String {
     }
     
     func attributedTitleValue(with value: String) -> NSAttributedString {
-        
         let keyAttributes = [
             NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline),
             NSAttributedString.Key.foregroundColor: UIColor.black
