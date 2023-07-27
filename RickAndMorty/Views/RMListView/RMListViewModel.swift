@@ -25,6 +25,8 @@ final class RMListViewModel<A: Decodable, B: Configuration> {
     
     private let dataProvider: RMDataProvider<A, B>
     
+    private var isPaginando: Bool = false
+    
     var RMListViewModelActionPublisher: AnyPublisher<RMListViewModelAction, Never> {
         RMListViewModelActionSubject.eraseToAnyPublisher()
     }
@@ -51,24 +53,35 @@ final class RMListViewModel<A: Decodable, B: Configuration> {
     }
     
     func loadNextPage() {
-        guard let nextPage = currentInfo?.next?.urlID else {
-            return
+        if isPaginando {
+            guard let nextPage = currentInfo?.next?.pageNumber else {
+                return
+            }
+            isPaginando = false
+            print(nextPage)
+            loadPage(page: nextPage)
+
+        } else {
+            print("Paginando")
         }
-        
-        loadPage(page: nextPage)
+       
     }
     
     private func loadPage(page: Int) {
-        Task {
-            do {
-                let response = try await dataProvider.getPage(page: page)
-                elements.append(response.results)
-                currentInfo = response.info
-                
-            } catch {
-                print("LoadPage error \(String(describing: error))")
-            }
+        if isPaginando == false {
+            Task {
+                    do {
+                        let response = try await dataProvider.getPage(page: page)
+                        isPaginando = true
+                        elements.append(response.results)
+                        currentInfo = response.info
+                        
+                    } catch {
+                        print("LoadPage error \(String(describing: error))")
+                    }
+                }
         }
+        
     }
     
     private func createSnapshot() {

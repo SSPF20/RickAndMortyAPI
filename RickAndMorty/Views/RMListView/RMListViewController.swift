@@ -35,7 +35,7 @@ extension RMItemCellViewModel {
 typealias RMListDataSource = UICollectionViewDiffableDataSource<Int, RMItemCellViewModel>
 typealias RMListSnapshot = NSDiffableDataSourceSnapshot<Int, RMItemCellViewModel>
 
-final class RMListViewController<A: Decodable, B: Configuration>: UIViewController {
+final class RMListViewController<A: Decodable, B: Configuration>: UIViewController, UIScrollViewDelegate, UICollectionViewDelegate {
     
     private var collectionView: UICollectionView!
     private var dataSource: RMListDataSource!
@@ -85,6 +85,7 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
         setupCollectionView()
         configureBinding()
         viewModel.start()
+        collectionView.delegate = self
     }
     
     private func configureBinding() {
@@ -96,6 +97,13 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
                     self?.applySnapshot(snapshot: snapshot)
                 }
             }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let pos = scrollView.contentOffset.y
+        if pos > (collectionView.contentSize.height - 5 ) - scrollView.frame.size.height {
+            viewModel.loadNextPage()
+        }
     }
     
     
@@ -123,4 +131,6 @@ extension RMListViewController {
     private func applySnapshot(snapshot: RMListSnapshot) {
         dataSource.apply(snapshot)
     }
+    
+    
 }

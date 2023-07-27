@@ -18,6 +18,14 @@ extension String {
         }
         return nil
     }
+    
+    var pageNumber: Int {
+        let arrayString = self.split(separator: "=")
+        guard let lastCharacter = arrayString.last, !lastCharacter.isEmpty, let toInt = Int(lastCharacter) else {
+           return 0
+        }
+        return toInt
+    }
 
     func attributedTitleValue(with value: String) -> NSAttributedString {
         

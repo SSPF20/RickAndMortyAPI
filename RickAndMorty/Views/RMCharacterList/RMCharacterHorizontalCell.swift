@@ -35,7 +35,7 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
     }
     
     override func prepareForReuse() {
-        characterImage.image = nil
+        characterImage.image = UIImage(systemName: "square")
         specieView.prepareForReuse()
         statusView.prepareForReuse()
         nameLabel.text = nil

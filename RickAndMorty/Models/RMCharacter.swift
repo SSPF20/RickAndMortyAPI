@@ -34,7 +34,7 @@ struct RMCharacter: Decodable  {
     enum Gender: String, Decodable {
         case male = "Male"
         case female = "Female"
-        case genderless
+        case Genderless
         case unknown
     }
     
