@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension String {
     var urlID: Int? {
@@ -15,5 +16,28 @@ extension String {
             return Int(stringId)
         }
         return nil
+    }
+    
+    func attributedTitleValue(with value: String) -> NSAttributedString {
+        
+        let keyAttributes = [
+            NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline),
+            NSAttributedString.Key.foregroundColor: UIColor.black
+        ]
+        
+        let valueAttributes = [
+            NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .subheadline),
+            NSAttributedString.Key.foregroundColor: UIColor.darkGray
+        ]
+        
+        let key = "\(self): "
+        
+        let keyAttributedString = NSAttributedString(string: key, attributes: keyAttributes)
+        let valueAttributedString = NSAttributedString(string: value, attributes: valueAttributes)
+        
+        let resultAttributedString = NSMutableAttributedString(attributedString: keyAttributedString)
+        resultAttributedString.append(valueAttributedString)
+        
+        return resultAttributedString
     }
 }
