@@ -27,12 +27,20 @@ final class Coordinator {
         let locationViewModel = RMListViewModel<RMLocation, RMLocationConfiguration>(dataProvider: locationDataProvider)
         let locationsViewController = RMListViewController(viewModel: locationViewModel)
         
+        let entityEpisode = RMEntity<RMEpisode, RMEpisodeConfiguration>(configuration: RMEpisodeConfiguration())
+        let episodeDataProvider = RMDataProvider<RMEpisode, RMEpisodeConfiguration>(entity: entityEpisode)
+        let episodeViewModel = RMListViewModel<RMEpisode, RMEpisodeConfiguration>(dataProvider: episodeDataProvider)
+        let episodesViewController = RMListViewController(viewModel: episodeViewModel)
+        
         tabBarController.viewControllers = [setNavigationController(for: charactersViewController,
-                                                                    title: NSLocalizedString("Characters", comment: ""),
-                                                                    image: UIImage(systemName: "person.circle.fill")),
-                                            setNavigationController(for: locationsViewController,
-                                                                    title: NSLocalizedString("Locations", comment: ""),
-                                                                    image: UIImage(systemName: "location.fill"))]
+                                    title: NSLocalizedString("Characters", comment: ""),
+                                    image: UIImage(systemName: "person.circle.fill")),
+            setNavigationController(for: locationsViewController,
+                                    title: NSLocalizedString("Locations", comment: ""),
+                                    image: UIImage(systemName: "location.fill")),
+            setNavigationController(for: episodesViewController,
+                                    title: "Episodes",
+                                    image: UIImage(systemName: "tv.fill"))]
     }
     
     func getRootViewController() -> UIViewController {

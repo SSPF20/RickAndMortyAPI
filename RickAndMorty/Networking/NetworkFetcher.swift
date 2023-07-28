@@ -29,6 +29,7 @@ struct DefaultNetworkFetcher: NetworkFetcher {
     func fetch<T: Decodable>(endpoint: RMEndpoint) async throws -> T {
         do {
             let (data, _) = try await urlSession.data(for: endpoint.urlRequest)
+            decoder.dateDecodingStrategy = .formatted(DateFormatter.iso8601Format)
             let response = try decoder.decode(T.self, from: data)
             return response
         } catch let error as DecodingError {
