@@ -44,6 +44,7 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
     private var actionCancellable: AnyCancellable?
     
     private var layout: UICollectionViewLayout {
+
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(viewModel.estimatedHeightForItem))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(viewModel.estimatedHeightForItem))

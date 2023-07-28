@@ -21,6 +21,7 @@ enum RMCharacterEndpoint: RMEndpoint {
         switch self {
         case .characterPage(let page):
             return Self.domain + "character/?page=\(page)"
+
         }
     }
     
@@ -36,10 +37,12 @@ enum RMLocationEndpoint: RMEndpoint {
     
     case locationPage(Int)
     
+    
     private var urlString: String {
         switch self {
         case .locationPage(let page):
-            return Self.domain + "location?page=\(page)"
+            return Self.domain + "location/?page=\(page)"
+            
         }
     }
     
@@ -58,7 +61,8 @@ enum RMEpisodeEndpoint: RMEndpoint {
     private var urlString: String {
         switch self {
         case .episodePage(let page):
-            return Self.domain + "episode?page=\(page)"
+            return Self.domain + "episode/?page=\(page)"
+
         }
     }
     
