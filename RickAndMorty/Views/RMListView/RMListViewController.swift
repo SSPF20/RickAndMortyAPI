@@ -38,6 +38,7 @@ typealias RMListSnapshot = NSDiffableDataSourceSnapshot<Int, RMItemCellViewModel
 final class RMListViewController<A: Decodable, B: Configuration>: UIViewController, UIScrollViewDelegate, UICollectionViewDelegate {
     
     private var collectionView: UICollectionView!
+    private var spinner: UIActivityIndicatorView!
     private var dataSource: RMListDataSource!
     
     private let viewModel: RMListViewModel<A, B>
@@ -68,6 +69,14 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        
+        spinner = UIActivityIndicatorView(style: .large)
+        view.addSubview(spinner)
+        spinner.center = view.center
+        spinner.hidesWhenStopped = true
+        
+        
+        
     }
     
     init(viewModel: RMListViewModel<A, B>) {
@@ -99,10 +108,20 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
             }
     }
     
+    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        print("TOP")
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let pos = scrollView.contentOffset.y
-        if pos > (collectionView.contentSize.height - 5 ) - scrollView.frame.size.height {
+        if pos > (collectionView.contentSize.height) - scrollView.frame.size.height + 100 {
+            
+            spinner.startAnimating()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: { [weak self] in
+                self?.spinner.stopAnimating()
+            })
             viewModel.loadNextPage()
+
         }
     }
     

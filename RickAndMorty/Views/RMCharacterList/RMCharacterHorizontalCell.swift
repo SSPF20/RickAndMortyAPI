@@ -18,6 +18,7 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
     private var locationLabel = UILabel()
     
     
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
