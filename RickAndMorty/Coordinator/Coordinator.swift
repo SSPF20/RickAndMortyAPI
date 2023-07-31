@@ -13,7 +13,6 @@ final class Coordinator {
     
     init(tabBarController: UITabBarController = UITabBarController()) {
         self.tabBarController = tabBarController
-        tabBarController.tabBar.tintColor = .systemGreen
         setupTabBar()
         setupViewControllers()
     }
@@ -55,6 +54,7 @@ final class Coordinator {
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.configureWithOpaqueBackground()
         tabBarAppearance.backgroundColor = .systemBackground
+        tabBarController.tabBar.tintColor = .systemGreen
         tabBarController.tabBar.standardAppearance = tabBarAppearance
         tabBarController.tabBar.scrollEdgeAppearance = tabBarAppearance
     }
