@@ -54,17 +54,23 @@ final class RMListViewModel<A: Decodable, B: Configuration> {
     
     func loadNextPage() {
         if isPaginando {
+            
             guard let nextPage = currentInfo?.next?.pageNumber else {
                 return
             }
             isPaginando = false
-            print(nextPage)
             loadPage(page: nextPage)
 
         } else {
             print("Paginando")
         }
        
+    }
+    
+    func itemsToCount(indexPath: IndexPath) -> Int {
+        
+        return elements[indexPath.section].count
+        
     }
     
     private func loadPage(page: Int) {

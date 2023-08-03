@@ -40,9 +40,9 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
     private var collectionView: UICollectionView!
     private var spinner: UIActivityIndicatorView!
     private var dataSource: RMListDataSource!
-    
     private let viewModel: RMListViewModel<A, B>
     private var actionCancellable: AnyCancellable?
+    var isPaginating = false
     
     private var layout: UICollectionViewLayout {
 
@@ -52,6 +52,9 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 10
+        let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(44))
+        let footer = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: footerSize, elementKind: UICollectionView.elementKindSectionFooter, alignment: .bottom)
+        section.boundarySupplementaryItems = [footer]
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }
@@ -69,13 +72,6 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        
-        spinner = UIActivityIndicatorView(style: .large)
-        view.addSubview(spinner)
-        spinner.center = view.center
-        spinner.hidesWhenStopped = true
-        
-        
         
     }
     
@@ -108,23 +104,17 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
             }
     }
     
-    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
-        print("TOP")
-    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let pos = scrollView.contentOffset.y
-        if pos > (collectionView.contentSize.height) - scrollView.frame.size.height + 100 {
-            
-            spinner.startAnimating()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: { [weak self] in
-                self?.spinner.stopAnimating()
-            })
-            viewModel.loadNextPage()
-
-        }
+        
+            let pos = scrollView.contentOffset.y
+            if pos > (collectionView.contentSize.height) - scrollView.frame.size.height + 50 {
+                isPaginating = true
+                viewModel.loadNextPage()
+                isPaginating = false
+            }
+        
     }
-    
     
 }
 
@@ -133,10 +123,19 @@ extension RMListViewController {
     
     private func setupCollectionView() {
         collectionView.register(viewModel.cellType, forCellWithReuseIdentifier: viewModel.reuseID)
+        collectionView.register(FooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: FooterView.identifier)
         collectionView.backgroundColor = .systemGray4
         dataSource = RMListDataSource(collectionView: collectionView, cellProvider: { [weak self] collectionView, indexPath, itemIdentifier in
             self?.cellProvider(collectionView, indexPath, itemIdentifier)
         })
+        dataSource.supplementaryViewProvider = { [weak self] collectionView, kind, indexPath in
+            
+            guard let footer = self?.collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: FooterView.identifier, for: indexPath) as? FooterView else {
+                fatalError()
+            }
+            footer.toggleSpinner(isUpdating: self?.isPaginating ?? false )
+            return footer
+        }
     }
     
     private func cellProvider(_ collectionView: UICollectionView,_ indexPath: IndexPath,_ itemIdentifier: RMItemCellViewModel) -> UICollectionViewCell? {
