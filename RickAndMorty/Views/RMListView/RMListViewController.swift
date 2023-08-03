@@ -54,7 +54,7 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }
-    
+
     override func loadView() {
         super.loadView()
         
@@ -97,8 +97,6 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
                 }
             }
     }
-    
-    
 }
 
 // MARK: - CollectionView
