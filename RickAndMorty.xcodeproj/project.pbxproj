@@ -88,8 +88,8 @@
 		357802BC2A5CE1D6009FE1D0 /* RMLocationList */ = {
 			isa = PBXGroup;
 			children = (
-				357802BD2A5CE206009FE1D0 /* RMLocationConfiguration.swift */,
 				357305CA2A4E51B0005BCD5F /* RMLocationHorizontalCell.swift */,
+				357802BD2A5CE206009FE1D0 /* RMLocationConfiguration.swift */,
 				357802BF2A5CE251009FE1D0 /* RMLocationCellViewModel.swift */,
 			);
 			path = RMLocationList;

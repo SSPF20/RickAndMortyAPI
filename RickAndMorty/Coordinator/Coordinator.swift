@@ -13,6 +13,7 @@ final class Coordinator {
     
     init(tabBarController: UITabBarController = UITabBarController()) {
         self.tabBarController = tabBarController
+        setupTabBar()
         setupViewControllers()
     }
     
@@ -55,5 +56,14 @@ final class Coordinator {
         navController.navigationBar.prefersLargeTitles = true
         rootViewController.navigationItem.title = title
         return navController
+    }
+    
+    private func setupTabBar() {
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.configureWithOpaqueBackground()
+        tabBarAppearance.backgroundColor = .systemBackground
+        tabBarController.tabBar.tintColor = .systemGreen
+        tabBarController.tabBar.standardAppearance = tabBarAppearance
+        tabBarController.tabBar.scrollEdgeAppearance = tabBarAppearance
     }
 }
