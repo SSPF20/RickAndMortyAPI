@@ -37,6 +37,7 @@
 		831124EC2A5E5BC3003BB1A5 /* RMEpisodeCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831124EB2A5E5BC3003BB1A5 /* RMEpisodeCellViewModel.swift */; };
 		831124EE2A5E5BD6003BB1A5 /* RMEpisode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831124ED2A5E5BD6003BB1A5 /* RMEpisode.swift */; };
 		83CD00662A6068330011E7E1 /* DateFormatter+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CD00652A6068330011E7E1 /* DateFormatter+Ext.swift */; };
+		83F78AA02A7A1FC200FD3BCD /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F78A9F2A7A1FC200FD3BCD /* FooterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +73,7 @@
 		831124EB2A5E5BC3003BB1A5 /* RMEpisodeCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMEpisodeCellViewModel.swift; sourceTree = "<group>"; };
 		831124ED2A5E5BD6003BB1A5 /* RMEpisode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMEpisode.swift; sourceTree = "<group>"; };
 		83CD00652A6068330011E7E1 /* DateFormatter+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Ext.swift"; sourceTree = "<group>"; };
+		83F78A9F2A7A1FC200FD3BCD /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 		768923F02A3547CA00766308 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				83F78A9E2A7A1F9500FD3BCD /* Footer */,
 				831124E62A5E5B69003BB1A5 /* RMEpisodeList */,
 				7689240B2A369F1400766308 /* RMListView */,
 				768EEF4E2A37E2D600B6C2BF /* RMCharacterList */,
@@ -227,6 +230,14 @@
 			path = RMEpisodeList;
 			sourceTree = "<group>";
 		};
+		83F78A9E2A7A1F9500FD3BCD /* Footer */ = {
+			isa = PBXGroup;
+			children = (
+				83F78A9F2A7A1FC200FD3BCD /* FooterView.swift */,
+			);
+			path = Footer;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -311,6 +322,7 @@
 				7689240D2A369F2C00766308 /* RMListViewController.swift in Sources */,
 				768923FF2A35550C00766308 /* NetworkFetcher.swift in Sources */,
 				768923DD2A35477000766308 /* AppDelegate.swift in Sources */,
+				83F78AA02A7A1FC200FD3BCD /* FooterView.swift in Sources */,
 				76AD942A2A4E3F80000132AD /* Coordinator.swift in Sources */,
 				357305CB2A4E51B0005BCD5F /* RMLocationHorizontalCell.swift in Sources */,
 				357802C22A5CE2B0009FE1D0 /* RMCharacterConfiguration.swift in Sources */,

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FooterView: UICollectionReusableView {
+final class FooterView: UICollectionReusableView {
     
     static let identifier = "FooterView"
     
@@ -15,14 +15,14 @@ class FooterView: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        layout()
+        addSpinnerlayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("Initializer coder has been initialized")
     }
     
-    private func layout() {
+    private func addSpinnerlayout() {
         
         addSubview(spinner)
         spinner.translatesAutoresizingMaskIntoConstraints = false

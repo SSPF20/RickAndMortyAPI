@@ -38,7 +38,6 @@ typealias RMListSnapshot = NSDiffableDataSourceSnapshot<Int, RMItemCellViewModel
 final class RMListViewController<A: Decodable, B: Configuration>: UIViewController, UIScrollViewDelegate, UICollectionViewDelegate {
     
     private var collectionView: UICollectionView!
-    private var spinner: UIActivityIndicatorView!
     private var dataSource: RMListDataSource!
     private let viewModel: RMListViewModel<A, B>
     private var actionCancellable: AnyCancellable?
@@ -104,7 +103,7 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
             }
     }
     
-    
+    //extension
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
             let pos = scrollView.contentOffset.y
@@ -113,7 +112,6 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
                 viewModel.loadNextPage()
                 isPaginating = false
             }
-        
     }
     
 }
@@ -149,6 +147,5 @@ extension RMListViewController {
     private func applySnapshot(snapshot: RMListSnapshot) {
         dataSource.apply(snapshot)
     }
-    
     
 }
