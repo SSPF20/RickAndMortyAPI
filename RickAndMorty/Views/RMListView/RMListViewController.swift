@@ -106,8 +106,8 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
     //extension
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-            let pos = scrollView.contentOffset.y
-            if pos > (collectionView.contentSize.height) - scrollView.frame.size.height + 50 {
+            let height = scrollView.contentOffset.y
+            if height > (collectionView.contentSize.height) - scrollView.frame.size.height - 150 {
                 isPaginating = true
                 viewModel.loadNextPage()
                 isPaginating = false
