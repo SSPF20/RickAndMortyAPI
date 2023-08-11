@@ -35,13 +35,15 @@ extension RMItemCellViewModel {
 typealias RMListDataSource = UICollectionViewDiffableDataSource<Int, RMItemCellViewModel>
 typealias RMListSnapshot = NSDiffableDataSourceSnapshot<Int, RMItemCellViewModel>
 
-final class RMListViewController<A: Decodable, B: Configuration>: UIViewController {
+final class RMListViewController<A: Decodable, B: Configuration>: UIViewController, UICollectionViewDelegate {
     
     private var collectionView: UICollectionView!
     private var dataSource: RMListDataSource!
     
     private let viewModel: RMListViewModel<A, B>
     private var actionCancellable: AnyCancellable?
+    
+    weak var navBarCoordinator: Coordinator?
     
     private var layout: UICollectionViewLayout {
 
@@ -97,6 +99,24 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
                 }
             }
     }
+    
+    // MARK: - UICollectionViewDelegate
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard let action = viewModel.clickableActionFor(indexPath: indexPath) else {
+            fatalError()
+        }
+        
+        switch action {
+        case .presentVC(let viewController):
+            
+            print("present")
+            navBarCoordinator?.presentViewController(viewController: viewController)
+        case .pushVC(let viewController):
+            print("push")
+            navBarCoordinator?.pushViewController(viewController: viewController)
+        }
+    }
 }
 
 // MARK: - CollectionView
@@ -108,6 +128,7 @@ extension RMListViewController {
         dataSource = RMListDataSource(collectionView: collectionView, cellProvider: { [weak self] collectionView, indexPath, itemIdentifier in
             self?.cellProvider(collectionView, indexPath, itemIdentifier)
         })
+        collectionView.delegate = self
     }
     
     private func cellProvider(_ collectionView: UICollectionView,_ indexPath: IndexPath,_ itemIdentifier: RMItemCellViewModel) -> UICollectionViewCell? {
