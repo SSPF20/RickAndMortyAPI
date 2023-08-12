@@ -11,7 +11,7 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
     
     private var container = UIView()
     private var characterImage = UIImageView()
-    private var specieView = RMCharacterSpecieView()
+    private var specieView = RMCharacterImageSpecieView()
     private var nameLabel = UILabel()
     private var statusView = RMCharacterStatusView()
     private var lastLocationLabel = UILabel()
