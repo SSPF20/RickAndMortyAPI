@@ -16,12 +16,15 @@ enum RMCharacterEndpoint: RMEndpoint {
     static let domain = "https://rickandmortyapi.com/api/"
     
     case characterPage(Int)
+    case characterById(Int)
     
     private var urlString: String {
         switch self {
         case .characterPage(let page):
             return Self.domain + "character/?page=\(page)"
-
+        case .characterById(let id):
+            return Self.domain + "character/\(id)"
+            
         }
     }
     

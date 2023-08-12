@@ -63,7 +63,7 @@ extension RMEpisodeHorizontalCell {
         container.layer.borderWidth = 2
         container.layer.borderColor = .init(red: 0, green: 0, blue: 0, alpha: 1)
         container.layer.cornerRadius = 20
-        container.backgroundColor = .white
+        container.backgroundColor = .systemBackground
 
     }
 
@@ -130,8 +130,4 @@ extension RMEpisodeHorizontalCell {
 
     }
 
-}
-
-#Preview ("RMEpisodeHorizontalCell") {
-    RMEpisodeHorizontalCell()
 }
