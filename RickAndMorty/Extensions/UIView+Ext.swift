@@ -1,8 +1,16 @@
 //
 //  UIView+Ext.swift
-//  RickAndMorty
+//  RMCharacterDetailView
 //
-//  Created by Horacio Parra Rodriguez on 11/08/23.
+//  Created by Simon on 19/07/23.
 //
 
-import Foundation
+import UIKit
+
+extension UIView {
+    func separatorView(height: CGFloat) {
+        self.backgroundColor = .lightGray
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.heightAnchor.constraint(equalToConstant: height).isActive = true
+    }
+}
