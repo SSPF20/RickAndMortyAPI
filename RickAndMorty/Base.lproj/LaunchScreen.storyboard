@@ -16,10 +16,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rmLogo" translatesAutoresizingMaskIntoConstraints="NO" id="KVR-lU-xdz">
-                                <rect key="frame" x="-53.666666666666657" y="176" width="500.33333333333326" height="500"/>
+                                <rect key="frame" x="46.666666666666657" y="276" width="300" height="300"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="500" id="ZTG-lS-qRK"/>
-                                    <constraint firstAttribute="width" constant="500" id="liQ-eN-Mtw"/>
+                                    <constraint firstAttribute="height" constant="300" id="ZTG-lS-qRK"/>
+                                    <constraint firstAttribute="width" constant="300" id="liQ-eN-Mtw"/>
                                 </constraints>
                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                             </imageView>
