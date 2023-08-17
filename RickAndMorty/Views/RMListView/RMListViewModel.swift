@@ -9,6 +9,11 @@ import Foundation
 import UIKit
 import Combine
 
+enum ClickableAction {
+    case pushVC(UIViewController)
+    case presentVC(UIViewController)
+}
+
 @MainActor
 final class RMListViewModel<A: Decodable, B: Configuration> {
     
@@ -87,4 +92,16 @@ final class RMListViewModel<A: Decodable, B: Configuration> {
         RMListViewModelActionSubject.send(.setSnapshot(snapshot))
     }
     
+    func clickableActionFor(indexPath: IndexPath) -> ClickableAction? {
+        
+        print("enter ClickableActionFor")
+        
+        let entity = elements[indexPath.section][indexPath.row]
+        
+        let action = dataProvider.entity.configuration.getClickableAction(for: entity)
+        
+        print("action ClickableActionFor")
+        
+        return action
+    }
 }

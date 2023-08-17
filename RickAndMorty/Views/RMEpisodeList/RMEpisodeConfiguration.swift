@@ -35,4 +35,13 @@ struct RMEpisodeConfiguration: Configuration {
         let viewModel = RMEpisodeCellViewModel(episode: RMEpisode)
         return viewModel
     }
+    
+    func getClickableAction<T>(for entity: T) -> ClickableAction? where T : Decodable {
+        
+        guard let episode = entity as? RMEpisode else {
+            return nil
+        }
+        
+        return nil
+    }
 }

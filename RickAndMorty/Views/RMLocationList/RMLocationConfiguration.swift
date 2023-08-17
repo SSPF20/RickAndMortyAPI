@@ -34,6 +34,13 @@ struct RMLocationConfiguration: Configuration {
         return viewModel
     }
     
+    func getClickableAction<T>(for entity: T) -> ClickableAction? where T : Decodable {
+        guard let location = entity as? RMLocation else {
+            return nil
+        }
+        
+        return nil
+    }
     
     
 }
