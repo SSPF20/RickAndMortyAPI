@@ -38,7 +38,7 @@ struct RMCharacterConfiguration: Configuration {
         guard let character = entity as? RMCharacter else {
             return nil
         }
-        
+        // TODO: Implement the entityViews to manage the RMHostingController here
         return nil
     }
 }

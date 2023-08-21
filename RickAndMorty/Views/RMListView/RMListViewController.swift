@@ -104,7 +104,8 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         guard let action = viewModel.clickableActionFor(indexPath: indexPath) else {
-            fatalError()
+            assert(false, "clickable action was not found in indexPath \(indexPath)")
+            return
         }
         
         switch action {

@@ -42,6 +42,7 @@ struct RMEpisodeConfiguration: Configuration {
             return nil
         }
         
+        // TODO: Implement the entityViews to manage the RMHostingController here
         return nil
     }
 }
