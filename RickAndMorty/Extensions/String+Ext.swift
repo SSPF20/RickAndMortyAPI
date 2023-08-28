@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 extension String {
-    
     var urlID: Int? {
         let urlComponents = self.split(separator: "/")
         if let lastComponent = urlComponents.last, !lastComponent.isEmpty {
@@ -28,7 +27,6 @@ extension String {
     }
 
     func attributedTitleValue(with value: String) -> NSAttributedString {
-        
         let keyAttributes = [
             NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline),
             NSAttributedString.Key.foregroundColor: UIColor.black
@@ -48,5 +46,5 @@ extension String {
         resultAttributedString.append(valueAttributedString)
         
         return resultAttributedString
-     }
+    }
 }
