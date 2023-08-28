@@ -127,12 +127,20 @@ extension RMListViewController {
             self?.cellProvider(collectionView, indexPath, itemIdentifier)
         })
         dataSource.supplementaryViewProvider = { [weak self] collectionView, kind, indexPath in
-            
-            guard let footer = self?.collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: FooterView.identifier, for: indexPath) as? FooterView else {
-                fatalError()
+            guard let weakSelf = self else {
+                return nil
             }
-            footer.toggleSpinner(isUpdating: self?.isPaginating ?? false )
-            return footer
+            if weakSelf.viewModel.fetching {
+                guard let footer = self?.collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: FooterView.identifier, for: indexPath) as? FooterView else {
+                    assertionFailure("Error")
+                    return nil
+                }
+                footer.toggleSpinner(isUpdating: self?.isPaginating ?? false )
+                return footer
+            } else {
+                return nil
+            }
+            
         }
     }
     

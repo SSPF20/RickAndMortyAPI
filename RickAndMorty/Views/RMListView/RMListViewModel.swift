@@ -25,7 +25,7 @@ final class RMListViewModel<A: Decodable, B: Configuration> {
     
     private let dataProvider: RMDataProvider<A, B>
     
-    private var isPaginating: Bool = false
+    var fetching: Bool = false
     
     var RMListViewModelActionPublisher: AnyPublisher<RMListViewModelAction, Never> {
         RMListViewModelActionSubject.eraseToAnyPublisher()
@@ -53,16 +53,16 @@ final class RMListViewModel<A: Decodable, B: Configuration> {
     }
     
     func loadNextPage() {
-        if isPaginating {
+        if fetching {
             
             guard let nextPage = currentInfo?.next?.pageNumber else {
                 return
             }
-            isPaginating = false
+            fetching = false
             loadPage(page: nextPage)
 
         } else {
-            print("Paginando")
+            assert(fetching == false, "Paginando")
         }
        
     }
@@ -74,11 +74,11 @@ final class RMListViewModel<A: Decodable, B: Configuration> {
     }
     
     private func loadPage(page: Int) {
-        if isPaginating == false {
+        if fetching == false {
             Task {
                     do {
                         let response = try await dataProvider.getPage(page: page)
-                        isPaginating = true
+                        fetching = true
                         elements.append(response.results)
                         currentInfo = response.info
                         
