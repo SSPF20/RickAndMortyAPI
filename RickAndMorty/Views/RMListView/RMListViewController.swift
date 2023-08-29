@@ -110,10 +110,8 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
         
         switch action {
         case .presentVC(let viewController):
-            print("present")
             navBarCoordinator?.presentViewController(viewController: viewController)
         case.pushVC(let viewContoller):
-            print("push")
             navBarCoordinator?.pushViewController(viewController: viewContoller)
         }
     }

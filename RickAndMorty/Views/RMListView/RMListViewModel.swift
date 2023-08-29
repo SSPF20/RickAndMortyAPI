@@ -94,13 +94,8 @@ final class RMListViewModel<A: Decodable, B: Configuration> {
     
     func clickableActionFor(indexPath: IndexPath) -> ClickableAction? {
         
-        print("enter ClickableActionFor")
-        
         let entity = elements[indexPath.section][indexPath.row]
-        
         let action = dataProvider.entity.configuration.getClickableAction(for: entity)
-        
-        print("action ClickableActionFor")
         
         return action
     }
