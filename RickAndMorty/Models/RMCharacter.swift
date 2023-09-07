@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 struct LocationBasic: Decodable {
     let name: String
@@ -34,7 +35,7 @@ struct RMCharacter: Decodable  {
     enum Gender: String, Decodable {
         case male = "Male"
         case female = "Female"
-        case genderless
+        case genderless = "Genderless"
         case unknown
     }
     
@@ -48,6 +49,17 @@ struct RMCharacter: Decodable  {
                 NSLocalizedString(self.rawValue, comment: "")
             case .unknown:
                 NSLocalizedString("Unknown", comment: "")
+            }
+        }
+        
+        var color: Color {
+            switch self {
+            case .alive:
+                return .green
+            case .dead:
+                return .red
+            case .unknown:
+                return .gray
             }
         }
     }
