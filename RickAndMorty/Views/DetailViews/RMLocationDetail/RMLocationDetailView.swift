@@ -34,6 +34,7 @@ struct RMLocationDetailView: View {
                 LazyVGrid(columns: colums, content: {
                     ForEach(viewModel.residentsId, id: \.self) { id in
                         RMCharacterCardView(viewModel: .init(id: id))
+                        // TODO: When we merge, we need to use this card in the episodeDetail
                     }
                     .padding([.leading, .trailing], 8)
                 })
