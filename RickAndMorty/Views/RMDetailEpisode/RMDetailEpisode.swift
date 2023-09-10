@@ -8,19 +8,23 @@
 import SwiftUI
 
 struct RMDetailEpisode: View {
+    
+    var viewModel : DetailEpisodeViewModel
+    
     var body: some View {
         VStack (alignment: .center, spacing: 10) {
             HStack {
                 VStack(alignment: .leading,spacing: 10) {
-                    Text("Name: ")
+                    Text(NSLocalizedString("Name: \(viewModel.name)", comment: ""))
                         .padding()
-                        .font(.largeTitle)
-                    Text("Air date: ")
+                        .font(.title3)
+                    Text(NSLocalizedString("Air date: \(viewModel.airDate)", comment: ""))
                         .padding()
-                        .font(.largeTitle)
-                    Text("Created: ")
+                        .font(.title3)
+                    Text(NSLocalizedString("Created: \(viewModel.created)", comment: ""))
                         .padding()
-                        .font(.largeTitle)
+                        .font(.title3)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
                 Spacer()
             } .background(.white)
@@ -38,5 +42,5 @@ struct RMDetailEpisode: View {
 }
 
 #Preview ("RMDetailEpisode"){
-    RMDetailEpisode()
+    RMDetailEpisode(viewModel: .init(episode: .init(id: 1, name: "first Episode", airDate: "2023", episode: "233", characterIds: [1], url: "", created: Date())))
 }
