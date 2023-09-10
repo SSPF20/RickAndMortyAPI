@@ -36,7 +36,7 @@ typealias RMListDataSource = UICollectionViewDiffableDataSource<Int, RMItemCellV
 typealias RMListSnapshot = NSDiffableDataSourceSnapshot<Int, RMItemCellViewModel>
 
 final class RMListViewController<A: Decodable, B: Configuration>: UIViewController, UIScrollViewDelegate, UICollectionViewDelegate {
-    
+
     private var collectionView: UICollectionView!
     private var dataSource: RMListDataSource!
     private let viewModel: RMListViewModel<A, B>
@@ -115,6 +115,7 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
                 isPaginating = false
             }
     }
+
     //MARK: - UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
@@ -130,6 +131,7 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
             navBarCoordinator?.pushViewController(viewController: viewContoller)
         }
     }
+
 }
 // MARK: - CollectionView
 extension RMListViewController {
@@ -141,6 +143,7 @@ extension RMListViewController {
         dataSource = RMListDataSource(collectionView: collectionView, cellProvider: { [weak self] collectionView, indexPath, itemIdentifier in
             self?.cellProvider(collectionView, indexPath, itemIdentifier)
         })
+
         dataSource.supplementaryViewProvider = { [weak self] collectionView, kind, indexPath in
             guard let weakSelf = self else {
                 return nil

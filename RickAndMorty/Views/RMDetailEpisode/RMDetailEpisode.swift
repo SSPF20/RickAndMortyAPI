@@ -10,7 +10,22 @@ import SwiftUI
 struct RMDetailEpisode: View {
     var body: some View {
         VStack (alignment: .center, spacing: 10) {
-            EpisodeCellUI().shadow(radius: 20)
+            HStack {
+                VStack(alignment: .leading,spacing: 10) {
+                    Text("Name: ")
+                        .padding()
+                        .font(.largeTitle)
+                    Text("Air date: ")
+                        .padding()
+                        .font(.largeTitle)
+                    Text("Created: ")
+                        .padding()
+                        .font(.largeTitle)
+                }
+                Spacer()
+            } .background(.white)
+                .shadow(radius: 15)
+                .clipShape(.buttonBorder)
             Rectangle().frame(width: .infinity, height: 10)
             Text("Characters")
                 .font(.largeTitle)
@@ -18,7 +33,7 @@ struct RMDetailEpisode: View {
             Spacer()
             gridEpisodeUI().clipShape(.rect, style: FillStyle())
         }.background(Color .white).padding()
-            
+        
     }
 }
 
