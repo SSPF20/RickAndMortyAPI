@@ -36,15 +36,17 @@ typealias RMListDataSource = UICollectionViewDiffableDataSource<Int, RMItemCellV
 typealias RMListSnapshot = NSDiffableDataSourceSnapshot<Int, RMItemCellViewModel>
 
 final class RMListViewController<A: Decodable, B: Configuration>: UIViewController, UIScrollViewDelegate, UICollectionViewDelegate {
-    
+
     private var collectionView: UICollectionView!
     private var dataSource: RMListDataSource!
     private let viewModel: RMListViewModel<A, B>
     private var actionCancellable: AnyCancellable?
     var isPaginating = false
     
+    weak var navBarCoordinator: Coordinator?
+    
     private var layout: UICollectionViewLayout {
-
+        
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(viewModel.estimatedHeightForItem))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(viewModel.estimatedHeightForItem))
@@ -114,8 +116,23 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
             }
     }
     
-}
+    //MARK: - UICollectionViewDelegate
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard let action = viewModel.clickableActionFor(indexPath: indexPath) else {
+            assert(false, "clickable action was not found in indexPath \(indexPath)")
+            return
+        }
+        
+        switch action {
+        case .presentVC(let viewController):
+            navBarCoordinator?.presentViewController(viewController: viewController)
+        case.pushVC(let viewContoller):
+            navBarCoordinator?.pushViewController(viewController: viewContoller)
+        }
+    }
 
+}
 // MARK: - CollectionView
 extension RMListViewController {
     
@@ -126,6 +143,7 @@ extension RMListViewController {
         dataSource = RMListDataSource(collectionView: collectionView, cellProvider: { [weak self] collectionView, indexPath, itemIdentifier in
             self?.cellProvider(collectionView, indexPath, itemIdentifier)
         })
+        
         dataSource.supplementaryViewProvider = { [weak self] collectionView, kind, indexPath in
             guard let weakSelf = self else {
                 return nil
@@ -142,6 +160,8 @@ extension RMListViewController {
             }
             
         }
+        
+        collectionView.delegate = self
     }
     
     private func cellProvider(_ collectionView: UICollectionView,_ indexPath: IndexPath,_ itemIdentifier: RMItemCellViewModel) -> UICollectionViewCell? {

@@ -33,4 +33,12 @@ struct RMCharacterConfiguration: Configuration {
         let viewModel = RMCharacterCellViewModel(character: rmCharacter)
         return viewModel
     }
+    
+    func getClickableAction<T>(for entity: T) -> ClickableAction? where T : Decodable {
+        guard let character = entity as? RMCharacter else {
+            return nil
+        }
+        // TODO: Implement the entityViews to manage the RMHostingController here
+        return nil
+    }
 }
