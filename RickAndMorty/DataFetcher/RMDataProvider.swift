@@ -15,6 +15,7 @@ protocol Configuration {
     var estimatedHeightForItem: CGFloat { get }
     
     func getCellViewModelForEntity<T: Decodable>(entity: T) -> RMItemCellViewModel?
+    func getClickableAction<T: Decodable>(for entity: T) -> ClickableAction?
 }
 
 struct RMEntity<T: Decodable, C: Configuration> {

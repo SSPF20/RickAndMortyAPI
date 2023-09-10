@@ -43,8 +43,10 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
     private var actionCancellable: AnyCancellable?
     var isPaginating = false
     
+    weak var navBarCoordinator: Coordinator?
+    
     private var layout: UICollectionViewLayout {
-
+        
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(viewModel.estimatedHeightForItem))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(viewModel.estimatedHeightForItem))
@@ -113,9 +115,22 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
                 isPaginating = false
             }
     }
-    
+    //MARK: - UICollectionViewDelegate
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard let action = viewModel.clickableActionFor(indexPath: indexPath) else {
+            assert(false, "clickable action was not found in indexPath \(indexPath)")
+            return
+        }
+        
+        switch action {
+        case .presentVC(let viewController):
+            navBarCoordinator?.presentViewController(viewController: viewController)
+        case.pushVC(let viewContoller):
+            navBarCoordinator?.pushViewController(viewController: viewContoller)
+        }
+    }
 }
-
 // MARK: - CollectionView
 extension RMListViewController {
     
@@ -142,6 +157,8 @@ extension RMListViewController {
             }
             
         }
+        
+        collectionView.delegate = self
     }
     
     private func cellProvider(_ collectionView: UICollectionView,_ indexPath: IndexPath,_ itemIdentifier: RMItemCellViewModel) -> UICollectionViewCell? {
