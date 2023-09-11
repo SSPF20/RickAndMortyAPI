@@ -30,7 +30,7 @@ struct RMDetailEpisode: View {
             } .background(.white)
                 .shadow(radius: 15)
                 .clipShape(.buttonBorder)
-            Rectangle().frame(width: .infinity, height: 10)
+            Rectangle().frame(width: 200, height: 10)
             Text("Characters")
                 .font(.largeTitle)
                 .padding()

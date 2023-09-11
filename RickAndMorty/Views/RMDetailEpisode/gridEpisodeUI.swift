@@ -14,7 +14,7 @@ struct gridEpisodeUI: View {
             LazyVGrid(columns: gridItems, content: {
                 //TODO: Add character's cell
             })
-        }.frame(width: .infinity, height: 400).shadow(radius: 20).padding(10)
+        }.frame(width: 200, height: nil).shadow(radius: 20).padding(10)
     }
 }
 
