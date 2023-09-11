@@ -28,6 +28,28 @@ final class IntegerExtractorTests: XCTestCase {
         XCTAssertEqual(extractorHelper.arrayIDs.first, 10)
         XCTAssertEqual(extractorHelper.arrayIDs.last, 20)
     }
+    
+    func test_LocationBasic_Decode() throws {
+        // Given
+        let dataDictionary = [
+            "name": "Earth",
+            "url": "https://rickandmortyapi.com/api/location/20"
+        ]
+        let data = try JSONEncoder().encode(dataDictionary)
+        // When
+        let location = try JSONDecoder().decode(LocationBasic.self, from: data)
+        // Then
+        XCTAssertEqual(location.id, 20)
+        XCTAssertEqual(location.name, "Earth")
+    }
+    
+    func test_firstCharacterPageDecoding() throws {
+        // Given
+        let data = MockResponses.charactersFirstPageResponse.data(using: .utf8)!
+        // When
+        // Then
+        XCTAssertNoThrow(try JSONDecoder().decode(RMResponse<RMCharacter>.self, from: data))
+    }
 
     private func getData() -> Data {
         

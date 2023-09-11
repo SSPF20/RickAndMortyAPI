@@ -36,6 +36,7 @@
 		76AD942A2A4E3F80000132AD /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AD94292A4E3F80000132AD /* Coordinator.swift */; };
 		76BA87332AAE7B6D0082572C /* IntegerExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BA87322AAE7B6D0082572C /* IntegerExtractor.swift */; };
 		76BA87432AAE80620082572C /* IntegerExtractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BA87422AAE80620082572C /* IntegerExtractorTests.swift */; };
+		76BA87462AAEA1C60082572C /* MockResponses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76BA87452AAEA1C60082572C /* MockResponses.swift */; };
 		831124E82A5E5B8C003BB1A5 /* RMEpisodeConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831124E72A5E5B8C003BB1A5 /* RMEpisodeConfiguration.swift */; };
 		831124EA2A5E5BA8003BB1A5 /* RMEpisodeHorizontalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831124E92A5E5BA8003BB1A5 /* RMEpisodeHorizontalCell.swift */; };
 		831124EC2A5E5BC3003BB1A5 /* RMEpisodeCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831124EB2A5E5BC3003BB1A5 /* RMEpisodeCellViewModel.swift */; };
@@ -85,6 +86,7 @@
 		76BA87322AAE7B6D0082572C /* IntegerExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegerExtractor.swift; sourceTree = "<group>"; };
 		76BA87382AAE7FEA0082572C /* RickAndMortyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RickAndMortyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		76BA87422AAE80620082572C /* IntegerExtractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegerExtractorTests.swift; sourceTree = "<group>"; };
+		76BA87452AAEA1C60082572C /* MockResponses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockResponses.swift; sourceTree = "<group>"; };
 		831124E72A5E5B8C003BB1A5 /* RMEpisodeConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMEpisodeConfiguration.swift; sourceTree = "<group>"; };
 		831124E92A5E5BA8003BB1A5 /* RMEpisodeHorizontalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMEpisodeHorizontalCell.swift; sourceTree = "<group>"; };
 		831124EB2A5E5BC3003BB1A5 /* RMEpisodeCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMEpisodeCellViewModel.swift; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 		76BA87392AAE7FEA0082572C /* RickAndMortyTests */ = {
 			isa = PBXGroup;
 			children = (
+				76BA87442AAEA1B00082572C /* MockResponses */,
 				76BA87412AAE80410082572C /* Models */,
 			);
 			path = RickAndMortyTests;
@@ -269,6 +272,14 @@
 				76BA87422AAE80620082572C /* IntegerExtractorTests.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		76BA87442AAEA1B00082572C /* MockResponses */ = {
+			isa = PBXGroup;
+			children = (
+				76BA87452AAEA1C60082572C /* MockResponses.swift */,
+			);
+			path = MockResponses;
 			sourceTree = "<group>";
 		};
 		831124E62A5E5B69003BB1A5 /* RMEpisodeList */ = {
@@ -424,6 +435,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				76BA87462AAEA1C60082572C /* MockResponses.swift in Sources */,
 				76BA87432AAE80620082572C /* IntegerExtractorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
