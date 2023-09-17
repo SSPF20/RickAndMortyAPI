@@ -56,7 +56,7 @@ final class RMListViewModel<A: Decodable, B: Configuration> {
     }
     
     func loadNextPage() {
-        guard let nextPage = currentInfo?.next?.urlID else {
+        guard let nextPage = currentInfo?.next else {
             return
         }
         
