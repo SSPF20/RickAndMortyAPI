@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class FooterView: UICollectionReusableView {
+final class FooterSpinnerView: UICollectionReusableView {
     
     static let identifier = "FooterView"
     

@@ -9,26 +9,24 @@ import Foundation
 import UIKit
 
 extension String {
-    
     var urlID: Int? {
-        let urlComponents = self.split(separator: "/")
-        if let lastComponent = urlComponents.last, !lastComponent.isEmpty {
-            let stringId = String(lastComponent)
-            return Int(stringId)
+        if self.contains("?page=") {
+            guard let value = self.split(separator: "=").last,
+                  let intID = Int(value) else {
+                return nil
+            }
+            return intID
+        } else {
+            let urlComponents = self.split(separator: "/")
+            guard let lastComponent = urlComponents.last,
+                  let intID = Int(String(lastComponent)) else {
+                return nil
+            }
+            return intID
         }
-        return nil
     }
     
-    var pageNumber: Int? {
-        let arrayString = self.split(separator: "=")
-        guard let lastCharacter = arrayString.last, !lastCharacter.isEmpty, let toInt = Int(lastCharacter) else {
-           return nil
-        }
-        return toInt
-    }
-
     func attributedTitleValue(with value: String) -> NSAttributedString {
-        
         let keyAttributes = [
             NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline),
             NSAttributedString.Key.foregroundColor: UIColor.black
@@ -48,5 +46,5 @@ extension String {
         resultAttributedString.append(valueAttributedString)
         
         return resultAttributedString
-     }
+    }
 }

@@ -43,8 +43,10 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
     private var actionCancellable: AnyCancellable?
     var isPaginating = false
     
+    weak var navBarCoordinator: Coordinator?
+    
     private var layout: UICollectionViewLayout {
-
+        
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(viewModel.estimatedHeightForItem))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(viewModel.estimatedHeightForItem))
@@ -114,14 +116,29 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
             }
     }
     
-}
 
+    //MARK: - UICollectionViewDelegate
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard let action = viewModel.clickableActionFor(indexPath: indexPath) else {
+            assert(false, "clickable action was not found in indexPath \(indexPath)")
+            return
+        }
+        
+        switch action {
+        case .presentVC(let viewController):
+            navBarCoordinator?.presentViewController(viewController: viewController)
+        case.pushVC(let viewContoller):
+            navBarCoordinator?.pushViewController(viewController: viewContoller)
+        }
+    }
+}
 // MARK: - CollectionView
 extension RMListViewController {
     
     private func setupCollectionView() {
         collectionView.register(viewModel.cellType, forCellWithReuseIdentifier: viewModel.reuseID)
-        collectionView.register(FooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: FooterView.identifier)
+        collectionView.register(FooterSpinnerView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: FooterSpinnerView.identifier)
         collectionView.backgroundColor = .systemGray4
         dataSource = RMListDataSource(collectionView: collectionView, cellProvider: { [weak self] collectionView, indexPath, itemIdentifier in
             self?.cellProvider(collectionView, indexPath, itemIdentifier)
@@ -129,17 +146,18 @@ extension RMListViewController {
         dataSource.supplementaryViewProvider = { [weak self] collectionView, kind, indexPath in
             
             if ((self?.viewModel.fetching) != nil) {
-                guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: FooterView.identifier, for: indexPath) as? FooterView else {
+                guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: FooterSpinnerView.identifier, for: indexPath) as? FooterSpinnerView else {
                     assertionFailure("Error")
                     fatalError()
                 }
                 footer.toggleSpinner(isUpdating: self?.isPaginating ?? false )
                 return footer
             } else {
-                return UIView() as? UICollectionReusableView 
+                return nil
             }
             
         }
+        collectionView.delegate = self
     }
     
     private func cellProvider(_ collectionView: UICollectionView,_ indexPath: IndexPath,_ itemIdentifier: RMItemCellViewModel) -> UICollectionViewCell? {

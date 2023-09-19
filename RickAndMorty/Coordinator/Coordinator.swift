@@ -7,12 +7,45 @@
 
 import UIKit
 
-final class Coordinator {
+protocol Coordinator: AnyObject {
+    var rootViewController: UIViewController { get }
+    func presentViewController(viewController: UIViewController)
+    func pushViewController(viewController: UIViewController)
+}
+
+final class NavControllerCoordinator: Coordinator {
+    
+    let navigationController: UINavigationController
+    weak var coordinator: DefaultTabControllerCoordinator?
+    
+    var rootViewController: UIViewController {
+        navigationController
+    }
+    
+    init(navigationController: UINavigationController, coordinator: DefaultTabControllerCoordinator?) {
+        self.navigationController = navigationController
+        self.coordinator = coordinator
+    }
+    
+    func presentViewController(viewController: UIViewController) {
+        navigationController.present(viewController, animated: true)
+    }
+    
+    func pushViewController(viewController: UIViewController) {
+        navigationController.pushViewController(viewController, animated: true)
+    }
+}
+
+final class DefaultTabControllerCoordinator {
     
     private let tabBarController: UITabBarController
+    private var charactersCoordinator: Coordinator?
+    private var locationsCoordinator: Coordinator?
+    private var episodesCoordinator: Coordinator?
     
     init(tabBarController: UITabBarController = UITabBarController()) {
         self.tabBarController = tabBarController
+        setupTabBar()
         setupViewControllers()
     }
     
@@ -32,28 +65,50 @@ final class Coordinator {
         let episodeViewModel = RMListViewModel<RMEpisode, RMEpisodeConfiguration>(dataProvider: episodeDataProvider)
         let episodesViewController = RMListViewController(viewModel: episodeViewModel)
         
-        tabBarController.viewControllers = [setNavigationController(for: charactersViewController,
-                                    title: NSLocalizedString("Characters", comment: ""),
-                                    image: UIImage(systemName: "person.circle.fill")),
-            setNavigationController(for: locationsViewController,
-                                    title: NSLocalizedString("Locations", comment: ""),
-                                    image: UIImage(systemName: "location.fill")),
-            setNavigationController(for: episodesViewController,
-                                    title: "Episodes",
-                                    image: UIImage(systemName: "tv.fill"))]
+        charactersCoordinator = getCoordinator(for: charactersViewController,
+                                               title: NSLocalizedString("Characters", comment: ""),
+                                               image: UIImage(systemName: "person.circle.fill"))
+        locationsCoordinator = getCoordinator(for: locationsViewController,
+                                              title: NSLocalizedString("Locations", comment: ""),
+                                              image: UIImage(systemName: "location.fill"))
+        episodesCoordinator = getCoordinator(for: episodesViewController,
+                                             title: NSLocalizedString("Episodes", comment: ""),
+                                             image: UIImage(systemName: "tv.fill"))
+        
+        guard let charactersCoordinator, let locationsCoordinator, let episodesCoordinator else {
+            return
+        }
+        
+        tabBarController.viewControllers = [
+            charactersCoordinator.rootViewController,
+            locationsCoordinator.rootViewController,
+            episodesCoordinator.rootViewController
+        ]
     }
     
     func getRootViewController() -> UIViewController {
         tabBarController
     }
     
-    private func setNavigationController(for rootViewController: UIViewController, title: String, image: UIImage?) -> UIViewController {
+    private func getCoordinator<A,B>(for rootViewController: RMListViewController<A,B>, title: String, image: UIImage?) -> Coordinator {
         
         let navController = UINavigationController(rootViewController: rootViewController)
         navController.tabBarItem.title = title
         navController.tabBarItem.image = image
         navController.navigationBar.prefersLargeTitles = true
         rootViewController.navigationItem.title = title
-        return navController
+        let navCoordinator = NavControllerCoordinator(navigationController: navController,
+                                                      coordinator: self)
+        rootViewController.navBarCoordinator = navCoordinator
+        return navCoordinator
+    }
+    
+    private func setupTabBar() {
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.configureWithOpaqueBackground()
+        tabBarAppearance.backgroundColor = .systemBackground
+        tabBarController.tabBar.tintColor = .systemGreen
+        tabBarController.tabBar.standardAppearance = tabBarAppearance
+        tabBarController.tabBar.scrollEdgeAppearance = tabBarAppearance
     }
 }
