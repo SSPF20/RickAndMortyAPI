@@ -41,7 +41,6 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
     private var dataSource: RMListDataSource!
     private let viewModel: RMListViewModel<A, B>
     private var actionCancellable: AnyCancellable?
-    //var isPaginating = false
     
     weak var navBarCoordinator: Coordinator?
     
