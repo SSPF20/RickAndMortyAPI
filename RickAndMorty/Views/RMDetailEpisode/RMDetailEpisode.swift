@@ -42,5 +42,5 @@ struct RMDetailEpisode: View {
 }
 
 #Preview ("RMDetailEpisode"){
-    RMDetailEpisode(viewModel: .init(episode: .init(id: 1, name: "first Episode", airDate: "2023", episode: "233", characterIds: [1], url: "", created: Date())))
+    RMDetailEpisode(viewModel: .init(episode: .init(id: 1, name: "first Episode", airDate: "2023", episode: "233", characters: [1], url: "", created: Date())))
 }

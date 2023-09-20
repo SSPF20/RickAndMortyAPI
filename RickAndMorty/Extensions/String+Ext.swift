@@ -10,12 +10,20 @@ import UIKit
 
 extension String {
     var urlID: Int? {
-        let urlComponents = self.split(separator: "/")
-        if let lastComponent = urlComponents.last, !lastComponent.isEmpty {
-            let stringId = String(lastComponent)
-            return Int(stringId)
+        if self.contains("?page=") {
+            guard let value = self.split(separator: "=").last,
+                  let intID = Int(value) else {
+                return nil
+            }
+            return intID
+        } else {
+            let urlComponents = self.split(separator: "/")
+            guard let lastComponent = urlComponents.last,
+                  let intID = Int(String(lastComponent)) else {
+                return nil
+            }
+            return intID
         }
-        return nil
     }
     
     var pageNumber: Int? {

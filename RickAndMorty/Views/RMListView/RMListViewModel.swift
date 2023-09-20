@@ -29,9 +29,7 @@ final class RMListViewModel<A: Decodable, B: Configuration> {
     private var currentInfo: RMResponse<A>.RMResponseInfo?
     
     private let dataProvider: RMDataProvider<A, B>
-    
-    var fetching: Bool = false
-    
+        
     var RMListViewModelActionPublisher: AnyPublisher<RMListViewModelAction, Never> {
         RMListViewModelActionSubject.eraseToAnyPublisher()
     }
@@ -56,22 +54,7 @@ final class RMListViewModel<A: Decodable, B: Configuration> {
     func start() {
         loadPage(page: 1)
     }
-    
-    func loadNextPage() {
-        if fetching {
-            
-            guard let nextPage = currentInfo?.next?.pageNumber else {
-                return
-            }
-            fetching = false
-            loadPage(page: nextPage)
 
-        } else {
-            assert(fetching == false, "Paginando")
-        }
-       
-    }
-    
     func itemsToCount(indexPath: IndexPath) -> Int {
         
         return elements[indexPath.section].count
@@ -79,20 +62,16 @@ final class RMListViewModel<A: Decodable, B: Configuration> {
     }
     
     private func loadPage(page: Int) {
-        if fetching == false {
-            Task {
-                    do {
-                        let response = try await dataProvider.getPage(page: page)
-                        fetching = true
-                        elements.append(response.results)
-                        currentInfo = response.info
-                        
-                    } catch {
-                        print("LoadPage error \(String(describing: error))")
-                    }
-                }
+        Task {
+            do {
+                let response = try await dataProvider.getPage(page: page)
+                elements.append(response.results)
+                currentInfo = response.info
+                
+            } catch {
+                print("LoadPage error \(String(describing: error))")
+            }
         }
-        
     }
     
     private func createSnapshot() {

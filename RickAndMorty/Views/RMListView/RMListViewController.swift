@@ -41,7 +41,7 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
     private var dataSource: RMListDataSource!
     private let viewModel: RMListViewModel<A, B>
     private var actionCancellable: AnyCancellable?
-    var isPaginating = false
+    //var isPaginating = false
     
     weak var navBarCoordinator: Coordinator?
     
@@ -53,9 +53,6 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 10
-        let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(44))
-        let footer = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: footerSize, elementKind: UICollectionView.elementKindSectionFooter, alignment: .bottom)
-        section.boundarySupplementaryItems = [footer]
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }
@@ -104,17 +101,6 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
                 }
             }
     }
-    
-    //extension
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-            let height = scrollView.contentOffset.y
-            if height > (collectionView.contentSize.height) - scrollView.frame.size.height - 150 {
-                isPaginating = true
-                viewModel.loadNextPage()
-                isPaginating = false
-            }
-    }
 
     //MARK: - UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -138,29 +124,10 @@ extension RMListViewController {
     
     private func setupCollectionView() {
         collectionView.register(viewModel.cellType, forCellWithReuseIdentifier: viewModel.reuseID)
-        collectionView.register(FooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: FooterView.identifier)
         collectionView.backgroundColor = .systemGray4
         dataSource = RMListDataSource(collectionView: collectionView, cellProvider: { [weak self] collectionView, indexPath, itemIdentifier in
             self?.cellProvider(collectionView, indexPath, itemIdentifier)
         })
-
-        dataSource.supplementaryViewProvider = { [weak self] collectionView, kind, indexPath in
-            guard let weakSelf = self else {
-                return nil
-            }
-            if weakSelf.viewModel.fetching {
-                guard let footer = self?.collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: FooterView.identifier, for: indexPath) as? FooterView else {
-                    assertionFailure("Error")
-                    return nil
-                }
-                footer.toggleSpinner(isUpdating: self?.isPaginating ?? false )
-                return footer
-            } else {
-                return nil
-            }
-            
-        }
-        
         collectionView.delegate = self
     }
     
