@@ -10,6 +10,7 @@ import SwiftUI
 struct RMDetailEpisode: View {
     
     var viewModel : DetailEpisodeViewModel
+    let gridItems = [GridItem(.flexible(minimum: 100, maximum: 200))]
     
     var body: some View {
         VStack (alignment: .center, spacing: 10) {
@@ -35,7 +36,11 @@ struct RMDetailEpisode: View {
                 .font(.largeTitle)
                 .padding()
             Spacer()
-            gridEpisodeUI().clipShape(.rect, style: FillStyle())
+            ScrollView {
+                LazyVGrid(columns: gridItems, content: {
+                    //TODO: Add character's cell
+                })
+            }.frame(width: 350, height: nil).shadow(radius: 20).padding(10)
         }.background(Color .white).padding()
         
     }
