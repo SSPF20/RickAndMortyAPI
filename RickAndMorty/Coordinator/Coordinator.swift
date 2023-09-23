@@ -42,11 +42,43 @@ final class DefaultTabControllerCoordinator {
     private var charactersCoordinator: Coordinator?
     private var locationsCoordinator: Coordinator?
     private var episodesCoordinator: Coordinator?
+    private let window: UIWindow?
     
-    init(tabBarController: UITabBarController = UITabBarController()) {
+    init(tabBarController: UITabBarController = UITabBarController(), window: UIWindow?) {
         self.tabBarController = tabBarController
-        setupTabBar()
-        setupViewControllers()
+        self.window = window
+        initialAnimation()
+    }
+    
+    private func initialAnimation() {
+            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
+            imageView.image = UIImage(named: "logorm")
+            guard let window = window else { return }
+            imageView.center = window.center
+            window.addSubview(imageView)
+            window.backgroundColor = .white
+            
+            UIView.animate(withDuration: 1) {
+                let size = imageView.frame.width * 3.5
+                let diffx = window.frame.width - size
+                let diffy = window.frame.height - size
+                print(window.frame.width, window.frame.height, diffx, diffy)
+                imageView.frame = CGRect(
+                    x: diffx/2,
+                    y: diffy/2,
+                    width: size,
+                    height: size)
+                imageView.alpha = 0
+            } completion: { [weak self] done in
+                if done {
+                    self?.setupView()
+                }
+            }
+        }
+    
+    private func setupView() {
+            setupTabBar()
+            setupViewControllers()
     }
     
     private func setupViewControllers() {
