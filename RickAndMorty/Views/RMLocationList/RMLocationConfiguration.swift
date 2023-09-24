@@ -34,6 +34,14 @@ struct RMLocationConfiguration: Configuration {
         return viewModel
     }
     
+    func getClickableAction<T>(for entity: T) -> ClickableAction? where T : Decodable {
+        guard let location = entity as? RMLocation else {
+            return nil
+        }
+        
+        // TODO: Implement the entityViews to manage the RMHostingController here
+        return nil
+    }
     
     
 }

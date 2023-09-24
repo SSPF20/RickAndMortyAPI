@@ -9,6 +9,11 @@ import Foundation
 import UIKit
 import Combine
 
+enum ClickableAction {
+    case pushVC(UIViewController)
+    case presentVC(UIViewController)
+}
+
 @MainActor
 final class RMListViewModel<A: Decodable, B: Configuration> {
     
@@ -51,7 +56,7 @@ final class RMListViewModel<A: Decodable, B: Configuration> {
     }
     
     func loadNextPage() {
-        guard let nextPage = currentInfo?.next?.urlID else {
+        guard let nextPage = currentInfo?.next else {
             return
         }
         
@@ -87,4 +92,11 @@ final class RMListViewModel<A: Decodable, B: Configuration> {
         RMListViewModelActionSubject.send(.setSnapshot(snapshot))
     }
     
+    func clickableActionFor(indexPath: IndexPath) -> ClickableAction? {
+        
+        let entity = elements[indexPath.section][indexPath.row]
+        let action = dataProvider.entity.configuration.getClickableAction(for: entity)
+        
+        return action
+    }
 }
