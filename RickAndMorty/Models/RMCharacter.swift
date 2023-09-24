@@ -10,23 +10,13 @@ import UIKit
 import SwiftUI
 
 struct LocationBasic: Decodable {
+    
+    @OptionalIntegerExtractor var id: Int?
     let name: String
-    let id: Int
     
     enum CodingKeys: String, CodingKey {
-        case url, name
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        let url = try container.decode(String.self, forKey: .url)
-        name = try container.decode(String.self, forKey: .name)
-        id = url.urlID ?? -1
-    }
-    
-    init(id: Int, name: String) {
-        self.id = id
-        self.name = name
+        case id = "url"
+        case name
     }
 }
 
@@ -73,23 +63,5 @@ struct RMCharacter: Decodable  {
     let origin: LocationBasic
     let location: LocationBasic
     let image: String
-    let episode: [String]
+    @IntegerArrayExtractor var episode: [Int]
 }
-
-//extension RMCharacter: RMEntity {
-//    static var reuseID: String {
-//        "RMCharacterHorizontalCell"
-//    }
-//    
-//    static var cellHorizontalType: RMItemCell.Type {
-//        RMCharacterHorizontalCell.self
-//    }
-//    
-//    func getViewModel() -> RMItemCellViewModel {
-//        RMCharacterCellViewModel(character: self)
-//    }
-//    
-//    static func endpointForPage(page: Int) -> RMEndpoint {
-//        RMCharacterEndpoint.characterPage(page)
-//    }
-//}

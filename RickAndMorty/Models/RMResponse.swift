@@ -11,8 +11,8 @@ struct RMResponse<T: Decodable>: Decodable {
     struct RMResponseInfo: Decodable {
         let count: Int
         let pages: Int
-        let next: String?
-        let prev: String?
+        @OptionalIntegerExtractor var next: Int?
+        @OptionalIntegerExtractor var prev: Int?
     }
     
     let info: RMResponseInfo
