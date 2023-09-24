@@ -24,13 +24,15 @@ struct RMLocationDetailView: View {
             }
             .padding([.leading, .top])
             VStack {
-                Rectangle()
-                    .frame(width: 320, height: 5)
+                Divider()
+                    .frame(height: 5)
+                    .overlay(.primary)
+                    .cornerRadius(10)
                     .padding()
                 Text(NSLocalizedString("Characters", comment: ""))
                     .font(.largeTitle)
                     .fontWeight(.bold)
-                    Spacer(minLength: 10)
+                Spacer(minLength: 10)
                 LazyVGrid(columns: colums, content: {
                     ForEach(viewModel.residentsId, id: \.self) { id in
                         RMCharacterCardView(viewModel: .init(id: id))

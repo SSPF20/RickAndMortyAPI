@@ -18,14 +18,14 @@ struct RMCharacterCardView: View {
                 WebImage(url: viewModel.imageURL)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                ZStack() {
-                    Text(viewModel.name)
-                        .foregroundStyle(.primary)
-                        .font(.subheadline)
-                        .fixedSize(horizontal: false, vertical: true)
-                        .lineLimit(3...5)
-                        .multilineTextAlignment(.center)
-                }
+                
+                Text(viewModel.name)
+                    .foregroundStyle(.primary)
+                    .font(.subheadline)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .lineLimit(3...5)
+                    .multilineTextAlignment(.center)
+                
             }
             .border(.black)
             .cornerRadius(3)
@@ -34,6 +34,9 @@ struct RMCharacterCardView: View {
     }
 }
 
-#Preview {
-    RMCharacterCardView(viewModel: .init(id: 1))
+struct RMCharacterCardViewPreviews: PreviewProvider {
+    
+    static var previews: some View {
+        RMCharacterCardView(viewModel: .init(id: 1))
+    }
 }

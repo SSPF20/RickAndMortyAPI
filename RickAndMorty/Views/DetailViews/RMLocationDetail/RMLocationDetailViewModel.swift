@@ -11,7 +11,7 @@ import Observation
 @Observable
 final class RMLocationDetailViewModel {
     
-    let location: RMLocation
+    private let location: RMLocation
     
     init(location: RMLocation) {
         self.location = location

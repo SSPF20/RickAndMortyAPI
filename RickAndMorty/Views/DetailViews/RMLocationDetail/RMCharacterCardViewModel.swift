@@ -29,6 +29,7 @@ final class RMCharacterCardViewModel {
                 let character: RMCharacter = try await networkFetcher.fetch(endpoint: endpoint)
                 self.character = character
             } catch {
+                // TODO: When this error happens, it should appear a allert with the a refresh action button
                 assert(false, String(describing: error))
             }
         }
