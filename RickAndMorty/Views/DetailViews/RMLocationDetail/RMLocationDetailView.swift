@@ -63,6 +63,6 @@ struct RMLocationDetailView: View {
     RMLocationDetailView(viewModel: .init(location: .init(id: 1,
                                                           name: "Earth",
                                                           type: "Planet",
-                                                          dimension: "Dimension C-137",
-                                                          residents: [])))
+                                                          dimension: "Dimension C-137"
+                                                         )))
 }
