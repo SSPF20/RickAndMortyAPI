@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 import Combine
 
-
 enum ClickableAction {
     case pushVC(UIViewController)
     case presentVC(UIViewController)
@@ -69,11 +68,10 @@ final class RMListViewModel<A: Decodable, B: Configuration> {
 
         } else {
             assert(fetching == false, "Paginando")
-            
-        guard let nextPage = currentInfo?.next else {
-            return
+            guard let nextPage = currentInfo?.next else {
+                return
 
-        }
+            }
        
     }
     

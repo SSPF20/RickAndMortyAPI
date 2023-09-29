@@ -225,12 +225,9 @@
 		768923F02A3547CA00766308 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
 				83F78A9E2A7A1F9500FD3BCD /* Footer */,
-=======
 				35EBC6E52A995F3300C694CD /* Cards */,
 				356454592A93F21400C6A164 /* DetailViews */,
->>>>>>> main
 				831124E62A5E5B69003BB1A5 /* RMEpisodeList */,
 				7689240B2A369F1400766308 /* RMListView */,
 				768EEF4E2A37E2D600B6C2BF /* RMCharacterList */,
@@ -475,11 +472,8 @@
 				7689240D2A369F2C00766308 /* RMListViewController.swift in Sources */,
 				768923FF2A35550C00766308 /* NetworkFetcher.swift in Sources */,
 				768923DD2A35477000766308 /* AppDelegate.swift in Sources */,
-<<<<<<< HEAD
 				83F78AA02A7A1FC200FD3BCD /* FooterSpinnerView.swift in Sources */,
-=======
 				3564545E2A93FC6700C6A164 /* RMCharacterDetailViewModel.swift in Sources */,
->>>>>>> main
 				76AD942A2A4E3F80000132AD /* Coordinator.swift in Sources */,
 				76BA87332AAE7B6D0082572C /* IntegerExtractor.swift in Sources */,
 				357305CB2A4E51B0005BCD5F /* RMLocationHorizontalCell.swift in Sources */,

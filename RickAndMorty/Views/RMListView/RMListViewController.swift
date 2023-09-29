@@ -45,6 +45,8 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
     
     weak var navBarCoordinator: Coordinator?
     
+    weak var navBarCoordinator: Coordinator?
+    
     private var layout: UICollectionViewLayout {
         
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(viewModel.estimatedHeightForItem))
@@ -116,7 +118,6 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
             }
     }
     
-
     //MARK: - UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
@@ -157,6 +158,7 @@ extension RMListViewController {
             }
             
         }
+
         collectionView.delegate = self
     }
     
