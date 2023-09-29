@@ -19,6 +19,7 @@ struct RMDetailEpisode: View {
                     Text(NSLocalizedString("Name: \(viewModel.name)", comment: ""))
                         .padding()
                         .font(.title3)
+                        .fixedSize(horizontal: false, vertical: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
                     Text(NSLocalizedString("Air date: \(viewModel.airDate)", comment: ""))
                         .padding()
                         .font(.title3)

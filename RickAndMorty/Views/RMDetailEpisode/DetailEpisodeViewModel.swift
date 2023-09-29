@@ -6,9 +6,8 @@
 //
 
 import Foundation
-import Observation
 
-final class DetailEpisodeViewModel: RMItemCellViewModel, ObservableObject {
+final class DetailEpisodeViewModel: RMItemCellViewModel {
     
     let episode: RMEpisode
     
