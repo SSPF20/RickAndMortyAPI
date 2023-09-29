@@ -60,30 +60,31 @@ final class RMListViewModel<A: Decodable, B: Configuration> {
     func loadNextPage() {
         if fetching {
             
-            guard let nextPage = currentInfo?.next?.pageNumber else {
+            guard let nextPage = currentInfo?.next else {
                 return
             }
             fetching = false
             loadPage(page: nextPage)
-
+            
         } else {
             assert(fetching == false, "Paginando")
             guard let nextPage = currentInfo?.next else {
                 return
-
+                
             }
-       
+            
+        }
     }
-    
-    func itemsToCount(indexPath: IndexPath) -> Int {
         
-        return elements[indexPath.section].count
+        func itemsToCount(indexPath: IndexPath) -> Int {
+            
+            return elements[indexPath.section].count
+            
+        }
         
-    }
-    
-    private func loadPage(page: Int) {
-        if fetching == false {
-            Task {
+        private func loadPage(page: Int) {
+            if fetching == false {
+                Task {
                     do {
                         let response = try await dataProvider.getPage(page: page)
                         fetching = true
@@ -94,31 +95,32 @@ final class RMListViewModel<A: Decodable, B: Configuration> {
                         print("LoadPage error \(String(describing: error))")
                     }
                 }
+            }
+            
         }
         
+        private func createSnapshot() {
+            
+            var snapshot = RMListSnapshot()
+            var sections = [Int]()
+            for i in 0..<elements.count {
+                sections.append(i)
+            }
+            snapshot.appendSections(sections)
+            
+            for i in sections {
+                let viewModels = elements[i].compactMap { dataProvider.entity.configuration.getCellViewModelForEntity(entity: $0) }
+                snapshot.appendItems(viewModels, toSection: i)
+            }
+            RMListViewModelActionSubject.send(.setSnapshot(snapshot))
+        }
+        
+        func clickableActionFor(indexPath: IndexPath) -> ClickableAction? {
+            
+            let entity = elements[indexPath.section][indexPath.row]
+            let action = dataProvider.entity.configuration.getClickableAction(for: entity)
+            
+            return action
+        }
     }
     
-    private func createSnapshot() {
-        
-        var snapshot = RMListSnapshot()
-        var sections = [Int]()
-        for i in 0..<elements.count {
-            sections.append(i)
-        }
-        snapshot.appendSections(sections)
-        
-        for i in sections {
-            let viewModels = elements[i].compactMap { dataProvider.entity.configuration.getCellViewModelForEntity(entity: $0) }
-            snapshot.appendItems(viewModels, toSection: i)
-        }
-        RMListViewModelActionSubject.send(.setSnapshot(snapshot))
-    }
-    
-    func clickableActionFor(indexPath: IndexPath) -> ClickableAction? {
-        
-        let entity = elements[indexPath.section][indexPath.row]
-        let action = dataProvider.entity.configuration.getClickableAction(for: entity)
-        
-        return action
-    }
-}

@@ -42,9 +42,7 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
     private let viewModel: RMListViewModel<A, B>
     private var actionCancellable: AnyCancellable?
     var isPaginating = false
-    
-    weak var navBarCoordinator: Coordinator?
-    
+        
     weak var navBarCoordinator: Coordinator?
     
     private var layout: UICollectionViewLayout {
