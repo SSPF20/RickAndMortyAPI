@@ -39,8 +39,11 @@ struct RMLocationConfiguration: Configuration {
             return nil
         }
         
-        // TODO: Implement the entityViews to manage the RMHostingController here
-        return nil
+        let viewModel = RMLocationDetailViewModel(location: location)
+        let view = RMLocationDetailView(viewModel: viewModel)
+        let viewController = RMHostingController(entityDetailView: view)
+        
+        return .pushVC(viewController)
     }
     
     

@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct EpisodeCardView: View {
+struct RMEpisodeCardView: View {
     
-    var viewModel: EpisodeCardViewModel
+    var viewModel: RMEpisodeCardViewModel
     
     var body: some View {
         
@@ -26,6 +26,6 @@ struct EpisodeCardView: View {
 
 struct EpisodeCardView_Preview: PreviewProvider {
     static var previews: some View {
-        EpisodeCardView(viewModel: EpisodeCardViewModel.init(id: 1))
+        RMEpisodeCardView(viewModel: RMEpisodeCardViewModel.init(id: 1))
     }
 }
