@@ -138,23 +138,32 @@ extension RMListViewController {
     private func setupCollectionView() {
         collectionView.register(viewModel.cellType, forCellWithReuseIdentifier: viewModel.reuseID)
         collectionView.register(FooterSpinnerView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: FooterSpinnerView.identifier)
+        collectionView.register(FooterPageView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: FooterPageView.identifier)
         collectionView.backgroundColor = .systemGray4
         dataSource = RMListDataSource(collectionView: collectionView, cellProvider: { [weak self] collectionView, indexPath, itemIdentifier in
             self?.cellProvider(collectionView, indexPath, itemIdentifier)
         })
         dataSource.supplementaryViewProvider = { [weak self] collectionView, kind, indexPath in
             
-            if ((self?.viewModel.fetching) != nil) {
-                guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: FooterSpinnerView.identifier, for: indexPath) as? FooterSpinnerView else {
-                    assertionFailure("Error")
-                    fatalError()
+            if let _ =  self?.viewModel.fetching  {
+                if ((self?.isPaginating)!) {
+                    guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: FooterSpinnerView.identifier, for: indexPath) as? FooterSpinnerView else {
+                        assertionFailure("Error")
+                        fatalError()
+                    }
+                    footer.toggleSpinner(isUpdating: self?.isPaginating ?? false )
+                    return footer
+                    
+                } else {
+                    guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: FooterPageView.identifier, for: indexPath) as? FooterPageView else {
+                        assertionFailure("Error")
+                        fatalError()
+                    }
+                    footer.incrementPageNumber()
+                    return footer
                 }
-                footer.toggleSpinner(isUpdating: self?.isPaginating ?? false )
-                return footer
-            } else {
-                return nil
             }
-            
+            return nil
         }
 
         collectionView.delegate = self
