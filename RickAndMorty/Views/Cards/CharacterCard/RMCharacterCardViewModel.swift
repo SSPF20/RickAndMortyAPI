@@ -36,7 +36,7 @@ final class RMCharacterCardViewModel {
     }
     
     var name: String {
-        character?.name ?? "error"
+        character?.name ?? ""
     }
     
     var imageURL: URL? {

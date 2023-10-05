@@ -30,6 +30,6 @@ final class RMLocationDetailViewModel {
     }
     
     var residentsId: [Int] {
-        location.residents.compactMap {$0.description.urlID}
+        location.residents
     }
 }

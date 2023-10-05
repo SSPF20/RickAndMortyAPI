@@ -59,12 +59,14 @@ enum RMEpisodeEndpoint: RMEndpoint {
     static let domain = "https://rickandmortyapi.com/api/"
     
     case episodePage(Int)
+    case episodeById(Int)
     
     private var urlString: String {
         switch self {
         case .episodePage(let page):
             return Self.domain + "episode/?page=\(page)"
-
+        case .episodeById(let id):
+            return Self.domain + "episode/\(id)"
         }
     }
     
