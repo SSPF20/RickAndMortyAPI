@@ -192,13 +192,6 @@
 			path = EpisodeCard;
 			sourceTree = "<group>";
 		};
-		35EBC7012AA29CE100C694CD /* DetailViews */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = DetailViews;
-			sourceTree = "<group>";
-		};
 		35EBC7022AA29CE900C694CD /* RMLocationDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -259,7 +252,6 @@
 			children = (
 				35EBC6E52A995F3300C694CD /* Cards */,
 				356454592A93F21400C6A164 /* DetailViews */,
-				35EBC7012AA29CE100C694CD /* DetailViews */,
 				831124E62A5E5B69003BB1A5 /* RMEpisodeList */,
 				7689240B2A369F1400766308 /* RMListView */,
 				768EEF4E2A37E2D600B6C2BF /* RMCharacterList */,
