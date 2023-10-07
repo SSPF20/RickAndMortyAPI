@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 
 struct RMEpisodeConfiguration: Configuration {
@@ -14,7 +15,6 @@ struct RMEpisodeConfiguration: Configuration {
         return  100.0
 
     }
-    
     
     var cellHorizontalType: RMItemCell.Type {
         RMEpisodeHorizontalCell.self
@@ -41,8 +41,10 @@ struct RMEpisodeConfiguration: Configuration {
         guard let episode = entity as? RMEpisode else {
             return nil
         }
-        
+        let viewModel = DetailEpisodeViewModel(episode: episode)
+        let view = RMDetailEpisode(viewModel: viewModel)
+        let viewController = RMHostingController(navBarConfiguration: .init(prefersLargeTitles: true, tintColor: .black, backIconSystemName: "three.by.three.badge.plus", title: "Episode Detail"), entityDetailView: view)
         // TODO: Implement the entityViews to manage the RMHostingController here
-        return nil
+        return .pushVC(viewController)
     }
 }

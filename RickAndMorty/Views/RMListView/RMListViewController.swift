@@ -36,13 +36,12 @@ typealias RMListDataSource = UICollectionViewDiffableDataSource<Int, RMItemCellV
 typealias RMListSnapshot = NSDiffableDataSourceSnapshot<Int, RMItemCellViewModel>
 
 final class RMListViewController<A: Decodable, B: Configuration>: UIViewController, UIScrollViewDelegate, UICollectionViewDelegate {
-    
     private var collectionView: UICollectionView!
     private var dataSource: RMListDataSource!
     private let viewModel: RMListViewModel<A, B>
     private var actionCancellable: AnyCancellable?
     var isPaginating = false
-        
+
     weak var navBarCoordinator: Coordinator?
     
     private var layout: UICollectionViewLayout {
@@ -53,9 +52,6 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 10
-        let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(44))
-        let footer = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: footerSize, elementKind: UICollectionView.elementKindSectionFooter, alignment: .bottom)
-        section.boundarySupplementaryItems = [footer]
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }
@@ -104,7 +100,6 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
                 }
             }
     }
-    
     //extension
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
@@ -143,6 +138,7 @@ extension RMListViewController {
         dataSource = RMListDataSource(collectionView: collectionView, cellProvider: { [weak self] collectionView, indexPath, itemIdentifier in
             self?.cellProvider(collectionView, indexPath, itemIdentifier)
         })
+        
         dataSource.supplementaryViewProvider = { [weak self] collectionView, kind, indexPath in
             
             if let _ =  self?.viewModel.fetching  {
@@ -165,7 +161,6 @@ extension RMListViewController {
             }
             return nil
         }
-
         collectionView.delegate = self
     }
     
