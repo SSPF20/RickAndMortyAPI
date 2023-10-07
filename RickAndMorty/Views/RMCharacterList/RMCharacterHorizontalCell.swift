@@ -17,7 +17,6 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
     private var lastLocationLabel = UILabel()
     private var locationLabel = UILabel()
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -35,14 +34,17 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
     }
     
     override func prepareForReuse() {
-        characterImage.image = nil
+        
+        characterImage.image = UIImage(systemName: "square")
         specieView.prepareForReuse()
         statusView.prepareForReuse()
         nameLabel.text = nil
         locationLabel.text = nil
+        
     }
     
     func setup(viewModel: RMItemCellViewModel) {
+        
         guard let viewModel = viewModel as? RMCharacterCellViewModel else {
             return
         }
@@ -98,6 +100,7 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
     }
         
     private func addNameLabel() {
+        
         container.addSubview(nameLabel)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -109,9 +112,11 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
         nameLabel.font = UIFont.preferredFont(forTextStyle: .headline)
         nameLabel.setContentCompressionResistancePriority(.required, for: .vertical)
         nameLabel.setContentHuggingPriority(.required, for: .vertical)
+        
     }
     
     private func addStatusView() {
+        
         container.addSubview(statusView)
         statusView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -123,6 +128,7 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
     }
     
     private func addLastLocationLabel() {
+        
         container.addSubview(lastLocationLabel)
         lastLocationLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -141,6 +147,7 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
     }
     
     private func addLocationLabel() {
+        
         container.addSubview(locationLabel)
         locationLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -153,6 +160,7 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
         locationLabel.numberOfLines = 0
         locationLabel.setContentCompressionResistancePriority(.required, for: .vertical)
         locationLabel.setContentHuggingPriority(.required, for: .vertical)
+        
     }
 }
 

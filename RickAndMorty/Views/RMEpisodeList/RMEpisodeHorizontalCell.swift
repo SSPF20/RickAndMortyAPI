@@ -30,12 +30,12 @@ final class RMEpisodeHorizontalCell: UICollectionViewCell, RMItemCell {
     func setup(viewModel: RMItemCellViewModel) {
 
         guard let viewModel = viewModel as? RMEpisodeCellViewModel else { return }
-
         setupLabels(viewModel: viewModel)
 
     }
 
     override func prepareForReuse() {
+        
         episodeNameLabel.attributedText = NSAttributedString("")
         episodeCreatedLabel.attributedText = NSAttributedString("")
         episodeAirDateLabel.attributedText = NSAttributedString("")
@@ -98,8 +98,6 @@ extension RMEpisodeHorizontalCell {
 
         episodeCreatedLabel.numberOfLines = 0
         episodeCreatedLabel.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
-
-
 
     }
 
