@@ -45,7 +45,7 @@ struct RMCharacterDetailView: View {
                     Spacer(minLength: 10)
                     LazyVGrid(columns: columns, content: {
                         ForEach(viewModel.characterIds, id: \.self) { num in
-                            
+                            RMEpisodeCardView(viewModel: .init(id: num))
                         }
                     })
                     

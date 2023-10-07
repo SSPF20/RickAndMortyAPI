@@ -49,6 +49,6 @@ class RMCharacterDetailViewModel: ObservableObject {
     }
     
     var characterIds: [Int] {
-        character.episode.compactMap { $0.description.urlID}
+        character.episode
     }
 }

@@ -9,7 +9,7 @@ import Foundation
 import Observation
 
 @Observable
-final class EpisodeCardViewModel {
+final class RMEpisodeCardViewModel {
     
     private var rmEpisode: RMEpisode?
     private let id: Int

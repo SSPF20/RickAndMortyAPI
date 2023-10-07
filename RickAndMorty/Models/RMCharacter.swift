@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 struct LocationBasic: Decodable {
     
@@ -38,6 +39,17 @@ struct RMCharacter: Decodable  {
                 NSLocalizedString(self.rawValue, comment: "")
             case .unknown:
                 NSLocalizedString("Unknown", comment: "")
+            }
+        }
+        
+        var color: Color {
+            switch self {
+            case .alive:
+                return .green
+            case .dead:
+                return .red
+            case .unknown:
+                return .gray
             }
         }
     }
