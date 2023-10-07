@@ -7,8 +7,7 @@
 
 import SwiftUI
 
-struct RMDetailEpisode: View {
-    
+struct RMDetailEpisode: View {    
     var viewModel : DetailEpisodeViewModel
     let gridItems = [GridItem(.flexible(minimum: 100, maximum: 200))]
     
@@ -49,4 +48,5 @@ struct RMDetailEpisode: View {
 
 #Preview ("RMDetailEpisode"){
     RMDetailEpisode(viewModel: .init(episode: .init(id: 1, name: "first Episode", airDate: "2023", episode: "233", characters: [1], url: "", created: Date())))
+
 }
