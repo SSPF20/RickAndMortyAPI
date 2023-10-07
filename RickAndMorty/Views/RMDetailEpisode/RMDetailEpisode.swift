@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct RMDetailEpisode: View {
-    
     var viewModel : DetailEpisodeViewModel
     let gridItems = [GridItem(.flexible(minimum: 100, maximum: 200))]
     

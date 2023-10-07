@@ -41,7 +41,6 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
     private let viewModel: RMListViewModel<A, B>
     private var actionCancellable: AnyCancellable?
     var isPaginating = false
-
     weak var navBarCoordinator: Coordinator?
     
     private var layout: UICollectionViewLayout {
@@ -100,7 +99,6 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
                 }
             }
     }
-    //extension
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
             let height = scrollView.contentOffset.y
@@ -111,7 +109,7 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
             }
     }
     
-    //MARK: - UICollectionViewDelegate
+  //MARK: - UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         guard let action = viewModel.clickableActionFor(indexPath: indexPath) else {
@@ -126,6 +124,7 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
             navBarCoordinator?.pushViewController(viewController: viewContoller)
         }
     }
+
 }
 // MARK: - CollectionView
 extension RMListViewController {
@@ -138,7 +137,6 @@ extension RMListViewController {
         dataSource = RMListDataSource(collectionView: collectionView, cellProvider: { [weak self] collectionView, indexPath, itemIdentifier in
             self?.cellProvider(collectionView, indexPath, itemIdentifier)
         })
-        
         dataSource.supplementaryViewProvider = { [weak self] collectionView, kind, indexPath in
             
             if let _ =  self?.viewModel.fetching  {

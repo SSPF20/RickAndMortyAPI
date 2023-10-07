@@ -26,15 +26,14 @@ final class RMListViewModel<A: Decodable, B: Configuration> {
             createSnapshot()
         }
     }
-    private var currentInfo: RMResponse<A>.RMResponseInfo?
-    
+    private var currentInfo: RMResponse<A>.RMResponseInfo?    
     private let dataProvider: RMDataProvider<A, B>
-    
+    var fetching: Bool = false
     var RMListViewModelActionPublisher: AnyPublisher<RMListViewModelAction, Never> {
         RMListViewModelActionSubject.eraseToAnyPublisher()
     }
     private var RMListViewModelActionSubject = PassthroughSubject<RMListViewModelAction, Never>()
-    
+  
     var cellType: UICollectionViewCell.Type {
         dataProvider.entity.configuration.cellHorizontalType
     }
@@ -54,7 +53,7 @@ final class RMListViewModel<A: Decodable, B: Configuration> {
     func start() {
         loadPage(page: 1)
     }
-    
+  
     func loadNextPage() {
         if fetching {
             
@@ -67,8 +66,7 @@ final class RMListViewModel<A: Decodable, B: Configuration> {
         } else {
             assert(fetching == false, "Paginando")
             guard let nextPage = currentInfo?.next else {
-                return
-                
+                return                
             }
             
         }
