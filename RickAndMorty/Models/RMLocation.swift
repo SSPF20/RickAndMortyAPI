@@ -12,5 +12,5 @@ struct RMLocation: Decodable {
     let name: String
     let type: String
     let dimension: String
-    @IntegerArrayExtractor var residents: [Int]
+    @IntegerArrayExtractor var residents: [Int] = []
 }
