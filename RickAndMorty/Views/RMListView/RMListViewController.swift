@@ -36,13 +36,11 @@ typealias RMListDataSource = UICollectionViewDiffableDataSource<Int, RMItemCellV
 typealias RMListSnapshot = NSDiffableDataSourceSnapshot<Int, RMItemCellViewModel>
 
 final class RMListViewController<A: Decodable, B: Configuration>: UIViewController, UIScrollViewDelegate, UICollectionViewDelegate {
-    
     private var collectionView: UICollectionView!
     private var dataSource: RMListDataSource!
     private let viewModel: RMListViewModel<A, B>
     private var actionCancellable: AnyCancellable?
     var isPaginating = false
-        
     weak var navBarCoordinator: Coordinator?
     
     private var layout: UICollectionViewLayout {
@@ -53,9 +51,6 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 10
-        let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(44))
-        let footer = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: footerSize, elementKind: UICollectionView.elementKindSectionFooter, alignment: .bottom)
-        section.boundarySupplementaryItems = [footer]
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }
@@ -104,8 +99,6 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
                 }
             }
     }
-    
-    //extension
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
             let height = scrollView.contentOffset.y
@@ -116,7 +109,7 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
             }
     }
     
-    //MARK: - UICollectionViewDelegate
+  //MARK: - UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         guard let action = viewModel.clickableActionFor(indexPath: indexPath) else {
@@ -131,6 +124,7 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
             navBarCoordinator?.pushViewController(viewController: viewContoller)
         }
     }
+
 }
 // MARK: - CollectionView
 extension RMListViewController {
@@ -165,7 +159,6 @@ extension RMListViewController {
             }
             return nil
         }
-
         collectionView.delegate = self
     }
     

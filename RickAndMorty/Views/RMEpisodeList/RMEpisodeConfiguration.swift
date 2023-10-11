@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 
 struct RMEpisodeConfiguration: Configuration {
@@ -14,7 +15,6 @@ struct RMEpisodeConfiguration: Configuration {
         return  100.0
 
     }
-    
     
     var cellHorizontalType: RMItemCell.Type {
         RMEpisodeHorizontalCell.self
