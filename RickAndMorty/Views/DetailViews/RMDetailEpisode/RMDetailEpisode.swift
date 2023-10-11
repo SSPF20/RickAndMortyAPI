@@ -4,6 +4,7 @@
 //
 //  Created by Juan Camilo Fonseca Gomez on 16/08/23.
 //
+
 import SwiftUI
 
 struct RMDetailEpisode: View {
@@ -30,11 +31,7 @@ struct RMDetailEpisode: View {
             } .background(.white)
                 .shadow(radius: 15)
                 .clipShape(.buttonBorder)
-            Divider()
-                .frame(height: 5)
-                .overlay(.primary)
-                .cornerRadius(10)
-                .padding()
+            Rectangle().frame(width: 200, height: 10)
             Text("Characters")
                 .font(.largeTitle)
                 .padding()
@@ -51,5 +48,4 @@ struct RMDetailEpisode: View {
 
 #Preview ("RMDetailEpisode"){
     RMDetailEpisode(viewModel: .init(episode: .init(id: 1, name: "first Episode", airDate: "2023", episode: "233", characters: [1], url: "", created: Date())))
-    
 }

@@ -2,7 +2,7 @@
 //  DetailEpisodeViewModel.swift
 //  RickAndMorty
 //
-//  Created by Horacio Parra Rodriguez on 11/10/23.
+//  Created by Juan Camilo Fonseca Gomez on 3/09/23.
 //
 
 import Foundation

@@ -43,8 +43,7 @@ struct RMEpisodeConfiguration: Configuration {
         }
         let viewModel = DetailEpisodeViewModel(episode: episode)
         let view = RMDetailEpisode(viewModel: viewModel)
-        let viewController = RMHostingController(navBarConfiguration: .init(prefersLargeTitles: true, tintColor: .black, backIconSystemName: "three.by.three.badge.plus", title: "Episode Detail"), entityDetailView: view)
-        // TODO: Implement the entityViews to manage the RMHostingController here
+        let viewController = RMHostingController(entityDetailView: view)
         return .pushVC(viewController)
     }
 }
