@@ -70,7 +70,6 @@ final class RMListViewModel<A: Decodable, B: Configuration> {
             assert(fetching == false, "Paginando")
             guard let nextPage = currentInfo?.next else {
                 return
-                
             }
             
         }
@@ -90,7 +89,6 @@ final class RMListViewModel<A: Decodable, B: Configuration> {
                         fetching = true
                         elements.append(response.results)
                         currentInfo = response.info
-                        
                     } catch {
                         print("LoadPage error \(String(describing: error))")
                     }
