@@ -41,8 +41,9 @@ struct RMEpisodeConfiguration: Configuration {
         guard let episode = entity as? RMEpisode else {
             return nil
         }
-        
-        // TODO: Implement the entityViews to manage the RMHostingController here
-        return nil
+        let viewModel = RMEpisodeDetailViewModel(episode: episode)
+        let view = RMEpisodeDetailView(viewModel: viewModel)
+        let viewController = RMHostingController(entityDetailView: view)
+        return .pushVC(viewController)
     }
 }
