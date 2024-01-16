@@ -35,9 +35,11 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
         statusView.prepareForReuse()
         nameLabel.text = nil
         locationLabel.text = nil
+        
     }
     
     func setup(viewModel: RMItemCellViewModel) {
+        
         guard let viewModel = viewModel as? RMCharacterCellViewModel else {
             return
         }
@@ -78,6 +80,7 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
     }
     
     private func addNameLabel() {
+        
         container.addSubview(nameLabel)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -92,6 +95,7 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
     }
     
     private func addStatusView() {
+        
         container.addSubview(statusView)
         statusView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -103,6 +107,7 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
     }
     
     private func addLastLocationLabel() {
+        
         container.addSubview(lastLocationLabel)
         lastLocationLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -117,6 +122,7 @@ final class RMCharacterHorizontalCell: UICollectionViewCell, RMItemCell {
     }
     
     private func addLocationLabel() {
+        
         container.addSubview(locationLabel)
         locationLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

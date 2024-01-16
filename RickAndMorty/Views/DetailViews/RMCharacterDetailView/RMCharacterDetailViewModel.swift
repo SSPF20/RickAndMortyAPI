@@ -47,4 +47,7 @@ class RMCharacterDetailViewModel: ObservableObject {
         URL(string: character.image)
     }
     
+    var characterIds: [Int] {
+        character.episode
+    }
 }
