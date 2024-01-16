@@ -15,6 +15,7 @@
 		357802C22A5CE2B0009FE1D0 /* RMCharacterConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357802C12A5CE2B0009FE1D0 /* RMCharacterConfiguration.swift */; };
 		357802C42A5CE2E9009FE1D0 /* RMCharacterCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357802C32A5CE2E9009FE1D0 /* RMCharacterCellViewModel.swift */; };
 		3578B1722A3BC689008AA38A /* RMCharacterStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3578B1712A3BC689008AA38A /* RMCharacterStatusView.swift */; };
+		35A8B7362ABFCD8B00AC7F9E /* RMCharacterCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EBC70D2AA9047400C694CD /* RMCharacterCardView.swift */; };
 		35A8B7372ABFCD8F00AC7F9E /* RMLocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EBC7032AA29D0700C694CD /* RMLocationDetailView.swift */; };
 		35A8B7382ABFCD9A00AC7F9E /* RMLocationDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EBC7052AA29D5A00C694CD /* RMLocationDetailViewModel.swift */; };
 		35A8B7392ABFCD9E00AC7F9E /* RMCharacterCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EBC70F2AA904A200C694CD /* RMCharacterCardViewModel.swift */; };
@@ -532,6 +533,7 @@
 				35A8B7392ABFCD9E00AC7F9E /* RMCharacterCardViewModel.swift in Sources */,
 				768923FA2A35537300766308 /* RMResponse.swift in Sources */,
 				35F34D272A3D6C3300F4FAAE /* RMCharacterImageSpecieView.swift in Sources */,
+				35A8B7362ABFCD8B00AC7F9E /* RMCharacterCardView.swift in Sources */,
 				831124EC2A5E5BC3003BB1A5 /* RMEpisodeCellViewModel.swift in Sources */,
 				831124E82A5E5B8C003BB1A5 /* RMEpisodeConfiguration.swift in Sources */,
 				768924072A355F4300766308 /* RMEndpoint.swift in Sources */,
