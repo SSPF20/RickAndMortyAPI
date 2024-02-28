@@ -11,8 +11,9 @@ import SDWebImageSwiftUI
 struct CharacterCardView: View {
     
     let viewModel: CharacterCardViewModel
+    let action: () -> ()
     var body: some View {
-        Button(action: {}, label: {
+        Button(action: action, label: {
                 HStack {
                     VStack {
                         WebImage(url: viewModel.imageURL)
@@ -93,9 +94,9 @@ final class CharacterCardViewModel {
 
 
 #Preview {
-    CharacterCardView(viewModel: .init(character: .init(id: 20, name: "Rick Sanchez", status: .alive, species: "Human", type: "Human", gender: .female, origin: .init(name: "Earth"), location: .init(name: "Name of a location that yould be put here"), image: "https://rickandmortyapi.com/api/character/avatar/3.jpeg", episode: [])))
+    CharacterCardView(viewModel: .init(character: .johnnyDepp), action: {})
 }
 
 #Preview {
-    RMCharacterListView(viewModel: .init(dataProvider: RMDataProvider<RMCharacter, RMCharacterConfiguration>(entity: .init(configuration: .init()))))
+    RMCharacterListView(viewModel: DefaultRMCharacterListViewModel(dataProvider: .init(entity: .init(configuration: RMCharacterConfiguration.init()))))
 }
