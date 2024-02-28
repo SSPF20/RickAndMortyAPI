@@ -82,10 +82,6 @@ final class DefaultTabControllerCoordinator {
     }
     
     private func setupViewControllers() {
-        let characterEntity = RMEntity<RMCharacter, RMCharacterConfiguration>(configuration: RMCharacterConfiguration())
-        let characterDataProvider = RMDataProvider<RMCharacter, RMCharacterConfiguration>(entity: characterEntity)
-        let characterViewModel = RMListViewModel<RMCharacter, RMCharacterConfiguration>(dataProvider: characterDataProvider)
-        let charactersViewController = RMListViewController(viewModel: characterViewModel)
         
         let locationEntity = RMEntity<RMLocation, RMLocationConfiguration>(configuration: RMLocationConfiguration())
         let locationDataProvider = RMDataProvider<RMLocation, RMLocationConfiguration>(entity: locationEntity)
@@ -97,9 +93,15 @@ final class DefaultTabControllerCoordinator {
         let episodeViewModel = RMListViewModel<RMEpisode, RMEpisodeConfiguration>(dataProvider: episodeDataProvider)
         let episodesViewController = RMListViewController(viewModel: episodeViewModel)
         
-        charactersCoordinator = getCoordinator(for: charactersViewController,
-                                               title: NSLocalizedString("Characters", comment: ""),
-                                               image: UIImage(systemName: "person.circle.fill"))
+        let characterEntity = RMEntity<RMCharacter, RMCharacterConfiguration>(configuration: RMCharacterConfiguration())
+        let characterDataProvider = RMDataProvider<RMCharacter, RMCharacterConfiguration>(entity: characterEntity)
+        let charactersListViewModel = RMCharacterListViewModel(dataProvider: characterDataProvider)
+        var charactersListView = RMCharacterListView(viewModel: charactersListViewModel)
+        let charactersListViewController = RMHostingController(entityDetailView: charactersListView)
+        let charactersListViewCoordinator = getCoordinatorView(for: charactersListViewController,
+                                                               title: "Characters",
+                                                               image: UIImage(systemName: "person"))
+        
         locationsCoordinator = getCoordinator(for: locationsViewController,
                                               title: NSLocalizedString("Locations", comment: ""),
                                               image: UIImage(systemName: "location.fill"))
@@ -107,19 +109,27 @@ final class DefaultTabControllerCoordinator {
                                              title: NSLocalizedString("Episodes", comment: ""),
                                              image: UIImage(systemName: "tv.fill"))
         
-        guard let charactersCoordinator, let locationsCoordinator, let episodesCoordinator else {
+        guard let locationsCoordinator, let episodesCoordinator else {
             return
         }
         
         tabBarController.viewControllers = [
-            charactersCoordinator.rootViewController,
-            locationsCoordinator.rootViewController,
-            episodesCoordinator.rootViewController
+            charactersListViewCoordinator
         ]
     }
     
     func getRootViewController() -> UIViewController {
         tabBarController
+    }
+    
+    private func getCoordinatorView (for rootViewController: UIViewController, title: String, image: UIImage?) -> UIViewController {
+        
+        let navController = UINavigationController(rootViewController: rootViewController)
+        navController.tabBarItem.title = title
+        navController.tabBarItem.image = image
+        navController.navigationBar.prefersLargeTitles = true
+        rootViewController.navigationItem.title = title
+        return navController
     }
     
     private func getCoordinator<A,B>(for rootViewController: RMListViewController<A,B>, title: String, image: UIImage?) -> Coordinator {
