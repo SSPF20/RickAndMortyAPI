@@ -9,8 +9,7 @@ import UIKit
 
 protocol Coordinator: AnyObject {
     var rootViewController: UIViewController { get }
-    func presentViewController(viewController: UIViewController)
-    func pushViewController(viewController: UIViewController)
+    func pushCharacterDetail(character: RMCharacter)
 }
 
 final class NavControllerCoordinator: Coordinator {
@@ -27,14 +26,13 @@ final class NavControllerCoordinator: Coordinator {
         self.coordinator = coordinator
     }
     
-    func presentViewController(viewController: UIViewController) {
-        navigationController.present(viewController, animated: true)
-    }
-    
-    func pushViewController(viewController: UIViewController) {
+    func pushCharacterDetail(character: RMCharacter) {
+        let view = RMCharacterDetailView(viewModel: .init(character: character))
+        let viewController = RMHostingController(view: view)
         navigationController.pushViewController(viewController, animated: true)
     }
 }
+
 
 final class DefaultTabControllerCoordinator {
     
@@ -95,13 +93,15 @@ final class DefaultTabControllerCoordinator {
         
         let characterEntity = RMEntity<RMCharacter, RMCharacterConfiguration>(configuration: RMCharacterConfiguration())
         let characterDataProvider = RMDataProvider<RMCharacter, RMCharacterConfiguration>(entity: characterEntity)
-        let charactersListViewModel = RMCharacterListViewModel(dataProvider: characterDataProvider)
-        var charactersListView = RMCharacterListView(viewModel: charactersListViewModel)
-        let charactersListViewController = RMHostingController(entityDetailView: charactersListView)
-        let charactersListViewCoordinator = getCoordinatorView(for: charactersListViewController,
-                                                               title: "Characters",
-                                                               image: UIImage(systemName: "person"))
+        let charactersListViewModel = DefaultRMCharacterListViewModel(dataProvider: characterDataProvider)
+        let charactersListView = RMCharacterListView(viewModel: charactersListViewModel)
+        let charactersListViewController = RMHostingController(view: charactersListView)
         
+        
+        charactersCoordinator = getCoordinator(for: charactersListViewController, 
+                                               title: NSLocalizedString("Characters", comment: ""),
+                                               image: UIImage(systemName: "person"))
+            
         locationsCoordinator = getCoordinator(for: locationsViewController,
                                               title: NSLocalizedString("Locations", comment: ""),
                                               image: UIImage(systemName: "location.fill"))
@@ -109,12 +109,14 @@ final class DefaultTabControllerCoordinator {
                                              title: NSLocalizedString("Episodes", comment: ""),
                                              image: UIImage(systemName: "tv.fill"))
         
+        charactersListViewModel.coordinator = charactersCoordinator
+        
         guard let locationsCoordinator, let episodesCoordinator else {
             return
         }
         
         tabBarController.viewControllers = [
-            charactersListViewCoordinator
+            charactersCoordinator!.rootViewController
         ]
     }
     
@@ -142,6 +144,17 @@ final class DefaultTabControllerCoordinator {
         let navCoordinator = NavControllerCoordinator(navigationController: navController,
                                                       coordinator: self)
         rootViewController.navBarCoordinator = navCoordinator
+        return navCoordinator
+    }
+    
+    private func getCoordinator<A>(for rootViewController: RMHostingController<A>, title: String, image: UIImage?) -> Coordinator {
+        let navController = UINavigationController(rootViewController: rootViewController)
+        navController.tabBarItem.title = title
+        navController.tabBarItem.image = image
+        navController.navigationBar.prefersLargeTitles = true
+        rootViewController.navigationItem.title = title
+        let navCoordinator = NavControllerCoordinator(navigationController: navController,
+                                                      coordinator: self)
         return navCoordinator
     }
     

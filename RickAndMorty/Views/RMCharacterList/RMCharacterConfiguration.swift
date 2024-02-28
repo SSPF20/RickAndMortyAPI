@@ -41,7 +41,7 @@ struct RMCharacterConfiguration: Configuration {
         
         let viewModel = RMCharacterDetailViewModel(character: character)
         let view = RMCharacterDetailView(viewModel: viewModel)
-        let viewController = RMHostingController(entityDetailView: view)
+        let viewController = RMHostingController(view: view)
         
         return .pushVC(viewController)
     }

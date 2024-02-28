@@ -7,21 +7,10 @@
 
 import SwiftUI
 
-protocol Router {
-    func showDetail()
-}
-
-final class RMNavigationController: UINavigationController, Router {
-    
-    func showDetail() {
-        
-    }
-}
-
 final class RMHostingController<T: View>: UIHostingController<T> {
     
-    init(entityDetailView: T) {
-        super.init(rootView: entityDetailView)
+    init(view: T) {
+        super.init(rootView: view)
     }
     
     @MainActor required dynamic init?(coder aDecoder: NSCoder) {

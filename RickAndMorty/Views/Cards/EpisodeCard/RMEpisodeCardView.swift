@@ -13,12 +13,11 @@ struct RMEpisodeCardView: View {
     
     var body: some View {
         
-        VStack(alignment: .leading) {
-            NameValueField(name: "Name: ", value: viewModel.name, font: .subheadline)
-            NameValueField(name: "Air Date: ", value: viewModel.airDate, font: .subheadline)
-            NameValueField(name: "Episode: ", value: viewModel.episode, font: .subheadline)
+        HStack(alignment: .center) {
+            Text(viewModel.episode)
+                .font(.headline)
         }
-        .padding([.leading, .top, .bottom])
+        .padding()
         .background(Color(uiColor: .systemGroupedBackground))
         .cornerRadius(8)
     }
@@ -26,6 +25,6 @@ struct RMEpisodeCardView: View {
 
 struct EpisodeCardView_Preview: PreviewProvider {
     static var previews: some View {
-        RMEpisodeCardView(viewModel: RMEpisodeCardViewModel.init(id: 1))
+        RMEpisodeCardView(viewModel: RMEpisodeCardViewModel.init(id: 34))
     }
 }

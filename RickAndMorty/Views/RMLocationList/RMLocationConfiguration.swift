@@ -41,7 +41,7 @@ struct RMLocationConfiguration: Configuration {
         
         let viewModel = RMLocationDetailViewModel(location: location)
         let view = RMLocationDetailView(viewModel: viewModel)
-        let viewController = RMHostingController(entityDetailView: view)
+        let viewController = RMHostingController(view: view)
         
         return .pushVC(viewController)
     }
