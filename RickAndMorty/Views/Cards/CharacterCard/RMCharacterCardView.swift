@@ -33,10 +33,3 @@ struct RMCharacterCardView: View {
         .padding([.leading, .trailing], 5)
     }
 }
-
-struct RMCharacterCardViewPreviews: PreviewProvider {
-    
-    static var previews: some View {
-        RMCharacterCardView(viewModel: .init(id: 1))
-    }
-}

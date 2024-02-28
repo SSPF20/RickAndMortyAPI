@@ -126,9 +126,13 @@ final class RMListViewController<A: Decodable, B: Configuration>: UIViewControll
         
         switch action {
         case .presentVC(let viewController):
-            navBarCoordinator?.presentViewController(viewController: viewController)
+            // TODO: - Remove whit UIKit
+            //navBarCoordinator?.presentViewController(viewController: viewController)
+            break
         case.pushVC(let viewContoller):
-            navBarCoordinator?.pushViewController(viewController: viewContoller)
+            // TODO: - Remove whit UIKit
+            //navBarCoordinator?.pushViewController(viewController: viewContoller)
+            break
         }
     }
 }

@@ -20,7 +20,7 @@ struct LocationBasic: Decodable {
     }
 }
 
-struct RMCharacter: Decodable  {
+struct RMCharacter: Decodable, Hashable  {
     
     enum Gender: String, Decodable {
         case male = "Male"
@@ -64,4 +64,12 @@ struct RMCharacter: Decodable  {
     let location: LocationBasic
     let image: String
     @IntegerArrayExtractor var episode: [Int]
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+    static func == (lhs: RMCharacter, rhs: RMCharacter) -> Bool {
+        lhs.id == rhs.id
+    }
 }

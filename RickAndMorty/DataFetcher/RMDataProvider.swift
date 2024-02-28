@@ -8,8 +8,12 @@
 import Foundation
 import UIKit
 
-protocol Configuration {
+// TODO: - Rename when UIKit tableViews are deprecated
+protocol UniversalConfiguration {
     func endpointForPage(page: Int) -> RMEndpoint
+}
+
+protocol Configuration: UniversalConfiguration {
     var cellHorizontalType: RMItemCell.Type { get }
     var reuseID: String { get }
     var estimatedHeightForItem: CGFloat { get }
@@ -18,7 +22,7 @@ protocol Configuration {
     func getClickableAction<T: Decodable>(for entity: T) -> ClickableAction?
 }
 
-struct RMEntity<T: Decodable, C: Configuration> {
+struct RMEntity<T: Decodable, C: UniversalConfiguration> {
     
     let configuration: C
     
@@ -35,7 +39,7 @@ struct RMEntity<T: Decodable, C: Configuration> {
     }
 }
 
-struct RMDataProvider<A: Decodable, B: Configuration> {
+struct RMDataProvider<A: Decodable, B: UniversalConfiguration> {
     
     let networkFetcher: NetworkFetcher
     let entity: RMEntity<A, B>

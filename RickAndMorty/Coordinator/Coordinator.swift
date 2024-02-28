@@ -9,8 +9,7 @@ import UIKit
 
 protocol Coordinator: AnyObject {
     var rootViewController: UIViewController { get }
-    func presentViewController(viewController: UIViewController)
-    func pushViewController(viewController: UIViewController)
+    func pushCharacterDetail(character: RMCharacter)
 }
 
 final class NavControllerCoordinator: Coordinator {
@@ -27,14 +26,13 @@ final class NavControllerCoordinator: Coordinator {
         self.coordinator = coordinator
     }
     
-    func presentViewController(viewController: UIViewController) {
-        navigationController.present(viewController, animated: true)
-    }
-    
-    func pushViewController(viewController: UIViewController) {
+    func pushCharacterDetail(character: RMCharacter) {
+        let view = RMCharacterDetailView(viewModel: .init(character: character))
+        let viewController = RMHostingController(view: view)
         navigationController.pushViewController(viewController, animated: true)
     }
 }
+
 
 final class DefaultTabControllerCoordinator {
     
@@ -82,10 +80,6 @@ final class DefaultTabControllerCoordinator {
     }
     
     private func setupViewControllers() {
-        let characterEntity = RMEntity<RMCharacter, RMCharacterConfiguration>(configuration: RMCharacterConfiguration())
-        let characterDataProvider = RMDataProvider<RMCharacter, RMCharacterConfiguration>(entity: characterEntity)
-        let characterViewModel = RMListViewModel<RMCharacter, RMCharacterConfiguration>(dataProvider: characterDataProvider)
-        let charactersViewController = RMListViewController(viewModel: characterViewModel)
         
         let locationEntity = RMEntity<RMLocation, RMLocationConfiguration>(configuration: RMLocationConfiguration())
         let locationDataProvider = RMDataProvider<RMLocation, RMLocationConfiguration>(entity: locationEntity)
@@ -97,9 +91,17 @@ final class DefaultTabControllerCoordinator {
         let episodeViewModel = RMListViewModel<RMEpisode, RMEpisodeConfiguration>(dataProvider: episodeDataProvider)
         let episodesViewController = RMListViewController(viewModel: episodeViewModel)
         
-        charactersCoordinator = getCoordinator(for: charactersViewController,
+        let characterEntity = RMEntity<RMCharacter, RMCharacterConfiguration>(configuration: RMCharacterConfiguration())
+        let characterDataProvider = RMDataProvider<RMCharacter, RMCharacterConfiguration>(entity: characterEntity)
+        let charactersListViewModel = DefaultRMCharacterListViewModel(dataProvider: characterDataProvider)
+        let charactersListView = RMCharacterListView(viewModel: charactersListViewModel)
+        let charactersListViewController = RMHostingController(view: charactersListView)
+        
+        
+        charactersCoordinator = getCoordinator(for: charactersListViewController, 
                                                title: NSLocalizedString("Characters", comment: ""),
-                                               image: UIImage(systemName: "person.circle.fill"))
+                                               image: UIImage(systemName: "person"))
+            
         locationsCoordinator = getCoordinator(for: locationsViewController,
                                               title: NSLocalizedString("Locations", comment: ""),
                                               image: UIImage(systemName: "location.fill"))
@@ -107,19 +109,29 @@ final class DefaultTabControllerCoordinator {
                                              title: NSLocalizedString("Episodes", comment: ""),
                                              image: UIImage(systemName: "tv.fill"))
         
-        guard let charactersCoordinator, let locationsCoordinator, let episodesCoordinator else {
+        charactersListViewModel.coordinator = charactersCoordinator
+        
+        guard let locationsCoordinator, let episodesCoordinator else {
             return
         }
         
         tabBarController.viewControllers = [
-            charactersCoordinator.rootViewController,
-            locationsCoordinator.rootViewController,
-            episodesCoordinator.rootViewController
+            charactersCoordinator!.rootViewController
         ]
     }
     
     func getRootViewController() -> UIViewController {
         tabBarController
+    }
+    
+    private func getCoordinatorView (for rootViewController: UIViewController, title: String, image: UIImage?) -> UIViewController {
+        
+        let navController = UINavigationController(rootViewController: rootViewController)
+        navController.tabBarItem.title = title
+        navController.tabBarItem.image = image
+        navController.navigationBar.prefersLargeTitles = true
+        rootViewController.navigationItem.title = title
+        return navController
     }
     
     private func getCoordinator<A,B>(for rootViewController: RMListViewController<A,B>, title: String, image: UIImage?) -> Coordinator {
@@ -132,6 +144,17 @@ final class DefaultTabControllerCoordinator {
         let navCoordinator = NavControllerCoordinator(navigationController: navController,
                                                       coordinator: self)
         rootViewController.navBarCoordinator = navCoordinator
+        return navCoordinator
+    }
+    
+    private func getCoordinator<A>(for rootViewController: RMHostingController<A>, title: String, image: UIImage?) -> Coordinator {
+        let navController = UINavigationController(rootViewController: rootViewController)
+        navController.tabBarItem.title = title
+        navController.tabBarItem.image = image
+        navController.navigationBar.prefersLargeTitles = true
+        rootViewController.navigationItem.title = title
+        let navCoordinator = NavControllerCoordinator(navigationController: navController,
+                                                      coordinator: self)
         return navCoordinator
     }
     

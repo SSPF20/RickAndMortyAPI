@@ -43,7 +43,7 @@ struct RMEpisodeConfiguration: Configuration {
         }
         let viewModel = RMEpisodeDetailViewModel(episode: episode)
         let view = RMEpisodeDetailView(viewModel: viewModel)
-        let viewController = RMHostingController(entityDetailView: view)
+        let viewController = RMHostingController(view: view)
         return .pushVC(viewController)
     }
 }
