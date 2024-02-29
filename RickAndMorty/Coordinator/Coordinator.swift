@@ -111,27 +111,19 @@ final class DefaultTabControllerCoordinator {
         
         charactersListViewModel.coordinator = charactersCoordinator
         
-        guard let locationsCoordinator, let episodesCoordinator else {
+        guard let charactersCoordinator, let locationsCoordinator, let episodesCoordinator else {
             return
         }
         
         tabBarController.viewControllers = [
-            charactersCoordinator!.rootViewController
+            charactersCoordinator.rootViewController,
+            locationsCoordinator.rootViewController,
+            episodesCoordinator.rootViewController
         ]
     }
     
     func getRootViewController() -> UIViewController {
         tabBarController
-    }
-    
-    private func getCoordinatorView (for rootViewController: UIViewController, title: String, image: UIImage?) -> UIViewController {
-        
-        let navController = UINavigationController(rootViewController: rootViewController)
-        navController.tabBarItem.title = title
-        navController.tabBarItem.image = image
-        navController.navigationBar.prefersLargeTitles = true
-        rootViewController.navigationItem.title = title
-        return navController
     }
     
     private func getCoordinator<A,B>(for rootViewController: RMListViewController<A,B>, title: String, image: UIImage?) -> Coordinator {
