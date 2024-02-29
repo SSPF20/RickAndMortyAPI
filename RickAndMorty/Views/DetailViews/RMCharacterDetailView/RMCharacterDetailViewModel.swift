@@ -7,7 +7,7 @@
 
 import Foundation
 
-class RMCharacterDetailViewModel: ObservableObject {
+@Observable class RMCharacterDetailViewModel {
     
     let character: RMCharacter
     

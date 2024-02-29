@@ -27,6 +27,34 @@ struct RMCharacter: Decodable, Hashable  {
         case female = "Female"
         case genderless = "Genderless"
         case unknown
+        
+        var imageColor: Color {
+            switch self {
+                
+            case .male:
+                return .blue
+            case .female:
+                return .purple
+            case .genderless:
+                return .red
+            case .unknown:
+                return .gray
+            }
+        }
+        
+        var imageName: String {
+            switch self {
+                
+            case .male:
+                return "maleGender"
+            case .female:
+                return "femaleGender"
+            case .genderless:
+                return "transGender"
+            case .unknown:
+                return "question-mark"
+            }
+        }
     }
     
     enum Status: String, Decodable {
