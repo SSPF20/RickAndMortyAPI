@@ -90,21 +90,31 @@ struct RMCharacterDetailView: View {
                 .foregroundStyle(.brown.opacity(0.1))
             VStack {
                 Text(viewModel.name)
+                    .multilineTextAlignment(.center)
                     .font(.title)
                     .bold()
                     .padding()
                 VStack {
                     Text(viewModel.species)
                         .padding(.bottom)
-                    Text("Origin: \(viewModel.origin)")
-                        .padding(.bottom)
-                    Text("Location: \(viewModel.location)")
-                        .padding(.bottom)
+                        .font(.headline)
+                    propertiesSetup(keyTitle: NSLocalizedString("Origin: ", comment: ""), valueTitle: viewModel.origin)
+                    propertiesSetup(keyTitle: NSLocalizedString("Location: ", comment: ""), valueTitle: viewModel.location)
                 }
-                .font(.headline)
             }
         }
         .padding(.horizontal)
+    }
+    
+    @ViewBuilder
+    private func propertiesSetup(keyTitle: String, valueTitle: String) -> some View {
+        HStack(alignment: .top) {
+            Text(keyTitle)
+                .font(.headline)
+            Text(valueTitle)
+        }
+        .multilineTextAlignment(.center)
+        .padding([.horizontal, .bottom])
     }
 }
 
@@ -134,4 +144,3 @@ struct NameValueField: View {
         .padding(.top, 1)
     }
 }
-
