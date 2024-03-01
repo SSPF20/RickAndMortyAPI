@@ -81,6 +81,9 @@ protocol RMCharacterListViewModel {
     }
     
     func start() {
+        guard characters.isEmpty else {
+            return
+        }
         getPage(page: 1)
     }
     
