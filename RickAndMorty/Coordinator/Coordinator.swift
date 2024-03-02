@@ -9,10 +9,18 @@ import UIKit
 
 protocol Coordinator: AnyObject {
     var rootViewController: UIViewController { get }
-    func pushCharacterDetail(character: RMCharacter)
+    func pushEntityDetail<T: Decodable>(entity: T)
 }
 
 final class NavControllerCoordinator: Coordinator {
+    func pushEntityDetail<T>(entity: T) where T : Decodable {
+        guard let character = entity as? RMCharacter else {
+            return
+        }
+        
+        pushCharacterDetail(character: character)
+    }
+    
     
     let navigationController: UINavigationController
     weak var coordinator: DefaultTabControllerCoordinator?
@@ -93,7 +101,7 @@ final class DefaultTabControllerCoordinator {
         
         let characterEntity = RMEntity<RMCharacter, RMCharacterConfiguration>(configuration: RMCharacterConfiguration())
         let characterDataProvider = RMDataProvider<RMCharacter, RMCharacterConfiguration>(entity: characterEntity)
-        let charactersListViewModel = DefaultRMCharacterListViewModel(dataProvider: characterDataProvider)
+        let charactersListViewModel = EntityListViewModel<RMCharacter, RMCharacterConfiguration>(dataProvider: characterDataProvider)
         let charactersListView = RMCharacterListView(viewModel: charactersListViewModel)
         let charactersListViewController = RMHostingController(view: charactersListView)
         

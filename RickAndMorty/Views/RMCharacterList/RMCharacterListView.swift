@@ -11,36 +11,16 @@ import Observation
 
 struct RMCharacterListView: View {
     
-    private var viewModel: RMCharacterListViewModel
+    private var viewModel: EntityListViewModel<RMCharacter, RMCharacterConfiguration>
     private let columns = [GridItem(.flexible(minimum: 100))]
     
-    init(viewModel: RMCharacterListViewModel) {
+    init(viewModel: EntityListViewModel<RMCharacter, RMCharacterConfiguration>) {
         self.viewModel = viewModel
     }
     
     var body: some View {
         ScrollView {
-            LazyVGrid(columns: columns, spacing: 10, content: {
-                
-                ForEach(viewModel.characters, id: \.self) { character in
-                    CharacterCardView(viewModel: .init(character: character), action: { viewModel.characterSelected(character: character) })
-                        .fixedSize(horizontal: false, vertical: true)
-                        .padding(.horizontal)
-                        .onAppear(perform: {
-                            viewModel.appear(characterID: character.id)
-                        })
-                }
-                if viewModel.loading {
-                    ProgressView {
-                        Text(NSLocalizedString("Loading", comment: ""))
-                    }
-                    .font(.title)
-                    .padding()
-                }
-            })
-        }
-        .overlay {
-            if viewModel.characters.isEmpty, !viewModel.loading {
+            if viewModel.elements.isEmpty, !viewModel.loading {
                 ContentUnavailableView(label: {
                     Label(NSLocalizedString("No Characters Found", comment: ""), systemImage: "person.fill.xmark")
                 }, description: {
@@ -48,6 +28,24 @@ struct RMCharacterListView: View {
                 }, actions: {
                     Button(NSLocalizedString("Try again", comment: "")) {
                         viewModel.start()
+                    }
+                })
+            } else {
+                LazyVGrid(columns: columns, spacing: 10, content: {
+                    ForEach(viewModel.elements, id: \.self) { character in
+                        CharacterCardView(viewModel: .init(character: character), action: { viewModel.entitySelected(entity: character) })
+                            .fixedSize(horizontal: false, vertical: true)
+                            .padding(.horizontal)
+                            .onAppear(perform: {
+                                viewModel.appear(entityID: character.id)
+                            })
+                    }
+                    if viewModel.loading {
+                        ProgressView {
+                            Text(NSLocalizedString("Loading", comment: ""))
+                        }
+                        .font(.title)
+                        .padding()
                     }
                 })
             }
@@ -58,44 +56,36 @@ struct RMCharacterListView: View {
     }
 }
 
-protocol RMCharacterListViewModel {
-    var characters: [RMCharacter] { get }
-    var loading: Bool { get }
-    
-    func start()
-    func appear(characterID: Int)
-    func characterSelected(character: RMCharacter)
-}
-
-@Observable class DefaultRMCharacterListViewModel: RMCharacterListViewModel {
-    
-    private let dataProvider: RMDataProvider<RMCharacter, RMCharacterConfiguration>
+ 
+@Observable class EntityListViewModel<T: Decodable & Identifiable, C: UniversalConfiguration> {
+    private let dataProvider: RMDataProvider<T,C>
+    var elements: [T] = []
     private var currentPage = 0
-    var characters: [RMCharacter] = []
     var loading = false
-    
     var coordinator: Coordinator?
     
-    init(dataProvider: RMDataProvider<RMCharacter, RMCharacterConfiguration>) {
+    init(dataProvider: RMDataProvider<T, C>) {
         self.dataProvider = dataProvider
     }
     
     func start() {
-        guard characters.isEmpty else {
+        guard elements.isEmpty else {
             return
         }
         getPage(page: 1)
     }
     
-    func appear(characterID: Int) {
-        guard let lastCharacterID = characters.last?.id else { return }
-        if characterID == lastCharacterID {
+    func appear(entityID: T.ID) {
+        guard let lastEntityID = elements.last?.id else {
+            return
+        }
+        if entityID == lastEntityID {
             getPage(page: currentPage + 1)
         }
     }
     
-    func characterSelected(character: RMCharacter) {
-        coordinator?.pushCharacterDetail(character: character)
+    func entitySelected(entity: T) {
+        coordinator?.pushEntityDetail(entity: entity)
     }
     
     private func getPage(page: Int) {
@@ -106,37 +96,39 @@ protocol RMCharacterListViewModel {
             do {
                 loading = true
                 let response = try await dataProvider.getPage(page: page)
-                characters.append(contentsOf: response.results)
-                currentPage = page
+                elements.append(contentsOf: response.results)
+                currentPage = page           
             } catch {
                 print("Error Loading the Page \(page): \(error.localizedDescription)")
             }
+            
         }
     }
 }
 
-fileprivate struct PreviewRMCharacterListViewModel: RMCharacterListViewModel {
-    var characters: [RMCharacter]
-    
-    var loading: Bool
-    
-    init(characters: [RMCharacter], loading: Bool) {
-        self.characters = characters
-        self.loading = loading
-    }
-    
-    func start() {
-        
-    }
-    
-    func appear(characterID: Int) {
-        
-    }
-    
-    func characterSelected(character: RMCharacter) {
-        
-    }
-}
+// TODO: - Migrate with EntityListViewModel
+//fileprivate struct PreviewRMCharacterListViewModel: RMCharacterListViewModel {
+//    var characters: [RMCharacter]
+//    
+//    var loading: Bool
+//    
+//    init(characters: [RMCharacter], loading: Bool) {
+//        self.characters = characters
+//        self.loading = loading
+//    }
+//    
+//    func start() {
+//        
+//    }
+//    
+//    func appear(characterID: Int) {
+//        
+//    }
+//    
+//    func characterSelected(character: RMCharacter) {
+//        
+//    }
+//}
 
 extension RMCharacter {
     static var toxicRick: RMCharacter {
@@ -167,17 +159,17 @@ extension RMCharacter {
 }
 
 #Preview("Full state") {
-    RMCharacterListView(viewModel: DefaultRMCharacterListViewModel(dataProvider: RMDataProvider<RMCharacter, RMCharacterConfiguration>(entity: .init(configuration: .init()))))
+    RMCharacterListView(viewModel: .init(dataProvider: .init(entity: .init(configuration: .init()))))
 }
 
-#Preview("Empty State") {
-
-    let viewModel = PreviewRMCharacterListViewModel(characters: [], loading: false)
-    
-    return RMCharacterListView(viewModel: viewModel)
-}
-
-#Preview("Loading Row") {
-    let viewModel = PreviewRMCharacterListViewModel(characters: [.toxicRick, .johnnyDepp], loading: true)
-    return RMCharacterListView(viewModel: viewModel)
-}
+//#Preview("Empty State") {
+//
+//    let viewModel = PreviewRMCharacterListViewModel(characters: [], loading: false)
+//    
+//    return RMCharacterListView(viewModel: viewModel)
+//}
+//
+//#Preview("Loading Row") {
+//    let viewModel = PreviewRMCharacterListViewModel(characters: [.toxicRick, .johnnyDepp], loading: true)
+//    return RMCharacterListView(viewModel: viewModel)
+//}

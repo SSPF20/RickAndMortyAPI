@@ -20,7 +20,7 @@ struct LocationBasic: Decodable {
     }
 }
 
-struct RMCharacter: Decodable, Hashable  {
+struct RMCharacter: Decodable, Hashable, Identifiable  {
     
     enum Gender: String, Decodable {
         case male = "Male"
