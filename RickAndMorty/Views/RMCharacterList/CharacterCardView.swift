@@ -97,6 +97,6 @@ final class CharacterCardViewModel {
     CharacterCardView(viewModel: .init(character: .johnnyDepp), action: {})
 }
 
-#Preview {
-    RMCharacterListView(viewModel: DefaultRMCharacterListViewModel(dataProvider: .init(entity: .init(configuration: RMCharacterConfiguration.init()))))
-}
+//#Preview {
+//    RMCharacterListView(viewModel: DefaultRMCharacterListViewModel(dataProvider: .init(entity: .init(configuration: RMCharacterConfiguration.init()))))
+//}
