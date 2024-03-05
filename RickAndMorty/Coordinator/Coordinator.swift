@@ -14,11 +14,12 @@ protocol Coordinator: AnyObject {
 
 final class NavControllerCoordinator: Coordinator {
     func pushEntityDetail<T>(entity: T) where T : Decodable {
-        guard let character = entity as? RMCharacter else {
+        
+        guard let location = entity as? RMLocation else {
             return
         }
         
-        pushCharacterDetail(character: character)
+        pushLocationDetail(location: location)
     }
     
     
@@ -36,6 +37,12 @@ final class NavControllerCoordinator: Coordinator {
     
     func pushCharacterDetail(character: RMCharacter) {
         let view = RMCharacterDetailView(viewModel: .init(character: character))
+        let viewController = RMHostingController(view: view)
+        navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    func pushLocationDetail(location: RMLocation) {
+        let view = RMLocationDetailView(viewModel: .init(location: location))
         let viewController = RMHostingController(view: view)
         navigationController.pushViewController(viewController, animated: true)
     }
@@ -91,8 +98,9 @@ final class DefaultTabControllerCoordinator {
         
         let locationEntity = RMEntity<RMLocation, RMLocationConfiguration>(configuration: RMLocationConfiguration())
         let locationDataProvider = RMDataProvider<RMLocation, RMLocationConfiguration>(entity: locationEntity)
-        let locationViewModel = RMListViewModel<RMLocation, RMLocationConfiguration>(dataProvider: locationDataProvider)
-        let locationsViewController = RMListViewController(viewModel: locationViewModel)
+        let locationListViewModel = EntityListViewModel<RMLocation, RMLocationConfiguration>(dataProvider: locationDataProvider)
+        let locationView = RMLocationListView(viewModel: locationListViewModel)
+        let locationViewController = RMHostingController(view: locationView)
         
         let entityEpisode = RMEntity<RMEpisode, RMEpisodeConfiguration>(configuration: RMEpisodeConfiguration())
         let episodeDataProvider = RMDataProvider<RMEpisode, RMEpisodeConfiguration>(entity: entityEpisode)
@@ -110,7 +118,7 @@ final class DefaultTabControllerCoordinator {
                                                title: NSLocalizedString("Characters", comment: ""),
                                                image: UIImage(systemName: "person"))
             
-        locationsCoordinator = getCoordinator(for: locationsViewController,
+        locationsCoordinator = getCoordinator(for: locationViewController,
                                               title: NSLocalizedString("Locations", comment: ""),
                                               image: UIImage(systemName: "location.fill"))
         episodesCoordinator = getCoordinator(for: episodesViewController,
@@ -118,6 +126,7 @@ final class DefaultTabControllerCoordinator {
                                              image: UIImage(systemName: "tv.fill"))
         
         charactersListViewModel.coordinator = charactersCoordinator
+        locationListViewModel.coordinator = locationsCoordinator
         
         guard let charactersCoordinator, let locationsCoordinator, let episodesCoordinator else {
             return

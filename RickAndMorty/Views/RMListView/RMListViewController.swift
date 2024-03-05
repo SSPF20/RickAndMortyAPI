@@ -35,7 +35,7 @@ extension RMItemCellViewModel {
 typealias RMListDataSource = UICollectionViewDiffableDataSource<Int, RMItemCellViewModel>
 typealias RMListSnapshot = NSDiffableDataSourceSnapshot<Int, RMItemCellViewModel>
 
-final class RMListViewController<A: Decodable, B: Configuration>: UIViewController, UIScrollViewDelegate, UICollectionViewDelegate {
+final class RMListViewController<A: Decodable, B: ConfigurationForEntity>: UIViewController, UIScrollViewDelegate, UICollectionViewDelegate {
     
     private var collectionView: UICollectionView!
     private var dataSource: RMListDataSource!

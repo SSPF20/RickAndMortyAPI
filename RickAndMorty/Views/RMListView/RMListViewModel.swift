@@ -15,7 +15,7 @@ enum ClickableAction {
 }
 
 @MainActor
-final class RMListViewModel<A: Decodable, B: Configuration> {
+final class RMListViewModel<A: Decodable, B: ConfigurationForEntity> {
     
     enum RMListViewModelAction {
         case setSnapshot(RMListSnapshot)
