@@ -13,7 +13,7 @@ protocol UniversalConfiguration {
     func endpointForPage(page: Int) -> RMEndpoint
 }
 
-protocol Configuration: UniversalConfiguration {
+protocol ConfigurationForEntity: UniversalConfiguration {
     var cellHorizontalType: RMItemCell.Type { get }
     var reuseID: String { get }
     var estimatedHeightForItem: CGFloat { get }

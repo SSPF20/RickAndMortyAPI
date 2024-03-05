@@ -63,7 +63,7 @@ struct OptionalIntegerExtractor: Decodable {
 }
 
 @propertyWrapper
-struct IntegerArrayExtractor: Decodable {
+struct IntegerArrayExtractor: Decodable, Hashable {
     var wrappedValue: [Int]
     
     init(from decoder: Decoder) throws {

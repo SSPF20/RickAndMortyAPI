@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct RMEpisodeConfiguration: Configuration {
+struct RMEpisodeConfiguration: ConfigurationForEntity {
     
     var estimatedHeightForItem: CGFloat {
         return  100.0
