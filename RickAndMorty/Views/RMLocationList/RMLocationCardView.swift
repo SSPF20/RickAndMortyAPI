@@ -31,7 +31,7 @@ struct RMLocationCardView: View {
                 .padding()
             }
         }
-
+        .foregroundStyle(.primary)
     }
 }
 
