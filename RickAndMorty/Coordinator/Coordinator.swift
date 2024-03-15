@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol NavigationBarHandler {
+    func getUIBarButtonItem() -> UIBarButtonItem
+}
+
 protocol Coordinator: AnyObject {
     var rootViewController: UIViewController { get }
     func pushEntityDetail<T: Decodable>(entity: T)
@@ -15,11 +19,11 @@ protocol Coordinator: AnyObject {
 final class NavControllerCoordinator: Coordinator {
     func pushEntityDetail<T>(entity: T) where T : Decodable {
         
-        guard let location = entity as? RMLocation else {
+        guard let character = entity as? RMCharacter else {
             return
         }
         
-        pushLocationDetail(location: location)
+        pushCharacterDetail(character: character)
     }
     
     
@@ -121,6 +125,7 @@ final class DefaultTabControllerCoordinator {
         locationsCoordinator = getCoordinator(for: locationViewController,
                                               title: NSLocalizedString("Locations", comment: ""),
                                               image: UIImage(systemName: "location.fill"))
+        
         episodesCoordinator = getCoordinator(for: episodesViewController,
                                              title: NSLocalizedString("Episodes", comment: ""),
                                              image: UIImage(systemName: "tv.fill"))
@@ -161,6 +166,7 @@ final class DefaultTabControllerCoordinator {
         navController.tabBarItem.title = title
         navController.tabBarItem.image = image
         navController.navigationBar.prefersLargeTitles = true
+        rootViewController.navigationItem.rightBarButtonItem = rootViewController.rightBarButtonItem
         rootViewController.navigationItem.title = title
         let navCoordinator = NavControllerCoordinator(navigationController: navController,
                                                       coordinator: self)
